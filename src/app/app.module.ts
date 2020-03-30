@@ -10,6 +10,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { StudentLandingComponent } from './students/student-landing/student-landing.component';
 import { InstructorLandingComponent } from './instructors/instructor-landing/instructor-landing.component';
 import { AdminLandingComponent } from './admin/admin-landing/admin-landing.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminLandingComponent } from './admin/admin-landing/admin-landing.compo
     BrowserAnimationsModule,
     FormsModule, 
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
