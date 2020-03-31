@@ -9,6 +9,10 @@ export class NavbarComponent implements OnInit {
 
   constructor() { }
 
+  logout(){
+    console.log('Logout Works')
+  }
+
   ngOnInit(): void {
   }
 
