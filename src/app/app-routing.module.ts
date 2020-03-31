@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'quiz', component: QuizLandingComponent },
   { path: 'lesson', component: LessonLandingComponent },
   { path: 'admin', component: AdminLandingComponent },
-  { path: '', redirectTo: 'welcome' }
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' }
 ];
 
 @NgModule({
