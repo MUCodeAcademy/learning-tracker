@@ -7,19 +7,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WelcomeComponent } from './shared/welcome/welcome.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { StudentLandingComponent } from './students/student-landing/student-landing.component';
-import { InstructorLandingComponent } from './instructors/instructor-landing/instructor-landing.component';
-import { AdminLandingComponent } from './admin/admin-landing/admin-landing.component';
+import { AdminLandingComponent } from './admin/admin-landing.component';
 import { StoreModule } from '@ngrx/store';
+import { QuizLandingComponent } from './quiz/quiz-landing.component';
+import { LessonLandingComponent } from './lesson//lesson-landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     NavbarComponent,
-    StudentLandingComponent,
-    InstructorLandingComponent,
-    AdminLandingComponent
+    AdminLandingComponent,
+    QuizLandingComponent,
+    LessonLandingComponent
   ],
   imports: [
     BrowserModule,
