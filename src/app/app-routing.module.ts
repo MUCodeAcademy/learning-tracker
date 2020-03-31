@@ -7,11 +7,11 @@ import { LessonLandingComponent } from './lesson/lesson-landing.component';
 
 
 const routes: Routes = [
-  { path: 'welcome', component: WelcomeComponent },
-  { path: 'quiz', component: QuizLandingComponent },
-  { path: 'lesson', component: LessonLandingComponent },
-  { path: 'admin', component: AdminLandingComponent },
-  { path: '', redirectTo: 'welcome' }
+  { path: "welcome", component: WelcomeComponent },
+  { path: "quiz", component: QuizLandingComponent },
+  { path: "lesson", component: LessonLandingComponent },
+  { path: "admin", component: AdminLandingComponent },
+  { path: "", redirectTo: "welcome", pathMatch: "full" }
 ];
 
 @NgModule({
