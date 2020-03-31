@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
-import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
+import { from, of, Observable, BehaviorSubject, combineLatest, throwError, iif } from 'rxjs';
+import { tap, catchError, concatMap, shareReplay, map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -50,7 +50,7 @@ export class AuthService {
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
-      tap(user => this.userProfileSubject$.next(user))
+      tap(user => {console.log(user);this.userProfileSubject$.next(user)})
     );
   }
 // -----------------------------------------------------------------------------
@@ -71,46 +71,27 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 // --------------------------------------------------------------------------
-  login(redirectPath: string = '/') {
-    // A desired redirect path can be passed to login method
-    // (e.g., from a route guard)
-    // Ensure Auth0 client instance exists
-    this.auth0Client$.subscribe((client: Auth0Client) => {
-      // Call method to log in
+login(redirectPath: string = '/'): Observable<void> {
+  return this.auth0Client$.pipe(
+    concatMap((client: Auth0Client) => 
       client.loginWithRedirect({
-        redirect_uri: `${window.location.origin}`,
-        appState: { target: redirectPath }
-      });
-    });
-  }
+      redirect_uri: `${window.location.origin}/lesson`,
+      appState: { target: redirectPath }
+    })));
+}
 // -----------------------------------------------------------------------------
-  private handleAuthCallback() {
-    // Call when app reloads after user logs in with Auth0
-    const params = window.location.search;
-    if (params.includes('code=') && params.includes('state=')) {
-      let targetRoute: string; // Path to redirect to after login processsed
-      const authComplete$ = this.handleRedirectCallback$.pipe(
-        // Have client, now call method to handle auth callback redirect
-        tap(cbRes => {
-          // Get and set target redirect route from callback results
-          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
-        }),
-        concatMap(() => {
-          // Redirect callback complete; get user and login status
-          return combineLatest([
-            this.getUser$(),
-            this.isAuthenticated$
-          ]);
-        })
-      );
-      // Subscribe to authentication completion observable
-      // Response will be an array of user and login status
-      authComplete$.subscribe(([user, loggedIn]) => {
-        // Redirect to target route after callback processing
-        this.router.navigate([targetRoute]);
-      });
-    }
-  }
+handleAuthCallback(): Observable<any> {
+  return of(window.location.search).pipe(
+   concatMap(params => {
+     return iif(() => params.includes('code=') && params.includes('state='),
+        this.handleRedirectCallback$.pipe(concatMap(cbRes => 
+           this.isAuthenticated$.pipe(take(1),
+             tap(res=>console.log(res)),
+             map(loggedIn => ({ loggedIn,
+           targetUrl: cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/'
+         }))))),
+       this.isAuthenticated$.pipe(take(1), map(loggedIn => ({ loggedIn, targetUrl: null }))))}));
+}
 // ---------------------------------------------------------------------------
   logout() {
     // Ensure Auth0 client instance exists

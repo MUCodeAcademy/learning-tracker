@@ -13,4 +13,9 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+login() {
+  console.log("WHAT WHAT WHAT")
+  this.auth.login('/lesson').subscribe()
+}
+
 }
