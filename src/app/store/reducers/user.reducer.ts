@@ -11,12 +11,12 @@ export const initialUserState: UserState = {
     userRole: ''
 };
 
-const userReducer = createReducer(
+const reducer = createReducer(
     initialUserState,
     on(userActions.setUser, (state, {userEmail, userRole})=> ({...state, userEmail: userEmail, userRole: userRole})),
     on(userActions.clearUser, (state)=> ({...initialUserState}))
 );
 
-export function reducer(state: UserState, action: Action){
-    return userReducer(state, action);
+export function userReducer(state: UserState, action: Action){
+    return reducer(state, action);
 }
