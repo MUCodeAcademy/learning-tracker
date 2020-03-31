@@ -1,5 +1,6 @@
 <div class="logIn">
     <button mat-raised-button color='accent' (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
+    <button mat-raised-button color='primary' (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button>
 </div>
 
 <pre *ngIf="auth.userProfile$ | async as profile">
