@@ -1,3 +1,8 @@
 <div class="logIn">
-    <button (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
+    <button color='primary' (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
 </div>
+
+<pre *ngIf="auth.userProfile$ | async as profile">
+    <code>{{ profile | json }}</code>
+    </pre>
+    

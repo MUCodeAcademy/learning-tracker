@@ -20,15 +20,28 @@ export class UserGuard implements CanActivate {
     // private user: UserService
     ) { }
 
+  // canActivate(
+  //   next: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot): Observable<boolean | any | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  //     return this.auth.isAuthenticated$.pipe(
+  //       concatMap(_ => this.auth.handleAuthCallback()),
+  //       tap(res=>
+  //           console.log(res)
+  //         ),
+  //       concatMap(result => iif(() => result.loggedIn, of(true),
+  //        this.auth.login(state.url).pipe(map(_ => false)))));
+  // }
+
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | any | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.auth.isAuthenticated$.pipe(
-        concatMap(_ => this.auth.handleAuthCallback()),
-        tap(res=>
-            console.log(res)
-          ),
-        concatMap(result => iif(() => result.loggedIn, of(true),
-         this.auth.login(state.url).pipe(map(_ => false)))));
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean|UrlTree> | boolean {
+    return this.auth.isAuthenticated$.pipe(
+      tap(loggedIn => {
+        if (!loggedIn) {
+          this.auth.login(state.url);
+        }
+      })
+    );
   }
 }
