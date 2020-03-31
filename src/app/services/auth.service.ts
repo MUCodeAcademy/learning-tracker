@@ -36,7 +36,7 @@ export class AuthService {
   userProfile$ = this.userProfileSubject$.asObservable();
   // Create a local property for login status
   loggedIn: boolean = null;
-
+// ---------------------------------------------------------------------------------------
   constructor(private router: Router) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
@@ -44,7 +44,7 @@ export class AuthService {
     // Handle redirect from Auth0 login
     this.handleAuthCallback();
   }
-
+// -----------------------------------------------------------------------------------
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
@@ -53,7 +53,7 @@ export class AuthService {
       tap(user => this.userProfileSubject$.next(user))
     );
   }
-
+// -----------------------------------------------------------------------------
   private localAuthSetup() {
     // This should only be called on app initialization
     // Set up local authentication streams
@@ -70,7 +70,7 @@ export class AuthService {
     );
     checkAuth$.subscribe();
   }
-
+// --------------------------------------------------------------------------
   login(redirectPath: string = '/') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
@@ -83,7 +83,7 @@ export class AuthService {
       });
     });
   }
-
+// -----------------------------------------------------------------------------
   private handleAuthCallback() {
     // Call when app reloads after user logs in with Auth0
     const params = window.location.search;
@@ -111,7 +111,7 @@ export class AuthService {
       });
     }
   }
-
+// ---------------------------------------------------------------------------
   logout() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
