@@ -10,24 +10,24 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   // Create an observable of Auth0 instance of client
-  auth0Client$ = (from(
+  auth0Client$: Observable<Auth0Client> = (from(
     createAuth0Client({
       domain: "midland-code.auth0.com",
       client_id: "Gl2tqzLj5G9sZX2O1vLXp7EyU2tjfXMh",
       redirect_uri: `${window.location.origin}`
-    })
-  ) as Observable<Auth0Client>).pipe(
+    })).pipe(
     shareReplay(1), // Every subscription receives the same shared value
     catchError(err => throwError(err))
+  )
   );
   // Define observables for SDK methods that return promises by default
   // For each Auth0 SDK method, first ensure the client instance is ready
   // concatMap: Using the client instance, call SDK method; SDK returns a promise
   // from: Convert that resulting promise into an observable
-  isAuthenticated$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-    tap(res => this.loggedIn = res)
-  );
+  isAuthenticated$: Observable<boolean> = this.auth0Client$.pipe(
+    concatMap((client: Auth0Client) => from(client.isAuthenticated())));
+
+    
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );
@@ -86,7 +86,7 @@ handleAuthCallback(): Observable<any> {
      return iif(() => params.includes('code=') && params.includes('state='),
         this.handleRedirectCallback$.pipe(concatMap(cbRes => 
            this.isAuthenticated$.pipe(take(1),
-             tap(res=>console.log(res)),
+             tap(res=>console.log('callback' + res)),
              map(loggedIn => ({ loggedIn,
            targetUrl: cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/'
          }))))),

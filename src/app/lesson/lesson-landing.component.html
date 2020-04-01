@@ -1,1 +1,8 @@
-<p>lesson-landing works!</p>
+<div>
+
+    <button mat-raised-button color='primary' (click)="auth.logout()">Log Out</button>
+    
+    <pre *ngIf="auth.userProfile$ | async as profile">
+        <code>{{ profile | json }}</code>
+        </pre>
+</div>
