@@ -6,6 +6,8 @@ import { QuizLandingComponent } from './quiz/quiz-landing.component';
 import { LessonLandingComponent } from './lesson/lesson-landing.component';
 import { UserGuard } from './guards/user.guard'
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ErrorComponent } from './error/error.component';
+
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'lesson', component: LessonLandingComponent, canActivate: [UserGuard] },
   { path: 'admin', component: AdminLandingComponent },
   { path: 'unauthorized', component: UnauthorizedComponent},
-  { path: '', redirectTo: 'welcome', pathMatch: 'full' }
+  { path: '', pathMatch: 'full', redirectTo: 'welcome' },
+  { path: '**', component: ErrorComponent },
+  
 ];
 
 @NgModule({

@@ -45,7 +45,6 @@ export class AuthService {
       tap(user => { this.userProfileSubject$.next(user) })
     );
   }
-
   private localAuthSetup() {
     const checkAuth$ = this.isAuthenticated$.pipe(
       concatMap((loggedIn: boolean) => {
@@ -57,7 +56,6 @@ export class AuthService {
     );
     checkAuth$.subscribe();
   }
-
   login(redirectPath: string = '/'): Observable<void> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) =>
@@ -66,7 +64,6 @@ export class AuthService {
           appState: { target: redirectPath }
         })));
   }
-
   handleAuthCallback(): Observable<{ loggedIn: boolean, targetUrl: string }> {
     console.log(window.location.search);
 
@@ -83,7 +80,6 @@ export class AuthService {
           this.isAuthenticated$.pipe(take(1), map(loggedIn => ({ loggedIn, targetUrl: null }))))
       }));
   }
-
   logout() {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       client.logout({
@@ -108,5 +104,11 @@ export class AuthService {
     })
     return
   }
+      
+
+      
+  
+
+
 
 }
