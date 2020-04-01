@@ -2,8 +2,4 @@
     <button mat-raised-button color='accent' (click)="login()" *ngIf="!auth.loggedIn">Log In</button>
     
 </div>
-
-<pre *ngIf="auth.userProfile$ | async as profile">
-    <code>{{ profile | json }}</code>
-    </pre>
     
