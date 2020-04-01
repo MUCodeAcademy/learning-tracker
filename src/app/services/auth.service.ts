@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   // Create an observable of Auth0 instance of client
-  auth0Client$: Observable<Auth0Client> = (from(
-    createAuth0Client({
+  auth0Client$: Observable<Auth0Client> = (from(createAuth0Client({
       domain: "midland-code.auth0.com",
       client_id: "Gl2tqzLj5G9sZX2O1vLXp7EyU2tjfXMh",
       redirect_uri: `${window.location.origin}`
@@ -50,7 +49,7 @@ export class AuthService {
   getUser$(options?): Observable<any> {
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
-      tap(user => {console.log(user);this.userProfileSubject$.next(user)})
+      tap(user => {this.userProfileSubject$.next(user)})
     );
   }
 // -----------------------------------------------------------------------------
@@ -80,13 +79,15 @@ login(redirectPath: string = '/'): Observable<void> {
     })));
 }
 // -----------------------------------------------------------------------------
-handleAuthCallback(): Observable<any> {
+handleAuthCallback(): Observable<{loggedIn: boolean, targetUrl: string}> {
+  console.log(window.location.search);
+  
   return of(window.location.search).pipe(
    concatMap(params => {
      return iif(() => params.includes('code=') && params.includes('state='),
         this.handleRedirectCallback$.pipe(concatMap(cbRes => 
            this.isAuthenticated$.pipe(take(1),
-             tap(res=>console.log('callback' + res)),
+             
              map(loggedIn => ({ loggedIn,
            targetUrl: cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/'
          }))))),
