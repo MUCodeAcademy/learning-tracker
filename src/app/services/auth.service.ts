@@ -105,4 +105,10 @@ handleAuthCallback(): Observable<{loggedIn: boolean, targetUrl: string}> {
     });
   }
 
+  // -----------------------------------------------------------------------
+
+  handleAuthFail(stateUrl: string, res ): Observable<void>{
+    return
+  }
+
 }

@@ -13,6 +13,7 @@ import { QuizLandingComponent } from './quiz/quiz-landing.component';
 import { LessonLandingComponent } from './lesson//lesson-landing.component';
 
 import { reducers } from './store';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { reducers } from './store';
     NavbarComponent,
     AdminLandingComponent,
     QuizLandingComponent,
-    LessonLandingComponent
+    LessonLandingComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
