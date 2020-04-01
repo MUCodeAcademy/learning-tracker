@@ -1,23 +1,23 @@
 import express from "express";
 const router = express.Router();
 
-router.get('/userRatings', (req, res, next)=>{
+router.get('/getUser', (req, res, next)=>{
 res.send("working");
 });
 
-router.get('/cohortRatings', (req, res, next)=>{
+router.get('/getCohort', (req, res, next)=>{
     res.send("working");
     });
 
-router.get('/allRatings', (req, res, next)=>{
+router.get('/getAll', (req, res, next)=>{
 res.send("working");
 });
 
-router.post('/studentRating', (req, res, next)=>{
+router.post('/createStudent', (req, res, next)=>{
     res.send("working");
     });
 
-router.put('/updateStudentRating', (req, res, next)=>{
+router.put('/updateStudent', (req, res, next)=>{
 res.send("working");
 });
 

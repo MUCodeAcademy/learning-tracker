@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-router.get('/cohortLessons', (req, res)=>{
+router.get('/getCohort', (req, res)=>{
 res.send("working");
 });
 
