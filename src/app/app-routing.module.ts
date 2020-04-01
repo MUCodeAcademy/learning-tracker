@@ -6,17 +6,15 @@ import { QuizLandingComponent } from './quiz/quiz-landing.component';
 import { LessonLandingComponent } from './lesson/lesson-landing.component';
 import { ErrorComponent } from './error/error.component';
 import { UserGuard } from './guards/user.guard';
-import { from } from 'rxjs';
 
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'welcome' },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'quiz', component: QuizLandingComponent, canActivate: [UserGuard] },
   { path: 'lesson', component: LessonLandingComponent, canActivate: [UserGuard] },
   { path: 'admin', component: AdminLandingComponent },
-  { path: 'error', component: ErrorComponent },
-  { path: '**', redirectTo: 'error' },
+  { path: '', pathMatch: 'full', redirectTo: 'welcome' },
+  { path: '**', component: ErrorComponent },
   
 ];
 

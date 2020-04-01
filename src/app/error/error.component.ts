@@ -9,6 +9,11 @@ export class ErrorComponent implements OnInit {
 
   constructor() { }
 
+  pullURL(){
+    let x = document.URL;
+    return x;
+  }
+
   ngOnInit(): void {
   }
 
