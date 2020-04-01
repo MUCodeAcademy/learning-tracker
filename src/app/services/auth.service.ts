@@ -90,24 +90,29 @@ export class AuthService {
   }
 
   handleAuthFail(stateUrl: string): Observable<void> {
+    console.log("handleauthfail stateurl", stateUrl)
     let rejectemail$ = this.store.select(Selectors.getUserEmail)
     rejectemail$.subscribe(rejectemail => {
+      console.log("handleauthfail rejectemail", rejectemail)
       let domain = rejectemail.split("@")[1]
-      if (domain != 'midlandu.edu') {
+      console.log("handleauthfail domain", domain)
+      if (domain.length > 0 && domain != 'midlandu.edu') {
+        console.log("IF statement firing, should go to unauth")
         this.router.navigate(['/unauthorized'])
         return
       }
       else {
-        this.login(stateUrl);
+        console.log("ELSE statement firing, goes to login")
+        // this.login(stateUrl);
         return
       }
     })
     return
   }
-      
 
-      
-  
+
+
+
 
 
 

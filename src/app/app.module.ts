@@ -11,7 +11,6 @@ import { AdminLandingComponent } from './admin/admin-landing.component';
 import { StoreModule } from '@ngrx/store';
 import { QuizLandingComponent } from './quiz/quiz-landing.component';
 import { LessonLandingComponent } from './lesson//lesson-landing.component';
-
 import { reducers } from './store';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
@@ -24,7 +23,7 @@ import { ErrorComponent } from './error/error.component';
     AdminLandingComponent,
     QuizLandingComponent,
     LessonLandingComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
     ErrorComponent
   ],
   imports: [
