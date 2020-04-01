@@ -1,5 +1,6 @@
-import { UserState } from '../reducers';
 
-export const getUserRole = (state: UserState) => state.userRole
+import { RootState } from '..';
 
-export const getUserEmail = (state: UserState) => state.userEmail
+export const getUserRole = (state: RootState) => state.user.userRole
+
+export const getUserEmail = (state: RootState) => state.user.userEmail

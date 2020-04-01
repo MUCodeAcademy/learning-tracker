@@ -9,5 +9,3 @@ export interface RootState{
 export const reducers: ActionReducerMap<RootState> = {
     user: Reducers.userReducer,
 }
-
-export const getUserState = (state: RootState) => state.user;
