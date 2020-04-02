@@ -6,15 +6,15 @@ router.get('/all', (req, res) => {
     Models.getAllCohorts(res, req);
 });
 
-router.put('/new', (req, res) => {
+router.post('/new', (req, res) => {
     Models.newCohort(res,req);
 });
 
-router.delete('delete', (req, res) => {
+router.delete('/delete', (req, res) => {
     Models.deleteCohort(res,req);
 });
 
-router.put('/update', (req, res) => {
+router.post('/update', (req, res) => {
     Models.updateCohort(res,req);
 });
 

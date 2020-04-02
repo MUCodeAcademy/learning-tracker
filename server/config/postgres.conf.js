@@ -4,12 +4,12 @@ console.log(process.env.PORT)
 
 const client = new Client({
   connectionString: process.env.POSTGRES_URL,
-  ssl: true
+  ssl: {rejectUnauthorized: false}
 });
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-  ssl: true
+  ssl: {rejectUnauthorized: false}
 });
 
 pool.connect((err, client, done) => {
