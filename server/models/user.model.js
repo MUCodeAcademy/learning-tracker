@@ -91,6 +91,31 @@ function editUser(response, request) {
     })
 }
 
+function addNewUser(res, user) {
+    let email = [request.email]
+    let firstName = [request.first]
+    let lastName = [request.last]
+    let id = [request.id]
+    pool.query('SELECT * FROM user WHERE user.username = ?', user.username, (err, results) => {
+        if (err) {
+            return res.send({ success: false, err: err });
+        }
+
+        if (results.length > 0) {
+            return res.send({ success: false, msg: "User is not new" })
+        }
+
+        pool.query("INSERT INTO user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, $4)", email, firstName, lastName, id, (err, results) => {
+                if (err) {
+                    return res.send({ success: false, err: err });
+                }
+
+                return res.send({ success: true, msg: "Sign Up Successful" })
+            })
+        })
+    })
+}
+
 
 
 
@@ -106,3 +131,4 @@ module.exports.deleteUser = deleteUser
 module.exports.getAllAdmin = getAllAdmin
 module.exports.editUserRole = editUserRole
 module.exports.editUser = editUser
+module.exports.addNewUser = addNewUser
