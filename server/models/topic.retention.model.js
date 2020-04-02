@@ -1,4 +1,4 @@
-const { client, pool } = require('../config/postgres.conf')
+import {client, pool } from '../config/postgres.conf'
 
 
 
