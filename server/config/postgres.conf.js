@@ -1,7 +1,5 @@
 const { Pool, Client } = require("pg");
 
-console.log(process.env.PORT)
-
 const client = new Client({
   connectionString: process.env.POSTGRES_URL,
   ssl: {rejectUnauthorized: false}

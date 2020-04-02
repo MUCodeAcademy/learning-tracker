@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-const env = dotenv.config()
-console.log(process.env.PORT, "in server")
 import express from "express";
 import bodyParser from 'body-parser'
 const app = express();

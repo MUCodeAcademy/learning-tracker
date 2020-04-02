@@ -26,6 +26,7 @@
     "@auth0/auth0-spa-js": "^1.6.5",
     "@babel/runtime": "^7.9.2",
     "@ngrx/store": "^9.0.0",
+    "babel-plugin-inline-dotenv": "^1.5.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
