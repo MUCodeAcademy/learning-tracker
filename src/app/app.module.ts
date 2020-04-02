@@ -14,6 +14,7 @@ import { LessonLandingComponent } from './lesson//lesson-landing.component';
 import { reducers } from './store';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ErrorComponent } from './error/error.component';
     QuizLandingComponent,
     LessonLandingComponent,
     UnauthorizedComponent,
-    ErrorComponent
+    ErrorComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
