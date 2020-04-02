@@ -22,6 +22,7 @@ function getAllStudents(response, request) {
 }
 
 function getAllStudentsbyCohort(response, request) {
+    let name = [request.name]
     pool.query("SELECT * FROM user JOIN role ON user.role_id = role.id JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 3"), name.then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No students found." })
@@ -42,6 +43,7 @@ function getAllInstructors(response, request) {
 }
 
 function getAllInstructorsbyCohort(response, request) {
+    let name = [request.name]
     pool.query("SELECT * FROM user JOIN role ON user.role_id = role.id JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 2"), name.then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No instructors found." })
@@ -69,3 +71,30 @@ function deleteUser(response, request) {
     })
 }
 
+function editUserRole(response, request) {
+    let newRole = [request.role]
+    let id = [request.id]
+    pool.query("UPDATE user SET user.role_id = $1 WHERE user.id = $2", newRole, id, (err, result, field) =>{
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "User role updated." })
+    })
+}
+
+
+
+
+
+
+
+
+module.exports.getAllUsers = getAllUsers
+module.exports.getAllStudents = getAllStudents
+module.exports.getAllStudentsbyCohort = getAllStudentsbyCohort
+module.exports.getAllInstructors = getAllInstructors
+module.exports.getAllInstructorsbyCohort = getAllInstructorsbyCohort
+module.exports.deleteUser = deleteUser
+module.exports.getAllAdmin = getAllAdmin
+module.exports.editUserRole = editUserRole
+// module.exports.getAllUsers = getAllUsers
+// module.exports.getAllUsers = getAllUsers
+// module.exports.getAllUsers = getAllUsers
