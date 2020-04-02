@@ -32,7 +32,7 @@ function getAllStudentsbyCohort(response, request) {
 }
 
 function getAllInstructors(response, request) {
-    pool.query("SELECT * FROM users JOIN role ON user.role_id = role.id WHERE role.id = 1").then(res => {
+    pool.query("SELECT * FROM users JOIN role ON user.role_id = role.id WHERE role.id = 2").then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No instructors found." })
         }
@@ -49,5 +49,23 @@ function getAllInstructorsbyCohort(response, request) {
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
     .catch(err => console.log(err))
+}
+
+function getAllAdmin(response, request) {
+    pool.query("SELECT * FROM users JOIN role ON user.role_id = role.id WHERE role.id = 1").then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No admin found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+    .catch(err => console.log(err))
+}
+
+function deleteUser(response, request) {
+    let id = [request.id];
+    pool.query("DELETE FROM cohorts WHERE user.id = $1", id, (err, result, field) => {
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "User deleted." })
+    })
 }
 
