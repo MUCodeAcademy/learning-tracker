@@ -91,23 +91,25 @@ function editUser(response, request) {
     })
 }
 
-function addNewUser(res, user) {
+function getUserInfo(res, user) {
     let email = [request.body.email]
     let firstName = [request.body.first]
     let lastName = [request.body.last]
-    let id = [request.body.id]
     pool.query('SELECT * FROM user WHERE user.email = $1', email, (err, results) => {
         if (err) {
             return console.log("Error on query", err.stack)
         }
-        if (results.length > 0) {
-            return res.send({ success: false, msg: "User is not new" })
+        if (rows.length > 0) {
+            return res.send({ success: true, msg: "Signed in successfully", user: res.rows[0] })
         }
-        pool.query("INSERT INTO user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, $4)", email, firstName, lastName, id, (err, results) => {
+        pool.query("INSERT INTO user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, 4)", email, firstName, lastName, (err, results) => {
             if (err) {
                 return res.send({ success: false, err: err });
             }
-            return res.send({ success: true, msg: "Sign Up Successful" })
+            pool.query("SELECT * FROM users WHERE user.email_address = $1", email).then(res => {
+                return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
+            })
+                .catch(err => console.log(err))
         })
     })
 }
@@ -128,4 +130,4 @@ module.exports.deleteUser = deleteUser
 module.exports.getAllAdmin = getAllAdmin
 module.exports.editUserRole = editUserRole
 module.exports.editUser = editUser
-module.exports.addNewUser = addNewUser
+module.exports.getUserInfo = getUserInfo
