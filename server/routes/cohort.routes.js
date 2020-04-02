@@ -14,7 +14,7 @@ router.delete('/delete', (req, res) => {
     Models.deleteCohort(res,req);
 });
 
-router.post('/update', (req, res) => {
+router.put('/update', (req, res) => {
     Models.updateCohort(res,req);
 });
 
