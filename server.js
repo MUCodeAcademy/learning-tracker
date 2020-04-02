@@ -4,9 +4,12 @@ import express from "express";
 const app = express();
 const https = require("https");
 const fs = require("fs");
+const cohorts = require('./server/routes/cohort.routes')
 
 const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + "/dist"));
+
+app.use('/api/cohorts/', cohorts);
 
 // Allows for angular routing to take precedent
 app.get("*", (req, res) =>

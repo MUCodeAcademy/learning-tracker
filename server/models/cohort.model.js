@@ -19,6 +19,14 @@ function getAllCohorts(response, request) {
     .catch(err => console.log(err))
 }
 
+function updateCohort(response, request) {
+    let change = [request.name, request.id];
+    pool.query("UPDATE cohorts SET name = $1 WHERE cohorts.id = $2", change, (err, result, field) => {
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "Cohort deleted." })
+    })
+}
+
 function deleteCohort(response, request) {
     let id = [request.id];
     pool.query("DELETE FROM cohorts WHERE cohorts.id = $1", id, (err, result, field) => {
@@ -31,3 +39,4 @@ function deleteCohort(response, request) {
 module.exports.newCohort = newCohort
 module.exports.deleteCohort = deleteCohort
 module.exports.getAllCohorts = getAllCohorts
+module.exports.updateCohort = updateCohort
