@@ -80,6 +80,16 @@ function editUserRole(response, request) {
     })
 }
 
+function editUser(response, request) {
+    let email = [request.email]
+    let firstName = [request.first]
+    let lastName = [request.last]
+    let id = [request.id]
+    pool.query("UPDATE user SET user.email_address = $1, user.first_name = $2, user.last_name = $3 WHERE user.id = $4", email, firstName, lastName, id, (err, result, field) =>{
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "User updated." })
+    })
+}
 
 
 
@@ -95,6 +105,4 @@ module.exports.getAllInstructorsbyCohort = getAllInstructorsbyCohort
 module.exports.deleteUser = deleteUser
 module.exports.getAllAdmin = getAllAdmin
 module.exports.editUserRole = editUserRole
-// module.exports.getAllUsers = getAllUsers
-// module.exports.getAllUsers = getAllUsers
-// module.exports.getAllUsers = getAllUsers
+module.exports.editUser = editUser
