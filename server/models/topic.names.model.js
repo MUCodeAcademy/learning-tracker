@@ -26,3 +26,8 @@ function addTopic(response, request) {
         return response.send({ success: true, msg: "Topic added." })
     })
 }
+
+
+module.exports.getAllTopics = getAllTopics
+module.exports.deleteTopic = deleteTopic
+module.exports.addTopic = addTopic
