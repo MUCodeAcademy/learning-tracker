@@ -1,15 +1,15 @@
 const { Pool, Client } = require("pg");
 
-const environment = process.env.ENVIRONMENT === "production";
+console.log(process.env.PORT)
 
 const client = new Client({
   connectionString: process.env.POSTGRES_URL,
-  ssl: environment
+  ssl: true
 });
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-  ssl: environment
+  ssl: true
 });
 
 pool.connect((err, client, done) => {

@@ -1,10 +1,11 @@
-require("dotenv").config();
+import dotenv from 'dotenv';
+const env = dotenv.config()
+console.log(process.env.PORT, "in server")
 import express from "express";
-
 const app = express();
 const https = require("https");
 const fs = require("fs");
-const cohorts = require('./server/routes/cohort.routes')
+import cohorts from './server/routes/cohort.routes'
 
 const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + "/dist"));
