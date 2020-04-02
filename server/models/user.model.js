@@ -22,7 +22,7 @@ function getAllStudents(response, request) {
 }
 
 function getAllStudentsbyCohort(response, request) {
-    pool.query("SELECT * FROM user JOIN role ON user.role_id = role.id JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1"), name.then(res => {
+    pool.query("SELECT * FROM user JOIN role ON user.role_id = role.id JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 3"), name.then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No students found." })
         }
@@ -40,3 +40,14 @@ function getAllInstructors(response, request) {
     })
     .catch(err => console.log(err))
 }
+
+function getAllInstructorsbyCohort(response, request) {
+    pool.query("SELECT * FROM user JOIN role ON user.role_id = role.id JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 2"), name.then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No instructors found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+    .catch(err => console.log(err))
+}
+
