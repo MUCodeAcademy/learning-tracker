@@ -1,15 +1,13 @@
 const { Pool, Client } = require("pg");
 
-const environment = process.env.ENVIRONMENT === "production";
-
 const client = new Client({
   connectionString: process.env.POSTGRES_URL,
-  ssl: environment
+  ssl: {rejectUnauthorized: false}
 });
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-  ssl: environment
+  ssl: {rejectUnauthorized: false}
 });
 
 pool.connect((err, client, done) => {
