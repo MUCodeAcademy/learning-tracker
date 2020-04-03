@@ -12,7 +12,7 @@ export function getAllUsers(response, request) {
 }
 
 export function getAllStudents(response, request) {
-    pool.query("SELECT * FROM users JOIN role ON user.role_id = role.id WHERE role.id = 3").then(res => {
+    pool.query("SELECT * FROM users WHERE role.id = 3").then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No students found." })
         }
@@ -23,7 +23,7 @@ export function getAllStudents(response, request) {
 
 export function getAllStudentsbyCohort(response, request) {
     let name = [request.body.name]
-    pool.query("SELECT * FROM user JOIN role ON user.role_id = role.id JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 3"), name.then(res => {
+    pool.query("SELECT * FROM user JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 3 GROUP BY cohort_id ORDER BY cohort_id ASC"), name.then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No students found." })
         }
@@ -33,7 +33,7 @@ export function getAllStudentsbyCohort(response, request) {
 }
 
 export function getAllInstructors(response, request) {
-    pool.query("SELECT * FROM users JOIN role ON user.role_id = role.id WHERE role.id = 2").then(res => {
+    pool.query("SELECT * FROM users WHERE role.id = 2").then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No instructors found." })
         }
@@ -79,14 +79,14 @@ export function editUserRole(response, request) {
 }
 
 export function editUser(response, request) {
-    let user =  [request.body.email, request.body.first, request.body.last, request.body.id]
-    pool.query("UPDATE user SET user.email_address = $1, user.first_name = $2, user.last_name = $3 WHERE user.id = $4", email, firstName, lastName, id, (err, result, field) => {
+    let user =  [request.body.email, request.body.first, request.body.last, request.body.roleId, request.body.id]
+    pool.query("UPDATE user SET user.email_address = $1, user.first_name = $2, user.last_name = $3, user.role_id = $4 WHERE user.id = $5", user, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User updated." })
     })
 }
 
-export function getUserInfo(res, user) {
+export function getUserInfo(response, request) {
     let email = [request.body.email]
     let user = [request.body.email, request.body.first, request.body.last]
     pool.query('SELECT * FROM user WHERE user.email = $1', email, (err, results) => {
@@ -94,11 +94,11 @@ export function getUserInfo(res, user) {
             return console.log("Error on query", err.stack)
         }
         if (rows.length > 0) {
-            return res.send({ success: true, msg: "Signed in successfully", data: res.rows[0] })
+            return response.send({ success: true, msg: "Signed in successfully", data: response.rows[0] })
         }
         pool.query("INSERT INTO user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, 4)", user, (err, results) => {
             if (err) {
-                return res.send({ success: false, err: err });
+                return response.send({ success: false, err: err });
             }
             pool.query("SELECT * FROM users WHERE user.email_address = $1", email).then(res => {
                 return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
