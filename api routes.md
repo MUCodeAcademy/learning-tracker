@@ -11,3 +11,18 @@ PUT '/api/cohort/update' - updates a cohort.  Requires name:(cohort name), instr
 PUT '/api/cohort/change' - Changes a student's cohort.  Requires new cohortid & studentid, as well as the id of the entry on this table.  
 DELETE '/api/cohort/delete/:id' - deletes a cohort w/ cohort_id = to the id in the route. eg api/cohort/delete/3 deletes cohort with cohort_id 3.
 DELETE '/api/cohort/remove/:id' - removes a student from a cohort.  The ID is -the ID of the entry on the table you want to delete-, not the student or the cohort.
+
+## Users Routes
+
+GET '/api/users/all' - gets all users.
+GET '/api/users/students' - gets all users who are students only
+GET '/api/users/students/cohort/:id' - gets all users who are students in a cohort.  Id is the cohort_id of the cohort.
+GET '/api/users/instructors' - gets all instructors
+GET '/api/users/instructors/cohort/:id' - gets all instructors assigned to a cohort where id = cohort_id
+GET '/api/users/admin' - gets all admins
+POST '/api/users/edit' - edits a user's data.  Requires all user fields: first, last, email, role, and userid
+POST '/api/users/userinfo' - requests user info for a newly logged in user using the user's username.  If a user is not found, creates a new user account w/ an Unassigned role for that email.  Endpoint exists to query out the active user after Auth0 has authenticated the user.   This should only be used in one place in the entire application.
+POST '/api/users/activate' - Used to activate a new user as a student and assign a cohort.  Requires a userid and a cohortid.   
+DELETE '/api/users/remove/:id' - deletes a user w/ user_id equal to the id.
+
+##
