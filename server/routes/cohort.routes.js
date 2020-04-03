@@ -18,6 +18,16 @@ router.put('/update', (req, res) => {
     Models.updateCohort(res,req);
 });
 
+router.post('/assign', (req, res) => {
+    Models.assignStudentCohort(res,req);
+});
 
+router.delete('/remove', (req, res) => {
+    Models.deleteStudentCohort(res,req);
+});
+
+router.put('/change', (req, res) => {
+    Models.updateStudentCohort(res,req);
+});
 
 export default router;
