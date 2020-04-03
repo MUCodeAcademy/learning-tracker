@@ -65,7 +65,6 @@ export function getAllAdmin(response, request) {
 
 export function deleteUser(response, request) {
     let id = [request.params.id];
-    
     pool.query("DELETE FROM public.user WHERE public.user.id = $1", id, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User deleted." })
@@ -76,7 +75,7 @@ export function editUser(response, request) {
     console.log(request.body);
     
     let user =  [request.body.email, request.body.first, request.body.last, request.body.roleId, request.body.id]
-    pool.query("UPDATE public.user SET public.user.email_address = $1, public.user.first_name = $2, public.user.last_name = $3, public.user.role_id = $4 WHERE public.user.id = $5", user, (err, result, field) => {
+    pool.query("UPDATE public.user SET email_address = $1, first_name = $2, last_name = $3, role_id = $4 WHERE user.id = $5", user, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User updated." })
     })
@@ -89,18 +88,19 @@ export function getUserInfo(response, request) {
         if (res.rows.length > 0) {
             return response.send({ success: true, msg: "Success", data: res.rows[0] })
         }
-    })
+    
         pool.query("INSERT INTO public.user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, 4)", user).then(res => {
             if (err) {
                 return response.send({ success: false, err: err });
             }
-        })
+        
             pool.query("SELECT * FROM public.user WHERE public.user.email_address = $1", email).then(res => {
                 return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
-            })
-                .catch(err => console.log(err))
-       
-    
+            
+            })    
+            .catch(err => console.log(err))
+       })
+    })
 }
 
 export function activateUser(response, request) {

@@ -7,28 +7,23 @@ router.get('/all', (req, res) =>{
 });
 
 router.get('/students', (req, res) =>{
-    console.log("route works");
     
     Models.getAllStudents(res, req);
 });
 
 router.get('/students/cohort/:id', (req, res) =>{
-    console.log("route works");
     Models.getAllStudentsbyCohort(res, req);
 });
 
 router.get('/instructors', (req, res) =>{
-    console.log("route works");
     Models.getAllInstructors(res, req);
 });
 
 router.get('/instructors/cohort/:id', (req, res) =>{
-    console.log("route works");
     Models.getAllInstructorsbyCohort(res, req);
 });
 
 router.get('/admin', (req, res) =>{
-    console.log("route works");
     Models.getAllAdmin(res, req);
 });
 
@@ -37,7 +32,7 @@ router.delete('/remove/:id', (req, res) =>{
 });
 
 router.put('/edit', (req, res) =>{
-    Models.editUser(req, res)
+    Models.editUser(res, req)
 });
 
 router.get('/userinfo', (req, res) =>{
