@@ -34,7 +34,7 @@ router.post('/edit', (req, res) =>{
     Models.editUser(req, res)
 });
 
-router.get('/users/new', (req, res) =>{
+router.get('/userinfo', (req, res) =>{
     Models.getUserInfo(res, req)
 });
 

@@ -111,7 +111,7 @@ export function getUserInfo(response, request) {
 
 export function activateUser(response, request) {
     let data = [request.body.userId, request.body.cohortId]
-    pool.query("SELECT data FROM user_activate($1)", data).then(res => {
+    pool.query("SELECT data FROM user_activate($1, $2)", data).then(res => {
         return res.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
     })
         .catch(err => console.log(err))
