@@ -5,6 +5,7 @@ const https = require("https");
 const fs = require("fs");
 import cohorts from './server/routes/cohort.routes'
 import questions from './server/routes/questions.routes'
+import users from './server/routes/user.routes'
 
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json())
@@ -12,6 +13,7 @@ app.use(express.static(__dirname + "/dist"));
 
 app.use('/api/cohort/', cohorts);
 app.use('/api/question/', questions);
+app.use('/api/users', users);
 
 // Allows for angular routing to take precedent
 app.get("*", (req, res) =>

@@ -26,3 +26,4 @@ pool.on("error", (err, client) => console.log("Pool error:", err));
 
 module.exports.client = client;
 module.exports.pool = pool;
+console.log(process.env.PORT);
