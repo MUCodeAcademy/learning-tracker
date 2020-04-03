@@ -18,7 +18,7 @@ router.get('/cohort/:id', (req, res) => {
     Models.getAllNotesByCohort(res, req);
 });
 
-router.post('/topic/', (req, res) => {
+router.get('/topic', (req, res) => {
     Models.getAllNotesByTopic(res, req);
 });
 
