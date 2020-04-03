@@ -1,37 +1,37 @@
 import express from "express";
 const router = express.Router();
+import * as Models from '../models/questions.model'
 
-router.get('/getQuestions', (req, res, next)=>{
-    res.send("working");
+router.get('/all', (req, res, next)=>{
+    Models.getAllQuestions(res, req);
 });
 
-router.get('/getUser', (req, res, next)=>{
-    res.send("working");
+router.get('/student/:id', (req, res, next)=>{
+    Models.getQuestionsByStudent(res, req);
 });
 
-router.update('/updateQuestions', (req, res, next)=>{
-    res.send("working")
+router.get('/lesson/:id', (req, res, next)=>{
+    Models.getQuestionsByLesson(res, req);
 });
 
-router.pull('/pullQuestions', (req, res, next)=>{
-    res.send("working");
+router.get('/cohort/:id', (req, res, next)=>{
+    Models.getQuestionsByCohort(res, req);
 });
 
-router.put('/editQuestions', (req, res, next)=>{
-    res.send("working");
+router.get('/topic/:id', (req, res, next)=>{
+    Models.getQuestionsByTopic(res, req);
 });
 
-router.add('/addQuestion', (req, res, next)=>{
-    res.send("working");
+router.post('/new', (req, res, next)=>{
+    Models.addNewQuestion(res, req)
 });
 
-router.delete('/deleteQuestion', (req, res, next)=>{
-    res.send("working");
+router.put('/edit', (req, res, next)=>{
+    Models.editQuestion(res,req)
 });
 
-router.add('/addComment', (req, res, next)=>{
-    res.send("working");
+router.delete('/delete/:id', (req, res, next)=>{
+    Models.deleteQuestion(res,req)
 });
-
 
 export default router;

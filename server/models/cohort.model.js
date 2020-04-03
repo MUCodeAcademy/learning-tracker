@@ -34,3 +34,27 @@ export function deleteCohort(response, request) {
         return response.send({ success: true, msg: "Cohort deleted." })
     })
 }
+
+export function assignStudentCohort(response, request) {
+    let data = [request.body.cohort_id, request.body.student_id]
+    pool.query("INSERT INTO cohort_to_student(id,cohort_id,student_id) VALUES (DEFAULT, $1, $2)", data, (err, result, field) => {
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "Assigned Cohort to Student" })
+    })
+}
+
+export function updateStudentCohort(response, request) {
+    let change = [request.body.cohort_id, request.body.student_id, request.body.id];
+    pool.query("UPDATE cohort_to_student SET cohort_id = $1, user_id = $2 WHERE cohort_to_student.id = $3", change, (err, result, field) => {
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "Cohort to Student updated." })
+    })
+}
+
+export function deleteStudentCohort(response, request) {
+    let id = [request.body.cohort_id, request.body.student_id];
+    pool.query("DELETE FROM cohort_to_student WHERE cohort_to_student.id = $1", id, (err, result, field) => {
+        if (err) { return console.log("Error on query", err.stack) }
+        return response.send({ success: true, msg: "Cohort to Student deleted." })
+    })
+}
