@@ -1,6 +1,5 @@
 import { client, pool } from '../config/postgres.conf'
 
-
 export function getAllUsers(response, request) {
     pool.query("SELECT * FROM users").then(res => {
         if (res.rows.length === 0) {
