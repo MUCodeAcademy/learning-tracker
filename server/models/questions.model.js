@@ -19,7 +19,7 @@ export function editQuestion(response, request){
 }
 
 export function deleteQuestion(response, request){
-    let data = [request.body.id]
+    let data = [request.params.id]
     pool.query("DELETE FROM question WHERE id = $1", data, (err, result, field) => {
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
         return response.send({ success: true, msg: "Question deleted." })
@@ -27,7 +27,7 @@ export function deleteQuestion(response, request){
 }
 
 export function getQuestionsByTopic(response, request){
-    let data = [request.body.topicid]
+    let data = [request.params.id]
     pool.query("SELECT * FROM question WHERE question.topic_id = $1", data).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No ratings found." })
@@ -38,7 +38,7 @@ export function getQuestionsByTopic(response, request){
 }
 
 export function getQuestionsByStudent(response, request){
-    let data = [request.body.topicid]
+    let data = [request.params.id]
     pool.query("SELECT * FROM question WHERE question.student_id = $1", data).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No ratings found." })
@@ -55,5 +55,9 @@ export function getAllQuestions(response, request){
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+}
+
+export function getQuestionsbyCohort(response, request){
+    let data = request.params.id
+    response.send({msg: "I don't exist.", success: false})
 }
