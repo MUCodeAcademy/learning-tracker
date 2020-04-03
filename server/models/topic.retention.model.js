@@ -6,7 +6,7 @@ export function addStudentRetentionByTopic(response, request){
     let student = [request.body.topicId, request.body.studentId, request.body.lessionId, request.body.newRetention]
     pool.query("INSERT INTO topic_retention (id, student_id, lesson_id, instructor_id, student_retention_rating, teacher_retention_rating, topic_id) VALUES (DEFAULT, $1, $2, DEFAULT, $3, DEFAULT, $4)", student, (err, results) => {
         if (err) {
-            return res.send({ success: false, err: err });
+            return response.send({ success: false, err: err });
         } 
         else return response.send({ success: true, msg: "Data retrieved." })
      } )
@@ -16,7 +16,7 @@ export function addInstructorRetentionByTopic(response, request){
     let instructor = [request.body.topicId, request.body.instructorId, request.body.lessionId, request.body.newRetention]
     pool.query("INSERT INTO topic_retention (id, student_id, lesson_id, instructor_id, student_retention_rating, teacher_retention_rating, topic_id) VALUES (DEFAULT, DEFAULT, $1, $2, DEFAULT, $3, $4)", instructor, (err, results) => {
         if (err) {
-            return res.send({ success: false, err: err });
+            return response.send({ success: false, err: err });
         } 
         else return response.send({ success: true, msg: "Data retrieved." })
      } )
@@ -26,9 +26,9 @@ export function getAllRatingsByTopic(response, request){
     let studentId = [request.body.studentId]
     pool.query("SELECT * FROM topic_retention WHERE topic_retention.student.id = $1"), studentId.then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No ratings found." })
+            return res.send({ success: false, msg: "No ratings found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
