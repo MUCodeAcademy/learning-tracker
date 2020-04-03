@@ -1,4 +1,4 @@
-import { client, pool } from '../config/postgres.conf'
+import { pool } from '../config/postgres.conf'
 
 export function postLesson(response, request) {
     let now = new Date();
