@@ -1,9 +1,9 @@
 import { client, pool } from '../config/postgres.conf'
 ​
 ​
-export function newLesson(response, request) {
-    let name = [request.name]
-    pool.query("INSERT INTO lesson(id,name) VALUES (DEFAULT, $1)", name, (err, result, field) => {
+export function postLesson(response, request) {
+    let lesson  = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, request.body.last_edit]
+    pool.query("INSERT INTO lesson(id, cohort_id, topic_id,lesson_title, week_number, day, last_edit) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)", lesson, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Lesson" })
     })
@@ -20,17 +20,9 @@ export function getAllLessons(response, request) {
 }
 ​
 export function updateLesson(response, request) {
-    let change = [request.name, request.id];
-    pool.query("UPDATE lesson SET name = $1 WHERE lessons.id = $2", change, (err, result, field) => {
+    let change = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, request.body.last_edit];
+    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5, last_edit = $6", change, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
-        return response.send({ success: true, msg: "Lesson deleted." })
-    })
-}
-​
-export function deleteLesson(response, request) {
-    let id = [request.id];
-    pool.query("DELETE FROM lesson WHERE lessons.id = $1", id, (err, result, field) => {
-        if (err) { return console.log("Error on query", err.stack) }
-        return response.send({ success: true, msg: "Lesson deleted." })
+        return response.send({ success: true, msg: "Lesson updated." })
     })
 }
