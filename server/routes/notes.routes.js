@@ -10,15 +10,15 @@ router.post('/new', (req, res) => {
     Models.newNote(res,req);
 });
 
-router.get('/allByStudent', (req, res) => {
+router.get('/student/:id', (req, res) => {
     Models.getAllNotesByStudent(res, req);
 });
 
-router.get('/allByTopic', (req, res) => {
+router.get('/topic/:id', (req, res) => {
     Models.getAllNotesByTopic(res, req);
 });
 
-router.get('/allByCohort', (req, res) => {
+router.get('/cohort/:id', (req, res) => {
     Models.getAllNotesByCohort(res, req);
 });
 
