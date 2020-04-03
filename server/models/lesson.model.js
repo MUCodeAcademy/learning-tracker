@@ -1,15 +1,14 @@
 import { client, pool } from '../config/postgres.conf'
-​
-​
+
 export function postLesson(response, request) {
     let now = new Date();
-    let lesson  = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, request.body.day, now]
-    pool.query("INSERT INTO lesson(id, cohort_id, topic_id,lesson_title, week_number, day, last_day) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)", lesson, (err, result, field) => {
+    let lesson  = [request.body.cohortid, request.body.topicid,request.body.title, request.body.week, request.body.day, now]
+    pool.query("INSERT INTO lesson(id, cohort_id, topic_id,lesson_title, week_number, day, last_edit) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)", lesson, (err, result, field) => {
         if (err) return response.send({msg:"Error on query", err: err.stack})
         return response.send({ success: true, msg: "Created New Lesson" })
     })
 }
-​
+
 export function getAllLessons(response, request) {
     pool.query("SELECT * FROM lesson").then(res => {
         if (res.rows.length === 0) {
@@ -19,11 +18,11 @@ export function getAllLessons(response, request) {
     })
     .catch(err => console.log(err))
 }
-​
+
 export function updateLesson(response, request) {
     let now = new Date();
-    let change = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, now];
-    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5, last_date = $6", change, now, (err, result, field) => {
+    let change = [request.body.cohortid, request.body.topicid,request.body.title, request.body.week, request.body.day, now];
+    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5, last_edit = $6", change, (err, result, field) => {
         if (err) return response.send({msg:"Error on query", err: err.stack})
         return response.send({ success: true, msg: "Lesson updated." })
     })

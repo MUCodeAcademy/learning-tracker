@@ -45,3 +45,10 @@ All routes are organized as follows: '/api/category/details/maybemoredetails/'. 
 * POST `'/api/notes/topic/'` - gets all notes for a topic in a given cohort: requires topicid and cohortid
 * PUT `'/api/notes/update'` - updates an existing note.  requires text, read(boolean), and the id of the note to update
 * DELETE `'/api/notes/delete/:id'` - deletes the note with the id provided
+
+#### Lessons Routes
+
+GET `'/api/lessons/all'` - gets all lessons
+POST `'/api/lessons/new'` - creates a new lesson.   Requires cohortid, topicid, title, week, and day
+PUT `'/api/lessons/edit'` - updates a lesson.  Requires cohortid, topicid, title, week, day, and the id of the lesson.
+DELETE `'/api/lessons/delete/:id'` - deletes lesson with a given id
