@@ -2,12 +2,8 @@ import { client, pool } from '../config/postgres.conf'
 
 
 export function newNote(response, request) {
-    let name = [request.body.name]
-    let lesson_id = [request.body.lesson_id]
-    let instructor_id = [request.body.instructor_id]
-    let note_text = [request.body.note_text]
-    let note_read = [request.body.note_read]
-    pool.query("INSERT INTO note(id, note_name, lesson_id, instructor_id, note_text, note_read) VALUES (DEFAULT, $1, $2, $3, $4, $5)", name, lesson_id, instructor_id, note_text, note_read, (err, result, field) => {
+    let data = [request.body.name, request.body.lessonid, request.body.instructorid, request.body.text, request.body.read]
+    pool.query("INSERT INTO note(id, note_name, lesson_id, instructor_id, note_text, note_read) VALUES (DEFAULT, $1, $2, $3, $4, $5)", data, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Note" })
     })
@@ -71,12 +67,3 @@ export function deleteNote(response, request) {
         return response.send({ success: true, msg: "Note deleted." })
     })
 }
-
-
-module.exports.newNote = newNote
-module.exports.updateNote = updateNote
-module.exports.deleteNote = deleteNote
-module.exports.getAllNotes = getAllNotes
-module.exports.getAllNotesByStudent = getAllNotesByStudent
-module.exports.getAllNotesByTopic = getAllNotesByTopic
-module.exports.getAllNotesByCohort = getAllNotesByCohort
