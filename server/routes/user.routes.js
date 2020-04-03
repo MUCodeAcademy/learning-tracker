@@ -26,14 +26,21 @@ router.get('/admin', (req, res) =>{
     Models.getAllAdmin(res, req);
 });
 
-router.delete('/users', (req, res) =>{
+router.delete('/remove', (req, res) =>{
     Models.deleteUser(res, req)
 });
 
-router.post('/users', (req, res) =>{
+router.post('/edit', (req, res) =>{
     Models.editUser(req, res)
 });
 
 router.get('/users/new', (req, res) =>{
     Models.getUserInfo(res, req)
 });
+
+router.get('./activate', (req, res) =>{
+    Models.activateUser(res, req)
+});
+
+
+export default router;

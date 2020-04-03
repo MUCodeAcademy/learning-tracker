@@ -102,9 +102,18 @@ export function getUserInfo(response, request) {
                 return response.send({ success: false, err: err });
             }
             pool.query("SELECT * FROM users WHERE user.email_address = $1", email).then(res => {
-                return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
+                return res.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
             })
                 .catch(err => console.log(err))
         })
     })
+}
+
+export function activateUser(response, request) {
+    let data = [request.body.userId, request.body.cohortId]
+    pool.query("SELECT data FROM user_activate($1)", id).then(res => {
+        return res.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
+    })
+        .catch(err => console.log(err))
+})
 }
