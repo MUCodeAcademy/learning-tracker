@@ -2,8 +2,8 @@ import { client, pool } from '../config/postgres.conf'
 
 
 export function newNote(response, request) {
-    let data = [request.body.name, request.body.lessonid, request.body.instructorid, request.body.text, request.body.read]
-    pool.query("INSERT INTO note(id, note_name, lesson_id, instructor_id, note_text, note_read) VALUES (DEFAULT, $1, $2, $3, $4, $5)", data, (err, result, field) => {
+    let data = [request.body.userid, request.body.lessonid, request.body.instructorid, request.body.text, request.body.read]
+    pool.query("INSERT INTO note(id, user_id, lesson_id, instructor_id, note_text, note_read) VALUES (DEFAULT, $1, $2, $3, $4, $5)", data, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Note" })
     })
@@ -53,8 +53,8 @@ export function getAllNotesByCohort(response, request) {
 }
 
 export function updateNote(response, request) {
-    let note = [request.body.name, request.body.id]
-    pool.query("UPDATE note SET note_name = $1 WHERE note.id = $2", note, (err, result, field) => {
+    let note = [request.body.text, request.body.read, request.body.id]
+    pool.query("UPDATE note SET note_text = $1, note_read = $2 WHERE note.id = $3", note, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Updated Note" })
     })
