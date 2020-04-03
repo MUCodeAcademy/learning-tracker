@@ -18,7 +18,7 @@ router.get('/cohort/:id', (req, res, next)=>{
     Models.getQuestionsByCohort(res, req);
 });
 
-router.get('/topic/:id', (req, res, next)=>{
+router.post('/topic/', (req, res, next)=>{
     Models.getQuestionsByTopic(res, req);
 });
 
