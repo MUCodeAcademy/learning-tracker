@@ -11,7 +11,7 @@ router.get('/students', (req, res) =>{
 });
 
 router.get('/students/cohort/:id', (req, res) =>{
-    Models.getAllUsers(res, req);
+    Models.getAllStudentsbyCohort(res, req);
 });
 
 router.get('/instructors', (req, res) =>{
@@ -26,7 +26,7 @@ router.get('/admin', (req, res) =>{
     Models.getAllAdmin(res, req);
 });
 
-router.delete('/remove', (req, res) =>{
+router.delete('/remove/:id', (req, res) =>{
     Models.deleteUser(res, req)
 });
 

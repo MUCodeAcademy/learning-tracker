@@ -64,7 +64,7 @@ export function getAllAdmin(response, request) {
 }
 
 export function deleteUser(response, request) {
-    let id = [request.body.id];
+    let id = [request.params.id];
     pool.query("DELETE FROM cohorts WHERE user.id = $1", id, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User deleted." })
