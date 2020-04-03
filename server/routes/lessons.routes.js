@@ -1,20 +1,21 @@
 import express from "express";
 const router = express.Router();
+import * as Models from '../models/lesson.model'
 
-router.get('/getCohort', (req, res)=>{
-res.send("working");
+router.get('/all', (req, res)=>{
+    Models.getAllLessons(res,req)
 });
 
-router.add('/addLesson', (req, res)=>{
-    res.send("working");
+router.post('/new', (req, res)=>{
+    Models.postLesson(res,req)
     });
 
-router.delete('/deleteLesson', (req, res)=>{
-    res.send("working");
+router.delete('/delete/:id', (req, res)=>{
+    Models.deleteLesson(res,req)
     });
 
-router.put('/editLesson', (req, res)=>{
-    res.send("working");
+router.put('/edit', (req, res)=>{
+    Models.updateLesson(res,req)
     });
 
 

@@ -35,11 +35,11 @@ router.put('/edit', (req, res) =>{
     Models.editUser(res, req)
 });
 
-router.get('/userinfo', (req, res) =>{
+router.post('/userinfo', (req, res) =>{
     Models.getUserInfo(res, req)
 });
 
-router.get('/activate', (req, res) =>{
+router.post('/activate', (req, res) =>{
     Models.activateUser(res, req)
 });
 

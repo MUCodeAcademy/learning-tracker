@@ -10,7 +10,7 @@ router.post('/new', (req, res) => {
     Models.newCohort(res,req);
 });
 
-router.delete('/delete', (req, res) => {
+router.delete('/delete/:id', (req, res) => {
     Models.deleteCohort(res,req);
 });
 
@@ -22,7 +22,7 @@ router.post('/assign', (req, res) => {
     Models.assignStudentCohort(res,req);
 });
 
-router.delete('/remove', (req, res) => {
+router.delete('/remove/:id', (req, res) => {
     Models.deleteStudentCohort(res,req);
 });
 
