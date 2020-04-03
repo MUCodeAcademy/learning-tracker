@@ -13,7 +13,7 @@ app.use(express.static(__dirname + "/dist"));
 
 app.use('/api/cohort/', cohorts);
 app.use('/api/question/', questions);
-app.use('/api/users', users);
+app.use('/api/user/', users);
 
 // Allows for angular routing to take precedent
 app.get("*", (req, res) =>
