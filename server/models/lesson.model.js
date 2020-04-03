@@ -20,9 +20,18 @@ export function getAllLessons(response, request) {
 }
 ​
 export function updateLesson(response, request) {
-    let change = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, request.body.last_edit];
-    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5, last_edit = $6", change, (err, result, field) => {
+    let change = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day];
+    let now = new Date();
+    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5", change, now, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Lesson updated." })
+    })
+}
+
+export function deleteLesson(response, request){
+    let data = [request.params.id]
+    pool.query("DELETE FROM lesson WHERE id = $1", data, (err, result, field) => {
+        if (err) { return response.send({msg:"Error on query", err: err.stack}) }
+        return response.send({ success: true, msg: "Lesson deleted." })
     })
 }
