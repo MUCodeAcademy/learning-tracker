@@ -10,12 +10,16 @@ router.get('/student/:id', (req, res, next)=>{
     Models.getQuestionsByStudent(res, req);
 });
 
-router.get('/topic/:id', (req, res, next)=>{
-    Models.getQuestionsByTopic(res, req);
+router.get('/lesson/:id', (req, res, next)=>{
+    Models.getQuestionsByLesson(res, req);
 });
 
 router.get('/cohort/:id', (req, res, next)=>{
     Models.getQuestionsByCohort(res, req);
+});
+
+router.get('/topic/:id', (req, res, next)=>{
+    Models.getQuestionsByTopic(res, req);
 });
 
 router.post('/new', (req, res, next)=>{

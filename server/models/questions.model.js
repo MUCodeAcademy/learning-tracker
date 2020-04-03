@@ -26,9 +26,9 @@ export function deleteQuestion(response, request){
     })
 }
 
-export function getQuestionsByTopic(response, request){
+export function getQuestionsByLessonTopic(response, request){
     let data = [request.params.id]
-    pool.query("SELECT * FROM question WHERE question.topic_id = $1", data).then(res => {
+    pool.query("SELECT * FROM question WHERE question.lesson_id = $1", data).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No ratings found." })
         }
@@ -58,6 +58,11 @@ export function getAllQuestions(response, request){
 }
 
 export function getQuestionsbyCohort(response, request){
+    let data = request.params.id
+    response.send({msg: "I don't exist.", success: false})
+}
+
+export function getQuestionsbyTopic(response, request){
     let data = request.params.id
     response.send({msg: "I don't exist.", success: false})
 }
