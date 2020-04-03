@@ -14,3 +14,5 @@ let quizSchema = mongoose.Schema({
     }
   ]
 });
+
+export default mongoose.model("Quiz", quizSchema);
