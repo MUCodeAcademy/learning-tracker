@@ -26,9 +26,9 @@ export function getAllRatingsByTopic(response, request){
     let data = [request.params.id]
     pool.query("SELECT * FROM topic_retention WHERE topic_retention.topic_id = $1", data).then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No ratings found." })
+            return res.send({ success: false, msg: "No ratings found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
