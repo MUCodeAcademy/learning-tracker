@@ -1,6 +1,5 @@
 import { client, pool } from '../config/postgres.conf'
-​
-​
+
 export function postLesson(response, request) {
     let now = new Date();
     let lesson  = [request.body.cohortid, request.body.topicid,request.body.title, request.body.week, request.body.day, now]
@@ -9,7 +8,7 @@ export function postLesson(response, request) {
         return response.send({ success: true, msg: "Created New Lesson" })
     })
 }
-​
+
 export function getAllLessons(response, request) {
     pool.query("SELECT * FROM lesson").then(res => {
         if (res.rows.length === 0) {
@@ -19,7 +18,7 @@ export function getAllLessons(response, request) {
     })
     .catch(err => console.log(err))
 }
-​
+
 export function updateLesson(response, request) {
     let now = new Date();
     let change = [request.body.cohortid, request.body.topicid,request.body.title, request.body.week, request.body.day, now];
