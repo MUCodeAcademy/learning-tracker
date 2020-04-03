@@ -1,4 +1,4 @@
-import {client, pool } from '../config/postgres.conf'
+import { pool } from '../config/postgres.conf'
 
 export function addNewQuestion(response, request){
     let data = [request.body.studentid, request.body.instructorid, request.body.lessonid, request.body.text, request.body.answer]

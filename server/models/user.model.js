@@ -1,4 +1,4 @@
-import { client, pool } from '../config/postgres.conf'
+import { pool } from '../config/postgres.conf'
 
 export function getAllUsers(response, request) {
     pool.query("SELECT * FROM public.user").then(res => {
