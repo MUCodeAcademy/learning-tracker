@@ -115,5 +115,5 @@ export function activateUser(response, request) {
         return res.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
     })
         .catch(err => console.log(err))
-})
 }
+
