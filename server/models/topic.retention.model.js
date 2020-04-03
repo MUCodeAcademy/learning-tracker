@@ -23,7 +23,7 @@ export function addInstructorRetentionByTopic(response, request){
 }
 
 export function getAllRatingsByTopic(response, request){
-    let data = [request.body.topicid]
+    let data = [request.params.id]
     pool.query("SELECT * FROM topic_retention WHERE topic_retention.topic_id = $1", data).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No ratings found." })
@@ -34,7 +34,7 @@ export function getAllRatingsByTopic(response, request){
 }
 
 export function getAllRatingsByStudent(response, request){
-    let data = [request.body.studentid]
+    let data = [request.params.id]
     pool.query("SELECT * FROM topic_retention WHERE topic_retention.student.id = $1", data).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No ratings found." })
