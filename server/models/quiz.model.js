@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-let quizSchema = mongoose.Schema;
 
 let quizSchema = mongoose.Schema({
   quizName: { type: String, required: true },
