@@ -3,11 +3,8 @@ import {client, pool } from '../config/postgres.conf'
 
 
 export function addStudentRetentionByTopic(response, request){
-    let topicId = [request.body.topicId]
-    let studentId = [request.body.Id]
-    let lessonId = [request.body.lessionId]
-    let newRetention = [request.body.newRetention]
-    pool.query("INSERT INTO topic_retention (id, student_id, lesson_id, instructor_id, student_retention_rating, teacher_retention_rating, topic_id) VALUES (DEFAULT, $1, $2, DEFAULT, $3, DEFAULT, $4)", studentId, lessonId, newRetention, topicId, (err, results) => {
+    let student = [request.body.topicId, request.body.studentId, request.body.lessionId, request.body.newRetention]
+    pool.query("INSERT INTO topic_retention (id, student_id, lesson_id, instructor_id, student_retention_rating, teacher_retention_rating, topic_id) VALUES (DEFAULT, $1, $2, DEFAULT, $3, DEFAULT, $4)", student, (err, results) => {
         if (err) {
             return res.send({ success: false, err: err });
         } 
@@ -16,11 +13,8 @@ export function addStudentRetentionByTopic(response, request){
 }
 
 export function addInstructorRetentionByTopic(response, request){
-    let topicId = [request.body.topicId]
-    let instructorId = [request.body.Id]
-    let lessonId = [request.body.lessionId]
-    let newRetention = [request.body.newRetention]
-    pool.query("INSERT INTO topic_retention (id, student_id, lesson_id, instructor_id, student_retention_rating, teacher_retention_rating, topic_id) VALUES (DEFAULT, DEFAULT, $1, $2, DEFAULT, $3, $4)", lessonId, instructorId, newRetention, topicId, (err, results) => {
+    let instructor = [request.body.topicId, request.body.instructorId, request.body.lessionId, request.body.newRetention]
+    pool.query("INSERT INTO topic_retention (id, student_id, lesson_id, instructor_id, student_retention_rating, teacher_retention_rating, topic_id) VALUES (DEFAULT, DEFAULT, $1, $2, DEFAULT, $3, $4)", instructor, (err, results) => {
         if (err) {
             return res.send({ success: false, err: err });
         } 
@@ -52,20 +46,16 @@ export function getAllRatingsByStudent(response, request){
 }
 
 export function editStudentRetentionByTopic(response, request){
-    let topicId = [request.body.topicId]
-    let id = [request.body.id]
-    let newRetention = [request.body.newRetention]
-    pool.query("UPDATE topic_retention SET topic_retention.student_retention = $1 WHERE topic_retention.student_id = $2 AND topic_retention.topic_id = $3", newRetention,id, topicId, (err, result, field) => {
+    let newStudentRetention = [request.body.topicId, request.body.id, request.body.newRetention]
+    pool.query("UPDATE topic_retention SET topic_retention.student_retention = $1 WHERE topic_retention.student_id = $2 AND topic_retention.topic_id = $3", newStudentRetention, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Retention updated." })
     })
 }
 
 export function editInstructorRetentionByTopic(response, request){
-    let topicId = [request.body.topicId]
-    let id = [request.body.id]
-    let newRetention = [request.body.newRetention]
-    pool.query("UPDATE topic_retention SET topic_retention.teacher_retention = $1 WHERE topic_retention.instructor_id = $2 AND topic_retention.topic_id = $3", newRetention,id, topicId, (err, result, field) => {
+    let newInstructorRetention = [request.body.topicId, request.body.id, request.body.newRetention]
+    pool.query("UPDATE topic_retention SET topic_retention.teacher_retention = $1 WHERE topic_retention.instructor_id = $2 AND topic_retention.topic_id = $3", newInstructorRetention, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Retention updated." })
     })
