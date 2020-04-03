@@ -30,6 +30,4 @@ router.delete('/delete/:id', (req, res, next)=>{
     Models.deleteQuestion(res,req)
 });
 
-
-
 export default router;
