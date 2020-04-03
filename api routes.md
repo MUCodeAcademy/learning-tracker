@@ -25,4 +25,14 @@ POST '/api/users/userinfo' - requests user info for a newly logged in user using
 POST '/api/users/activate' - Used to activate a new user as a student and assign a cohort.  Requires a userid and a cohortid.   
 DELETE '/api/users/remove/:id' - deletes a user w/ user_id equal to the id.
 
-##
+## QUESTIONS
+
+GET '/api/questions/all' - gets ALL questions
+GET '/api/questions/student/:id' - gets all questions for the student with a user_id equal to the id
+GET '/api/questions/lesson/:id' - gets all questions for the lesson with lesson_id equal to the id
+GET '/api/questions/topic/:id' - gets all questions for the topic with topic_id equal to the id
+GET '/api/questions/cohort/:id' - gets all questions for all students in the cohort with cohort_id equal to the id
+POST '/api/questions/new' - makes a new question.  Requires studentid, instructorid, lessonid, question text, and question answer.
+PUT '/api/questions/edit/ - updates a question.  Requires studentid, instructorid, lessonid, question text, question answer, and the id of the question.
+DELETE '/api/questions/delete/:id' - deletes the question with id equal to the id provided.
+
