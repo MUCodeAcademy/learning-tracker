@@ -38,7 +38,7 @@ router.get('/userinfo', (req, res) =>{
     Models.getUserInfo(res, req)
 });
 
-router.get('./activate', (req, res) =>{
+router.get('/activate', (req, res) =>{
     Models.activateUser(res, req)
 });
 
