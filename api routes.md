@@ -36,3 +36,12 @@ All routes are organized as follows: '/api/category/details/maybemoredetails/'. 
 * PUT `'/api/questions/edit/'` - updates a question.  Requires studentid, instructorid, lessonid, question text, question answer, and the id of the question.
 * DELETE `'/api/questions/delete/:id'` - deletes the question with id equal to the id provided.
 
+#### Notes Routes
+
+* GET `'/api/notes/all'` - gets ALL notes
+* GET `'/api/notes/student/:id'` - gets all notes for the student whose user_id is the id
+* GET `'/api/notes/cohort/:id'` - gets all notes for all students in the cohort with cohort_id as provided
+* POST `'/api/notes/new'` - creates a new note.  Requires userid, lessonid, instructor id, text, and read(a boolean)
+* POST `'/api/notes/topic/'` - gets all notes for a topic in a given cohort: requires topicid and cohortid
+* PUT `'/api/notes/update'` - updates an existing note.  requires text, read(boolean), and the id of the note to update
+* DELETE `'/api/notes/delete/:id'` - deletes the note with the id provided
