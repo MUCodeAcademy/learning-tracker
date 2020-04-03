@@ -4,9 +4,9 @@ import { client, pool } from '../config/postgres.conf'
 export function getAllUsers(response, request) {
     pool.query("SELECT * FROM users").then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No users found." })
+            return res.send({ success: false, msg: "No users found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
@@ -14,20 +14,20 @@ export function getAllUsers(response, request) {
 export function getAllStudents(response, request) {
     pool.query("SELECT * FROM users WHERE role.id = 3").then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No students found." })
+            return res.send({ success: false, msg: "No students found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
 
 export function getAllStudentsbyCohort(response, request) {
-    let name = [request.body.name]
-    pool.query("SELECT * FROM user JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_name = $1 AND role.id = 3 GROUP BY cohort_id ORDER BY cohort_id ASC"), name.then(res => {
+    let id = [request.params.id]
+    pool.query("SELECT * FROM user JOIN cohort_to_student ON user.id = cohort_to_student.user_id JOIN cohort ON cohort_to_student.cohort_id = cohort.id WHERE cohort_id = $1 AND role.id = 3"), id.then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No students found." })
+            return res.send({ success: false, msg: "No students found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
@@ -35,19 +35,20 @@ export function getAllStudentsbyCohort(response, request) {
 export function getAllInstructors(response, request) {
     pool.query("SELECT * FROM users WHERE role.id = 2").then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No instructors found." })
+            return res.send({ success: false, msg: "No instructors found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
 
 export function getAllInstructorsbyCohort(response, request) {
-    pool.query("SELECT id,name FROM user JOIN cohort ON user.id = cohort.instructor_id GROUP BY cohort_id ORDER BY cohort_id ASC").then(res => {
+    let id = [request.params.id]
+    pool.query("SELECT * FROM user JOIN cohort ON user.id = cohort.instructor_id WHERE cohort.id = $1"), id.then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No instructors found." })
+            return res.send({ success: false, msg: "No instructors found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
@@ -55,9 +56,9 @@ export function getAllInstructorsbyCohort(response, request) {
 export function getAllAdmin(response, request) {
     pool.query("SELECT * FROM users WHERE role.id = 1").then(res => {
         if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No admin found." })
+            return res.send({ success: false, msg: "No admin found." })
         }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+        else return res.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
         .catch(err => console.log(err))
 }
