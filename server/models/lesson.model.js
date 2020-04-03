@@ -21,8 +21,8 @@ export function getAllLessons(response, request) {
 
 export function updateLesson(response, request) {
     let now = new Date();
-    let change = [request.body.cohortid, request.body.topicid,request.body.title, request.body.week, request.body.day, now];
-    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5, last_edit = $6", change, (err, result, field) => {
+    let change = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, now, request.body.id];
+    pool.query("UPDATE lesson SET cohort_id = $1, topic_id = $2, lesson_title = $3, week_number = $4, day = $5, last_date = $6 WHERE id =$7", change, now, (err, result, field) => {
         if (err) return response.send({msg:"Error on query", err: err.stack})
         return response.send({ success: true, msg: "Lesson updated." })
     })

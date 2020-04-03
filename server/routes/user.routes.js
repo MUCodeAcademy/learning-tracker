@@ -7,6 +7,7 @@ router.get('/all', (req, res) =>{
 });
 
 router.get('/students', (req, res) =>{
+    
     Models.getAllStudents(res, req);
 });
 
@@ -30,8 +31,8 @@ router.delete('/remove/:id', (req, res) =>{
     Models.deleteUser(res, req)
 });
 
-router.post('/edit', (req, res) =>{
-    Models.editUser(req, res)
+router.put('/edit', (req, res) =>{
+    Models.editUser(res, req)
 });
 
 router.post('/userinfo', (req, res) =>{
