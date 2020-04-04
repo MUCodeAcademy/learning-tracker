@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 const app = express();
 const https = require("https");
 const fs = require("fs");
+import retention from './server/routes/retention.routes'
 import cohorts from './server/routes/cohort.routes'
 import questions from './server/routes/questions.routes'
 import users from './server/routes/user.routes'
@@ -14,6 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json())
 app.use(express.static(__dirname + "/dist"));
 
+app.use('/api/retention/', retention);
 app.use('/api/cohorts/', cohorts);
 app.use('/api/questions/', questions);
 app.use('/api/lessons/', lessons);
