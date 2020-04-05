@@ -1,0 +1,149 @@
+body {
+    font-family: "Lato", sans-serif;
+  }
+  .orangebutton{
+    padding: 12px 8px 12px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    background-color: #F58026;
+    color: white;
+    display: block;
+    border: none;
+    width: 100%;
+    height: 55px;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 20px;
+  }
+  
+  
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #D8D8D8;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  .dropdown-btn {
+    padding: 12px 8px 12px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+  .dropdown-btn:hover {
+    color: #f1f1f1;
+  }
+  
+  .active {
+    background-color: #B9B9B8;
+    color: white;
+  }
+  
+  .dropdown-container {
+    display: none;
+    padding-left: 16px;
+    color: #818181;
+    
+  }
+  
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  }
+  
+  .fa-plus-circle {
+    float: right;
+    padding-right: 8px;
+  }
+  
+  .fa-trash-alt {
+    float: right;
+    padding-right: 16px;
+  }
+  
+  .fa-comment {
+    float: right;
+    padding-right: 8px;
+  }
+  
+  .fa-pencil-alt {
+    float: right;
+    padding-right: 8px;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    font-size: 24px;
+    margin-left: 50px;
+  }
+  
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+  .infobox{
+    text-align: center;
+    line-height: 6px;
+    
+  }
+  .infoname{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .infotitle{
+    font-size: 16px;
+  }
+  .infoemail{
+    font-size: 16px;
+  }
+  
+  .image-cropper {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  .profile-pic {
+    display: inline;
+    margin: 0 auto;
+    margin-left: -25%;
+    height: 100%;
+    width: auto;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }

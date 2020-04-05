@@ -1,1 +1,62 @@
-<p>sidenav works!</p>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/c3e29cdb52.js" crossorigin="anonymous"></script>
+</head>   
+    
+    <body>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <button class="orangebutton">My Information
+          <i class="fas fa-pencil-alt"></i>
+          <i class="fas fa-comment"></i>
+        </button>
+        <div class="infobox">
+        <div class="image-cropper">
+          <img src="images/shannon.jpg" alt="avatar" class="profile-pic">
+        </div>
+        
+        <p class="infoname">Jane Smith</p>
+        <p class="infotitle">Midland University Admin</pclass="infoname">
+        <p class="infoemail">email address</p>
+      </div>
+      
+      <hr>
+      <button class="dropdown-btn">ADMIN 
+        <i class="fa fa-caret-down"></i>
+        <i class="fas fa-plus-circle"></i> 
+      </button>
+      <div class="dropdown-container">
+        <p>Admin 1<i class="fas fa-trash-alt"></i><i class="fas fa-comment"></i></p>
+      </div>
+      <hr>
+      <button class="dropdown-btn">INSTRUCTORS 
+        <i class="fa fa-caret-down"></i>
+        <i class="fas fa-plus-circle"></i> 
+      </button>
+      <div class="dropdown-container">
+        <p>Instructor 1<i class="fas fa-trash-alt"></i><i class="fas fa-comment"></i></p>
+      </div>
+      <hr>
+      <button class="dropdown-btn">COHORTS 
+        <i class="fa fa-caret-down"></i>
+        <i class="fas fa-plus-circle"></i> 
+      </button>
+      <div class="dropdown-container">
+        <p>Cohort 1<i class="fas fa-trash-alt"></i><i class="fas fa-comment"></i></p>
+      </div>
+      <hr>
+      <button class="dropdown-btn">STUDENTS 
+        <i class="fa fa-caret-down"></i>
+        <i class="fas fa-plus-circle"></i> 
+      </button>
+      <div class="dropdown-container">
+        <p>Student 1<i class="fas fa-trash-alt"></i><i class="fas fa-comment"></i></p>
+      </div>
+    
+    </div>
+    
+    <div id="main">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    </div>
