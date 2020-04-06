@@ -79,4 +79,8 @@ deleteRetention(topicid){
   })
 }
 
+clearRetentions(){
+  this.store.dispatch(Actions.clearRetention())
+}
+
 }
