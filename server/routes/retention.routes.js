@@ -18,7 +18,7 @@ router.get('/cohort/:id', (req, res) => {
     Models.getAllRetentionByCohort(res, req);
 });
 
-router.post('/topic/', (req, res) => {
+router.post('/topic', (req, res) => {
     Models.getAllRetentionByTopic(res, req);
 });
 
