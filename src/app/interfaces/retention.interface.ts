@@ -1,5 +1,5 @@
 export interface Retention {
-    i?: string,
+    id?: string,
     user_id?: string,
     lesson_id?: string,
     topic_id?: string,
