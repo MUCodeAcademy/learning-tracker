@@ -4,7 +4,7 @@ import { User } from 'src/app/interfaces/User.interface';
 
 export interface UserState {
     currentuser: {
-        role: string,
+        role_id: string,
         first_name: string,
         last_name: string,
         id: string,
@@ -16,7 +16,7 @@ export interface UserState {
 export const initialUserState: UserState = {
     userList: [],
     currentuser: {
-        role: '4',
+        role_id: '4',
         first_name: '',
         last_name: '',
         id: '',
