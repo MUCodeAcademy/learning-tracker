@@ -5,6 +5,8 @@ import * as Actions from '../store/actions'
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../interfaces/User.interface'
+import { Auth0User } from '../interfaces/Auth0User.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,21 @@ export class UserService {
 
     setUserData(){
       this.user$ = this.auth.getUser$()
-      this.user$.subscribe(auth=>{
+      this.user$.subscribe((auth: Auth0User)=>{
         console.log("AUTH0:", auth);
-        this.store.dispatch(Actions.setUserEmail({userEmail: auth["email"]}))
-        this.http.post('/api/users/userinfo', auth).subscribe(data=>{console.log(data)
-        })});
+        let authfirst: string = auth.given_name
+        let authlast: string = auth.family_name
+        let ouruser: User
+        this.store.dispatch(Actions.setUserEmail({email: auth["email"]}))
+        this.http.post('/api/users/userinfo', auth).subscribe((data: User)=>{
+          this.store.dispatch(Actions.setUserInfo({user: data}))
+          ouruser = data
+        })
+        if (ouruser.first != authfirst || ouruser.last != authlast) {
+          this.http.post('/api/users/edit', auth).subscribe(res=>{
+            console.log("DB updated w/ new google data.")
+          })
+        }
+        });
     }
 }
