@@ -28,6 +28,9 @@ export class UserService {
       this.store.dispatch(Actions.setUserEmail({ email: auth["email"] }))
       this.http.post('/api/users/userinfo', auth).subscribe((response: APIResponse) => {
         let data: User = response.data
+        data.email = data["email_address"]
+        data.role = data["role_id"]
+        console.log(data)
         this.store.dispatch(Actions.setUserInfo({ user: data }))
         if (data.first_name != authfirst || data.last_name != authlast) {
           let fixed:User = {...data, first_name: auth.given_name, last_name: auth.family_name}
