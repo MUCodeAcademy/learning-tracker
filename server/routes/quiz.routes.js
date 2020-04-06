@@ -33,7 +33,7 @@ router.get("/cohort/:cohort", (req, res) => {
 // All Quizzes
 
 router.get("/all", (req, res) => {
-  Quiz.find(),
+  Quiz.find({},
     function(err, docs) {
       if (err) {
         return res.send({
@@ -41,8 +41,9 @@ router.get("/all", (req, res) => {
           msg: "Something went wrong, please try again later."
         });
       }
-    };
+    
   return res.send({ success: true, data: docs });
+    })
 });
 
 // Create Quiz
