@@ -8,6 +8,9 @@ export function addNewQuestion(response, request){
         } 
         else return response.send({ success: true, msg: "Question Added." })
      } )
+     .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function editQuestion(response, request){
@@ -16,6 +19,9 @@ export function editQuestion(response, request){
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
         return response.send({ success: true, msg: "Question deleted." })
     })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function deleteQuestion(response, request){
@@ -24,6 +30,9 @@ export function deleteQuestion(response, request){
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
         return response.send({ success: true, msg: "Question deleted." })
     })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getQuestionsByLesson(response, request){
@@ -34,7 +43,9 @@ export function getQuestionsByLesson(response, request){
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getQuestionsByCohort(response, request){
@@ -45,7 +56,9 @@ export function getQuestionsByCohort(response, request){
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getQuestionsByTopic(response, request){
@@ -56,7 +69,9 @@ export function getQuestionsByTopic(response, request){
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getQuestionsByStudent(response, request){
@@ -67,7 +82,9 @@ export function getQuestionsByStudent(response, request){
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllQuestions(response, request){
@@ -77,6 +94,9 @@ export function getAllQuestions(response, request){
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getQuestionsbyCohort(response, request){
