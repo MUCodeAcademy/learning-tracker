@@ -65,10 +65,9 @@ export class AuthService {
         })));
   }
   handleAuthCallback(): Observable<{ loggedIn: boolean, targetUrl: string }> {
-    console.log(window.location.search);
-
     return of(window.location.search).pipe(
       concatMap(params => {
+        if (params.includes('error=')) {this.router.navigate(['/unauthorized'])}
         return iif(() => params.includes('code=') && params.includes('state='),
           this.handleRedirectCallback$.pipe(concatMap(cbRes =>
             this.isAuthenticated$.pipe(take(1),
@@ -88,32 +87,4 @@ export class AuthService {
       });
     });
   }
-
-  handleAuthFail(stateUrl: string): Observable<void> {
-    console.log("handleauthfail stateurl", stateUrl)
-    let rejectemail$ = this.store.select(Selectors.getUserEmail)
-    rejectemail$.subscribe(rejectemail => {
-      console.log("handleauthfail rejectemail", rejectemail)
-      let domain = rejectemail.split("@")[1]
-      console.log("handleauthfail domain", domain)
-      if (domain.length > 0 && domain != 'midlandu.edu') {
-        console.log("IF statement firing, should go to unauth")
-        this.router.navigate(['/unauthorized'])
-        return
-      }
-      else {
-        console.log("ELSE statement firing, goes to login")
-        // this.login(stateUrl);
-        return
-      }
-    })
-    return
-  }
-
-
-
-
-
-
-
 }

@@ -16,23 +16,21 @@ export class UserService {
 
   constructor(private store: Store<RootState>, private auth: AuthService, private http: HttpClient) { }
 
-    setUserData(){
-      this.user$ = this.auth.getUser$()
-      this.user$.subscribe((auth: Auth0User)=>{
-        console.log("AUTH0:", auth);
-        let authfirst: string = auth.given_name
-        let authlast: string = auth.family_name
-        let ouruser: User
-        this.store.dispatch(Actions.setUserEmail({email: auth["email"]}))
-        this.http.post('/api/users/userinfo', auth).subscribe((data: User)=>{
-          this.store.dispatch(Actions.setUserInfo({user: data}))
-          ouruser = data
-        })
-        if (ouruser.first != authfirst || ouruser.last != authlast) {
-          this.http.post('/api/users/edit', auth).subscribe(res=>{
+  setUserData() {
+    this.user$ = this.auth.getUser$()
+    this.user$.subscribe((auth: Auth0User) => {
+      console.log("AUTH0:", auth);
+      let authfirst: string = auth.given_name
+      let authlast: string = auth.family_name
+      this.store.dispatch(Actions.setUserEmail({ email: auth["email"] }))
+      this.http.post('/api/users/userinfo', auth).subscribe((data: User) => {
+        this.store.dispatch(Actions.setUserInfo({ user: data }))
+        if (data.first != authfirst || data.last != authlast) {
+          this.http.put('/api/users/edit', auth).subscribe(res => {
             console.log("DB updated w/ new google data.")
           })
         }
-        });
-    }
+      })
+    });
+  }
 }
