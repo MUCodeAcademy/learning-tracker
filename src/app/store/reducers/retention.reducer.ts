@@ -12,7 +12,7 @@ export const initialRetentionState: RetentionState = {
 }
 
 const reducer = createReducer(initialRetentionState,
-    on(retentionActions.getRetentions, (state, {retentions}) => ({...state, id: retentions.id, user_id: retentions.user_id, lesson_id: retentions.lesson_id, topic_id: retentions.topic_id, instructor_id: retentions.instructor_id, student_retention_rating: retentions.student_retention_rating, teacher_retention_rating: retentions.teacher_retention_rating })),
+    on(retentionActions.getRetentions, (state, {retentions}) => ({...state, retentions: retentions })),
     on(retentionActions.clearRetention, (state) => ({...initialRetentionState}))
     )
 
