@@ -8,15 +8,7 @@ export interface LessonState {
 }
 
 export const initialLessonState: LessonState = {
-    lessons:{
-    id: '',
-    cohort_id: '',
-    topic_id: '',
-    lesson_title: '',
-    week_number: 0,
-    day: '',
-    last_edit: ''
-    }
+    lessons: []
 }
 
 const reducer = createReducer(initialLessonState,
