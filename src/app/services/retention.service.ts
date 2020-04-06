@@ -20,28 +20,63 @@ getAllRetentions(){
   })
 }
 
-addRetention(userid, lessonid, topicid, instructorid, studentrating, teacherrating){
-  return this.http.post('/api/retention/new', { userid: userid, lessonid: lessonid, topicid: topicid, instructorid: instructorid, studentrating: studentrating, teacherrating: teacherrating })
+addRetention(newRetention: Retention){
+  return this.http.post('/api/retention/new', newRetention).subscribe((res: APIResponse) => {
+    if (res.success) {
+      this.getAllRetentions()
+    }
+    else console.log("Error activating user, feedback to UI here.")
+  })
 }
 
 retentionByStudent(userid){
-  return this.http.get(`/api/retention/student/:${userid}`)
+  return this.http.get(`/api/retention/student/:${userid}`).subscribe((res: APIResponse) =>{
+    let data: Retention [] = res.data
+    this.store.dispatch(Actions.getRetentions({retentions: data}))
+  })
 }
 
 retentionByCohort(cohortid){
-  return this.http.get(`/api/retention/cohort/:${cohortid}`)
+  return this.http.get(`/api/retention/cohort/:${cohortid}`).subscribe((res: APIResponse) =>{
+    let data: Retention [] = res.data
+    this.store.dispatch(Actions.getRetentions({retentions: data}))
+  })
 }
 
 retentionByTopic(topicid, cohortid){
-  return this.http.post('/api/retention/topic', {topicid: topicid, cohortid: cohortid})
+  let topic = {
+    topicid: topicid,
+    cohortid: cohortid
+  }
+  return this.http.post('/api/retention/topic', topic).subscribe((res: APIResponse) => {
+    if (res.success) {
+      this.getAllRetentions()
+    }
+    else console.log("Error activating user, feedback to UI here.")
+  })
 }
 
 updateRetention(studentrating, teacherrating, topicid){
-  return this.http.put('/api/retention/update', { studentrating: studentrating, teacherrating: teacherrating, id: topicid })
+  let update = {
+    studentrating: studentrating,
+    teacherrating: teacherrating,
+    topicid: topicid
+  }
+  return this.http.put('/api/retention/update', update).subscribe((res: APIResponse) => {
+    if (res.success) {
+      this.getAllRetentions()
+    }
+    else console.log("Error activating user, feedback to UI here.")
+  })
 }
 
 deleteRetention(topicid){
-  return this.http.delete(`/api/retention/delete/:${topicid}`)
+  return this.http.delete(`/api/retention/delete/:${topicid}`).subscribe((res: APIResponse) => {
+    if (res.success) {
+      this.getAllRetentions()
+    }
+    else console.log("Error activating user, feedback to UI here.")
+  })
 }
 
 }
