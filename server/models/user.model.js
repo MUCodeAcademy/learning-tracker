@@ -72,7 +72,6 @@ export function deleteUser(response, request) {
 
 export function editUser(response, request) {
     console.log(request.body);
-    
     let user =  [request.body.email, request.body.first, request.body.last, request.body.roleId, request.body.id]
     pool.query("UPDATE public.user SET email_address = $1, first_name = $2, last_name = $3, role_id = $4 WHERE user.id = $5", user, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
