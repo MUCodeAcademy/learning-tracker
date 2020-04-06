@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { APIResponse } from '../interfaces/APIResponse.interface';
+import { Retention } from '../interfaces/retention.interface';
+import { Store } from '@ngrx/store';
+import { RootState } from '../store';
+import * as Actions from '../store/actions'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RetentionService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<RootState>) { }
 
 getAllRetentions(){
-  return this.http.get('/api/retention/all')
+  return this.http.get('/api/retention/all').subscribe((res: APIResponse) =>{
+    let data: Retention[] = res.data
+    this.store.dispatch(Actions.getRetentions({retentions: data}))
+  })
 }
 
 addRetention(userid, lessonid, topicid, instructorid, studentrating, teacherrating){
