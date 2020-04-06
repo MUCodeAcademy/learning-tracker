@@ -48,32 +48,30 @@ router.get("/all", (req, res) => {
 // Create Quiz
 
 router.post("/add", (req, res) => {
-  Quiz.insertOne({
-    quizName: "Javascript",
-    quizWeek: "Week 2",
-    cohort: "3",
-    questions: [
-      {
-        Q: "",
-        A: "",
-        Choices: ["", "", "", ""],
-        code: ""
-      }
-    ],
-    if(err) {
-      return res.send({
-        success: false,
-        msg: "Something went wrong, please try again later."
-      });
+  Quiz.create(
+    {
+      quizName: req.body.quizName,
+      quizWeek: req.body.quizWeek,
+      cohort: req.body.cohort,
+      questions: req.body.questions
     },
-    return: res.send({ success: true, data: docs })
-  });
+    function(err, docs) {
+      if (err) {
+        return res.send({
+          success: false,
+          msg: "Something went wrong, please try again later."
+        });
+      }
+      return res.send({ success: true, data: docs });
+    }
+  );
 });
+
 // Edit Quiz
 
 router.put("/edit", (req, res) => {
   // Quiz.findByIdAndUpdate()
-  Quiz.findByIdAndUpdate(req.params.id, function(err, quiz) {
+  Quiz.findByIdAndUpdate(req.params.id, req.body, function(err, quiz) {
     if (err) {
       return res.send({
         success: false,

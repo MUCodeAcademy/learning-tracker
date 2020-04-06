@@ -2,12 +2,12 @@ const { Pool, Client } = require("pg");
 
 const client = new Client({
   connectionString: process.env.POSTGRES_URL,
-  ssl: {rejectUnauthorized: false}
+  ssl: { rejectUnauthorized: false }
 });
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-  ssl: {rejectUnauthorized: false}
+  ssl: { rejectUnauthorized: false }
 });
 
 pool.connect((err, client, done) => {
