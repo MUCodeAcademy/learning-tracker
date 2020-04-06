@@ -12,5 +12,5 @@ export const reducers: ActionReducerMap<RootState> = {
   user: Reducers.userReducer,
   lessons: Reducers.lessonReducer,
   retentions: Reducers.retentionReducer,
-  instructorQuestions: Reducers.instructorQuestionReducer
+  instructorQuestions: Reducers.instructorQuestionReducer,
 };
