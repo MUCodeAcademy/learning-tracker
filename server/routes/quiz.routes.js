@@ -93,7 +93,7 @@ router.delete("/delete/:id", (req, res) => {
         msg: "Something went, wrong please try again later."
       });
     }
-    return res.send({ success: true, data, docs });
+    return res.send({ success: true, data: quiz });
   });
 });
 
