@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   user: User = {
     first_name: "",
     last_name: "",
-    role: "4",
+    role_id: "4",
     id: "",
     email: ""
   }
