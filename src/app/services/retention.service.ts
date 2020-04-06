@@ -15,7 +15,7 @@ export class RetentionService {
 
 getAllRetentions(){
   return this.http.get('/api/retention/all').subscribe((res: APIResponse) =>{
-    let data: Retention[] = res.data
+    let data: Retention [] = res.data
     this.store.dispatch(Actions.getRetentions({retentions: data}))
   })
 }
