@@ -26,7 +26,8 @@ export class UserService {
       this.http.post('/api/users/userinfo', auth).subscribe((data: User) => {
         this.store.dispatch(Actions.setUserInfo({ user: data }))
         if (data.first != authfirst || data.last != authlast) {
-          this.http.put('/api/users/edit', auth).subscribe(res => {
+          let fixed:User = {...data, first: auth.given_name, last: auth.family_name}
+          this.http.put('/api/users/edit', fixed).subscribe(res => {
             console.log("DB updated w/ new google data.")
           })
         }
