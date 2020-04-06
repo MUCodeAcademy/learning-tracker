@@ -7,9 +7,6 @@ export function postLesson(response, request) {
         if (err) return response.send({msg:"Error on query", err: err.stack})
         return response.send({ success: true, msg: "Created New Lesson" })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function getAllLessons(response, request) {
@@ -31,9 +28,6 @@ export function updateLesson(response, request) {
         if (err) return response.send({msg:"Error on query", err: err.stack})
         return response.send({ success: true, msg: "Lesson updated." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function deleteLesson(response, request){
@@ -42,7 +36,4 @@ export function deleteLesson(response, request){
         if (err) return response.send({msg:"Error on query", err: err.stack})
         return response.send({ success: true, msg: "Lesson deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
