@@ -23,8 +23,12 @@ export class UserService {
       let authfirst: string = auth.given_name
       let authlast: string = auth.family_name
       this.store.dispatch(Actions.setUserEmail({ email: auth["email"] }))
-      this.http.post('/api/users/userinfo', auth).subscribe((data: User) => {
+      this.http.post('/api/users/userinfo', auth).subscribe(response => {
+        let data: User = response["data"]
         this.store.dispatch(Actions.setUserInfo({ user: data }))
+        console.log(data)
+        console.log(data.first, authfirst)
+        console.log(data.last, authlast)
         if (data.first != authfirst || data.last != authlast) {
           let fixed:User = {...data, first: auth.given_name, last: auth.family_name}
           this.http.put('/api/users/edit', fixed).subscribe(res => {
