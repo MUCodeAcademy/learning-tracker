@@ -11,9 +11,6 @@ export function getAllTopics(response, request) {
         .catch(err => {console.log(err)
         response.send({success: false, msg: "An error occurred."})
         })
-        .catch(err => {console.log(err)
-            response.send({success: false, msg: "An error occurred."})
-            })
 }
 
 export function deleteTopic(response, request) {
@@ -22,9 +19,6 @@ export function deleteTopic(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Topic deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function addTopic(response, request) {
@@ -33,9 +27,6 @@ export function addTopic(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Topic added." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 

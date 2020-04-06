@@ -7,9 +7,6 @@ export function newNote(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Note" })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function getAllNotes(response, request) {
@@ -69,9 +66,6 @@ export function updateNote(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Updated Note" })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function deleteNote(response, request) {
@@ -80,7 +74,4 @@ export function deleteNote(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Note deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }

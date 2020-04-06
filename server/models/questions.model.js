@@ -8,9 +8,6 @@ export function addNewQuestion(response, request){
         } 
         else return response.send({ success: true, msg: "Question Added." })
      } )
-     .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function editQuestion(response, request){
@@ -19,9 +16,6 @@ export function editQuestion(response, request){
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
         return response.send({ success: true, msg: "Question deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function deleteQuestion(response, request){
@@ -30,9 +24,6 @@ export function deleteQuestion(response, request){
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
         return response.send({ success: true, msg: "Question deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function getQuestionsByLesson(response, request){
