@@ -17,11 +17,11 @@ addRetention(userid, lessonid, topicid, instructorid, studentrating, teacherrati
 }
 
 retentionByStudent(userid){
-  return this.http.get('/api/retention/student/:id', { id: userid })
+  return this.http.get(`/api/retention/student/:${userid}`)
 }
 
 retentionByCohort(cohortid){
-  return this.http.get('/api/retention/cohort/:id', { id: cohortid })
+  return this.http.get(`/api/retention/cohort/:${cohortid}`)
 }
 
 retentionByTopic(topicid, cohortid){
@@ -33,7 +33,7 @@ updateRetention(studentrating, teacherrating, topicid){
 }
 
 deleteRetention(topicid){
-  return this.http.delete('/api/retention/delete/:id', { id: topicid })
+  return this.http.delete(`/api/retention/delete/:${topicid}`)
 }
 
 }
