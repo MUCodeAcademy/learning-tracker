@@ -7,7 +7,9 @@ export function getAllUsers(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllStudents(response, request) {
@@ -17,7 +19,9 @@ export function getAllStudents(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllStudentsbyCohort(response, request) {
@@ -28,7 +32,9 @@ export function getAllStudentsbyCohort(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllInstructors(response, request) {
@@ -38,7 +44,9 @@ export function getAllInstructors(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+    response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllInstructorsbyCohort(response, request) {
@@ -49,7 +57,9 @@ export function getAllInstructorsbyCohort(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllAdmin(response, request) {
@@ -59,7 +69,9 @@ export function getAllAdmin(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function deleteUser(response, request) {
@@ -68,6 +80,9 @@ export function deleteUser(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User deleted." })
     })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function editUser(response, request) {
@@ -77,6 +92,9 @@ export function editUser(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User updated." })
     })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getUserInfo(response, request) {
@@ -95,9 +113,13 @@ export function getUserInfo(response, request) {
                 return response.send({ success: true, msg: "Data retrieved.", data: user.rows[0] })
             
             })    
-            .catch(err => console.log(err))
+            .catch(err => {console.log(err)
+                response.send({success: false, msg: "An error occurred."})
+                })
        })
-       .catch(err=>console.log(err))
+       .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
     })
 }
 
@@ -106,6 +128,8 @@ export function activateUser(response, request) {
     pool.query("SELECT data FROM user_activate($1, $2)", data).then(res => {
         return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
     })
-        .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
