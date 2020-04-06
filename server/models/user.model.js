@@ -81,24 +81,24 @@ export function editUser(response, request) {
 }
 
 export function getUserInfo(response, request) {
+    console.log("FROM ANGULAR:", request.body)
     let email = [request.body.email]
-    let user = [request.body.email, request.body.first, request.body.last]
+    let user = [request.body.email, request.body.given_name, request.body.family_name]
     pool.query('SELECT * FROM public.user WHERE public.user.email_address = $1', email).then(res => {
         if (res.rows.length > 0) {
             return response.send({ success: true, msg: "Success", data: res.rows[0] })
         }
-    
-        pool.query("INSERT INTO public.user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, 4)", user).then(res => {
-            if (err) {
-                return response.send({ success: false, err: err });
+        else pool.query("INSERT INTO public.user (id, email_address, first_name, last_name, role_id) VALUES (DEFAULT, $1, $2, $3, 4)", user).then(resp => {
+            if (resp.err) {
+                return response.send({ success: false, err: resp.err });
             }
-        
-            pool.query("SELECT * FROM public.user WHERE public.user.email_address = $1", email).then(res => {
-                return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
+            pool.query("SELECT * FROM public.user WHERE public.user.email_address = $1", email).then(user => {
+                return response.send({ success: true, msg: "Data retrieved.", data: user.rows[0] })
             
             })    
             .catch(err => console.log(err))
        })
+       .catch(err=>console.log(err))
     })
 }
 

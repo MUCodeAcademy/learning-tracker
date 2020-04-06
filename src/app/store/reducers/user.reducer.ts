@@ -13,7 +13,7 @@ export const initialUserState: UserState = {
 
 const reducer = createReducer(
     initialUserState,
-    on(userActions.setUser, (state, {userEmail, userRole})=> ({...state, userEmail: userEmail, userRole: userRole})),
+    on(userActions.setUserEmail, (state, {userEmail})=> ({...state, userEmail: userEmail })),
     on(userActions.clearUser, (state)=> ({...initialUserState}))
 );
 

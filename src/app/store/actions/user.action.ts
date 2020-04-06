@@ -1,4 +1,4 @@
 import {createAction, props} from '@ngrx/store'
 
-export const setUser = createAction('[USER STATE] Set User', props<{userEmail: string, userRole: string}>())
+export const setUserEmail = createAction('[USER STATE] Set User Email', props<{userEmail: string}>())
 export const clearUser = createAction('[USER STATE] Clear User')
