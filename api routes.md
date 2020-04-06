@@ -8,9 +8,9 @@ All routes are organized as follows: '/api/category/details/maybemoredetails/'. 
 * POST `'/api/cohort/new'` - creates a new cohort.  Requires name:(cohort name), instructorid:(instructor's user id)
 * POST `'/api/cohort/assign'` - Assigns a student to a cohort.  Requires a cohortid:(id of cohort to be assigned), studentid:(username of student being assigned)
 * PUT `'/api/cohort/update'` - updates a cohort.  Requires name:(cohort name), instructorid:(instructor's user id), and id: (cohort_id of the cohort to be updated)
-* PUT `'/api/cohort/change'` - Changes a student's cohort.  Requires new cohortid & studentid, as well as the id of the entry on this table.  
+* PUT `'/api/cohort/change'` - Changes a student's cohort.  Requires new cohortid & studentid, as well as the id of the entry on the cohort_to_student table.  
 * DELETE `'/api/cohort/delete/:id'` - deletes a cohort w/ cohort_id = to the id in the route. eg api/cohort/delete/3 deletes cohort with cohort_id 3.
-* DELETE `'/api/cohort/remove/:id'` - removes a student from a cohort.  The ID is -the ID of the entry on the table you want to delete-, not the student or the cohort.
+* DELETE `'/api/cohort/remove/:id'` - removes a student from a cohort.  The ID is -the ID of the entry on the cohort_to_student table-, not the student or the cohort.
 
 #### Users Routes
 
@@ -25,7 +25,7 @@ All routes are organized as follows: '/api/category/details/maybemoredetails/'. 
 * POST `'/api/users/activate'` - Used to activate a new user as a student and assign a cohort.  Requires a userid and a cohortid.   
 * DELETE `'/api/users/remove/:id'` - deletes a user w/ user_id equal to the id.
 
-#### QUESTIONS
+#### Questions Routes
 
 * GET `'/api/questions/all'` - gets ALL questions
 * GET `'/api/questions/student/:id'` - gets all questions for the student with a user_id equal to the id
@@ -48,7 +48,17 @@ All routes are organized as follows: '/api/category/details/maybemoredetails/'. 
 
 #### Lessons Routes
 
-GET `'/api/lessons/all'` - gets all lessons
-POST `'/api/lessons/new'` - creates a new lesson.   Requires cohortid, topicid, title, week, and day
-PUT `'/api/lessons/edit'` - updates a lesson.  Requires cohortid, topicid, title, week, day, and the id of the lesson.
-DELETE `'/api/lessons/delete/:id'` - deletes lesson with a given id
+* GET `'/api/lessons/all'` - gets all lessons
+* POST `'/api/lessons/new'` - creates a new lesson.   Requires cohortid, topicid, title, week, and day
+* PUT `'/api/lessons/edit'` - updates a lesson.  Requires cohortid, topicid, title, week, day, and the id of the lesson.
+* DELETE `'/api/lessons/delete/:id'` - deletes lesson with a given id
+
+#### Retention Routes
+
+* GET `'/api/retention/all'` - gets ALL student retention ratings
+* GET `'/api/retention/student/:id'` - get all retention ratings for a given student
+* GET `'/api/retention/cohort/:id'` - get all retention ratings for all students in a given cohort
+* POST `'/api/retention/new'` - creates a new retention entry.  requires userid(of the student), lessonid, topicid, instructorid, studentrating and teacherrating
+* POST `'/api/retention/topic/'` - get retention ratings by topic.   Requires a cohortid and a topicid.
+* PUT `'/api/retention/update'` - updates a retention rating.  Requires the retention record id, userid, lessonid, topicid, instructorid,studentrating, and teacherrating
+* DELETE `'/api/retention/delete/:id'` - deletes a rating with the given record id
