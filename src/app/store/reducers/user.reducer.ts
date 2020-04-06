@@ -2,18 +2,24 @@ import * as userActions from '../actions/user.action'
 import { createReducer, on, Action } from '@ngrx/store';
 
 export interface UserState {
-    userEmail: string
-    userRole: string
+    userEmail: string,
+    userRole: string,
+    userFirst: string,
+    userLast: string,
+    userId: string
 };
 
 export const initialUserState: UserState = {
     userEmail: '',
-    userRole: ''
+    userRole: '4',
+    userFirst: '',
+    userLast: '',
+    userId: '',
 };
 
-const reducer = createReducer(
-    initialUserState,
-    on(userActions.setUser, (state, {userEmail, userRole})=> ({...state, userEmail: userEmail, userRole: userRole})),
+const reducer = createReducer(initialUserState,
+    on(userActions.setUserEmail, (state, {email})=> ({...state, userEmail: email })),
+    on(userActions.setUserInfo, (state, {user}) => ({...state, userRole: user.role, userFirst: user.first, userLast: user.last, userId: user.id, userEmail: user.email})),
     on(userActions.clearUser, (state)=> ({...initialUserState}))
 );
 
