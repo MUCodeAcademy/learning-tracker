@@ -25,7 +25,10 @@ export class UserService {
     this.user$.subscribe((auth: Auth0User) => {
       let authfirst: string = auth.given_name
       let authlast: string = auth.family_name
-      this.store.dispatch(Actions.setUserEmail({ email: auth["email"] }))
+      let authuser = {
+        email: auth.email
+      }
+      this.store.dispatch(Actions.setUserInfo({ user: authuser }))
       this.http.post('/api/users/userinfo', auth).subscribe((response: APIResponse) => {
         let data: User = response.data
         data.email = data["email_address"]
@@ -63,7 +66,9 @@ export class UserService {
   }
 
   updateUserRole(user: User) {
-    this.http.post('/api/users/edit', user).subscribe((res: APIResponse) => {
+
+    console.log(user)
+    this.http.put('/api/users/edit', user).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllUsers()
       }

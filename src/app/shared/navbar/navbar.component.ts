@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
   }
 
   constructor(public auth: AuthService, private store: Store<RootState>, private usersvc: UserService) {
-    this.user$ = this.store.select(Selectors.getUser)
+    this.user$ = this.store.select(Selectors.getUserInfo)
    }
 
   logout(){
