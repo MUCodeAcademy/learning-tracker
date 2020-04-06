@@ -1,4 +1,6 @@
-import {createAction, props} from '@ngrx/store'
+import {createAction, props} from '@ngrx/store';
+import { User } from '../../interfaces/User.interface'
 
-export const setUser = createAction('[USER STATE] Set User', props<{userEmail: string, userRole: string}>())
+export const setUserEmail = createAction('[USER STATE] Set User Email', props<{email: string}>())
+export const setUserInfo = createAction('USER STATE] Set User Info', props<{user: User}>())
 export const clearUser = createAction('[USER STATE] Clear User')

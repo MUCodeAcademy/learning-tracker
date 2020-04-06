@@ -2,11 +2,12 @@ import express from "express";
 const router = express.Router();
 import * as Models from '../models/user.model'
 
-router.get('/users', (req, res) =>{
+router.get('/all', (req, res) =>{
     Models.getAllUsers(res, req);
 });
 
 router.get('/students', (req, res) =>{
+    
     Models.getAllStudents(res, req);
 });
 
@@ -30,15 +31,15 @@ router.delete('/remove/:id', (req, res) =>{
     Models.deleteUser(res, req)
 });
 
-router.post('/edit', (req, res) =>{
-    Models.editUser(req, res)
+router.put('/edit', (req, res) =>{
+    Models.editUser(res, req)
 });
 
-router.get('/userinfo', (req, res) =>{
+router.post('/userinfo', (req, res) =>{
     Models.getUserInfo(res, req)
 });
 
-router.get('/activate', (req, res) =>{
+router.post('/activate', (req, res) =>{
     Models.activateUser(res, req)
 });
 

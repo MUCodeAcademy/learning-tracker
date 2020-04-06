@@ -1,4 +1,4 @@
-import { client, pool } from '../config/postgres.conf'
+import { pool } from '../config/postgres.conf'
 
 
 export function newNote(response, request) {
@@ -20,19 +20,8 @@ export function getAllNotes(response, request) {
 }
 
 export function getAllNotesByStudent(response, request) {
-    let student_id = [request.body.student_id]
-    pool.query("SELECT * FROM notes WHERE student_id = $1", student_id).then(res => {
-        if (res.rows.length === 0) {
-            return response.send({ success: false, msg: "No notes found." })
-        }
-        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
-    })
-    .catch(err => console.log(err))
-}
-
-export function getAllNotesByTopic(response, request) {
-    let topic_id = [req.body.topic_id]
-    pool.query("SELECT * FROM notes WHERE topic_id = $1", topic_id).then(res => {
+    let student_id = [request.params.id]
+    pool.query("SELECT * FROM note WHERE user_id = $1", student_id).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No notes found." })
         }
@@ -42,8 +31,19 @@ export function getAllNotesByTopic(response, request) {
 }
 
 export function getAllNotesByCohort(response, request) {
-    let cohort_id = [req.body.cohort_id]
-    pool.query("SELECT * FROM notes WHERE cohort_id = $1", cohort_id).then(res => {
+    let id = [request.params.id]
+    pool.query("SELECT data FROM note_get_all_by_cohort_id($1)", id).then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No notes found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+    .catch(err => console.log(err))
+}
+
+export function getAllNotesByTopic(response, request) {
+    let cohort_id = [request.body.topicid, request.body.cohortid]
+    pool.query("SELECT data FROM note_get_all_by_topic_id($1,$2)", cohort_id).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No notes found." })
         }
@@ -61,8 +61,8 @@ export function updateNote(response, request) {
 }
 
 export function deleteNote(response, request) {
-    let id = [request.body.id];
-    pool.query("DELETE FROM notes WHERE notes.id = $1", id, (err, result, field) => {
+    let id = [request.params.id];
+    pool.query("DELETE FROM note WHERE note.id = $1", id, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Note deleted." })
     })

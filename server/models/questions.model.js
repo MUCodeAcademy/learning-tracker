@@ -1,4 +1,4 @@
-import {client, pool } from '../config/postgres.conf'
+import { pool } from '../config/postgres.conf'
 
 export function addNewQuestion(response, request){
     let data = [request.body.studentid, request.body.instructorid, request.body.lessonid, request.body.text, request.body.answer]
@@ -26,9 +26,31 @@ export function deleteQuestion(response, request){
     })
 }
 
-export function getQuestionsByLessonTopic(response, request){
+export function getQuestionsByLesson(response, request){
     let data = [request.params.id]
     pool.query("SELECT * FROM question WHERE question.lesson_id = $1", data).then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No ratings found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+        .catch(err => console.log(err))
+}
+
+export function getQuestionsByCohort(response, request){
+    let data = [request.params.id]
+    pool.query("SELECT data FROM question_get_all_by_cohort_id($1)", data).then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No ratings found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+        .catch(err => console.log(err))
+}
+
+export function getQuestionsByTopic(response, request){
+    let data = [request.body.topicid, request.body.cohortid]
+    pool.query("SELECT data FROM question_get_all_by_topic_id($1,$2)", data).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No ratings found." })
         }
