@@ -27,10 +27,10 @@ export class UserService {
         let data: User = response["data"]
         this.store.dispatch(Actions.setUserInfo({ user: data }))
         console.log(data)
-        console.log(data.first, authfirst)
-        console.log(data.last, authlast)
-        if (data.first != authfirst || data.last != authlast) {
-          let fixed:User = {...data, first: auth.given_name, last: auth.family_name}
+        console.log(data.first_name, authfirst)
+        console.log(data.last_name, authlast)
+        if (data.first_name != authfirst || data.last_name != authlast) {
+          let fixed:User = {...data, first_name: auth.given_name, last_name: auth.family_name}
           this.http.put('/api/users/edit', fixed).subscribe(res => {
             console.log("DB updated w/ new google data.")
           })
