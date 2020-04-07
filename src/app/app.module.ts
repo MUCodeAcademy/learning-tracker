@@ -15,6 +15,7 @@ import { reducers } from './store';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InstructorQuestionComponent } from './instructor-question/instructor-question.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     QuizLandingComponent,
     LessonLandingComponent,
     UnauthorizedComponent,
-    ErrorComponent
+    ErrorComponent,
+    InstructorQuestionComponent
   ],
   imports: [
     BrowserModule,
