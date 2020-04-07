@@ -5,4 +5,6 @@ export interface Note {
     lesson_id?: string,
     cohort_id?: string,
     instructor_id?: string,
+    note_text?: string,
+    note_read?: string,
 }
