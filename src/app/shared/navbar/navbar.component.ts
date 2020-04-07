@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
     last_name: "",
     role_id: "4",
     id: "",
-    email: ""
+    email_address: ""
   }
 
   constructor(public auth: AuthService, private store: Store<RootState>, private usersvc: UserService) {
