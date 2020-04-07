@@ -1,19 +1,19 @@
 
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Custom Toolbar</span>
-    </mat-toolbar-row>
-  
-    <mat-toolbar-row>
-      <span>Second Line</span>
+    <mat-toolbar-row class="top-bar">
+      <span><img class="image"  src="/assets/icons/midland_white.png"></span>
       <span class="example-spacer"></span>
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon>
+      <span class="title">LEARNING TRACKER</span>
     </mat-toolbar-row>
-  
-    <mat-toolbar-row>
-      <span>Third Line</span>
+  </mat-toolbar>
+  <mat-toolbar color="accent">
+    <mat-toolbar-row >
       <span class="example-spacer"></span>
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+      <span class="nav">
+      <a color="primary" class="link" mat-button routerLink="/lesson">LESSONS</a>
+      <a color="primary" class="link" mat-button routerLink="/quiz">QUIZZES</a>
+      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">chat_bubble</mat-icon>
+      <mat-icon class="example-icon" aria-hidden="false" aria-label="Settings Icon">settings</mat-icon>
+      </span>
     </mat-toolbar-row>
   </mat-toolbar>
