@@ -51,7 +51,7 @@ export function getAllInstructors(response, request) {
 
 export function getAllInstructorsbyCohort(response, request) {
     let id = [request.params.id]
-    pool.query("SELECT * FROM public.user JOIN cohort ON public.user.id = cohort.instructor_id WHERE cohort.id = $1"), id.then(res => {
+    pool.query("SELECT * FROM public.user JOIN cohort ON public.user.id = cohort.instructor_id WHERE cohort.id = $1", id).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No instructors found." })
         }
@@ -80,27 +80,21 @@ export function deleteUser(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function editUser(response, request) {
     console.log(request.body);
-    let user =  [request.body.email, request.body.first, request.body.last, request.body.roleId, request.body.id]
+    let user =  [request.body.email_address, request.body.first_name, request.body.last_name, request.body.role_id, request.body.id]
     pool.query("UPDATE public.user SET email_address = $1, first_name = $2, last_name = $3, role_id = $4 WHERE public.user.id = $5", user, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "User updated." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function getUserInfo(response, request) {
     console.log("FROM ANGULAR:", request.body)
-    let email = [request.body.email]
-    let user = [request.body.email, request.body.given_name, request.body.family_name]
+    let email = [request.body.email_address]
+    let user = [request.body.email_address, request.body.given_name, request.body.family_name]
     pool.query('SELECT * FROM public.user WHERE public.user.email_address = $1', email).then(res => {
         if (res.rows.length > 0) {
             return response.send({ success: true, msg: "Success", data: res.rows[0] })
@@ -128,8 +122,5 @@ export function activateUser(response, request) {
     pool.query("SELECT data FROM user_activate($1, $2)", data).then(res => {
         return response.send({ success: true, msg: "Data retrieved.", data: res.rows[0] })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 

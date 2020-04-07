@@ -25,9 +25,13 @@ export class UserService {
     this.user$.subscribe((auth: Auth0User) => {
       let authfirst: string = auth.given_name
       let authlast: string = auth.family_name
-      this.store.dispatch(Actions.setUserEmail({ email: auth["email"] }))
-      this.http.post('/api/users/userinfo', auth).subscribe((response: APIResponse) => {
+      let authuser = {
+        email_address: auth.email
+      }
+      this.store.dispatch(Actions.setUserInfo({ user: authuser }))
+      this.http.post('/api/users/userinfo', authuser).subscribe((response: APIResponse) => {
         let data: User = response.data
+        console.log(data)
         this.store.dispatch(Actions.setUserInfo({ user: data }))
         if (data.first_name != authfirst || data.last_name != authlast) {
           let fixed:User = {...data, first_name: auth.given_name, last_name: auth.family_name}
@@ -60,7 +64,7 @@ export class UserService {
   }
 
   updateUserRole(user: User) {
-    this.http.post('/api/users/edit', user).subscribe((res: APIResponse) => {
+    this.http.put('/api/users/edit', user).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllUsers()
       }

@@ -7,9 +7,6 @@ export function newCohort(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Cohort" })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function getAllCohorts(response, request) {
@@ -30,9 +27,6 @@ export function updateCohort(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort updated." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function deleteCohort(response, request) {
@@ -41,9 +35,6 @@ export function deleteCohort(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function assignStudentCohort(response, request) {
@@ -52,9 +43,6 @@ export function assignStudentCohort(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Assigned Cohort to Student" })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function updateStudentCohort(response, request) {
@@ -63,9 +51,6 @@ export function updateStudentCohort(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort to Student updated." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }
 
 export function deleteStudentCohort(response, request) {
@@ -74,7 +59,4 @@ export function deleteStudentCohort(response, request) {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort to Student deleted." })
     })
-    .catch(err => {console.log(err)
-        response.send({success: false, msg: "An error occurred."})
-        })
 }

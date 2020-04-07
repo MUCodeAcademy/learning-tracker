@@ -6,9 +6,11 @@ export interface RootState {
   lessons: Reducers.LessonState;
   retentions: Reducers.RetentionState;
   instructorQuestions: Reducers.InstructorQuestionState;
+  cohort: Reducers.cohortReducer
 }
 
 export const reducers: ActionReducerMap<RootState> = {
+  cohort: Reducers.cohortReducer,
   user: Reducers.userReducer,
   lessons: Reducers.lessonReducer,
   retentions: Reducers.retentionReducer,
