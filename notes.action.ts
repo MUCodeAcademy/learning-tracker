@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Note } from 'src/app/interfaces/Notes.interface';
+import { Note } from '../../interfaces/Notes.interface';
 
-export const getNotes = createAction('[NOTE STATE] Get Notes', props<{notes: Note}>());
-export const addNote = createAction('[NOTE STATE] Get Notes', props<{note: Note}>());
-export const clearNote = createAction('[NOTE STATE Clear Notes]');
+export const editNotes = createAction('[NOTE STATE] Update Notes', props<{notes: Note}>());
+export const addNotes = createAction('[NOTE STATE] Add Notes', props<{note: Note}>());
+export const deleteNote = createAction('[NOTE STATE Delete Note]');
