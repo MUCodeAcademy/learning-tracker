@@ -13,7 +13,21 @@
       <a  class="link" mat-button routerLink="/lesson">LESSONS</a>
       <a  class="link" mat-button routerLink="/quiz">QUIZZES</a>
       <mat-icon routerLink="/message" class="example-icon" aria-hidden="false" aria-label="Example delete icon">chat_bubble</mat-icon>
-      <mat-icon routerLink="/settings" class="example-icon" aria-hidden="false" aria-label="Settings Icon">settings</mat-icon>
+
+      <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon class="example-icon">settings</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <span>Admin</span>
+        </button>
+        <button mat-menu-item>
+          <span>Instructors</span>
+        </button>
+        <button mat-menu-item>
+          <span>Cohort</span>
+        </button>
+      </mat-menu>
       </span>
     </mat-toolbar-row>
   </mat-toolbar>
