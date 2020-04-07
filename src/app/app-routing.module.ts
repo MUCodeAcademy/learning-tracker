@@ -10,6 +10,7 @@ import { ErrorComponent } from './error/error.component';
 
 
 
+
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'quiz', component: QuizLandingComponent, canActivate: [UserGuard] },
