@@ -39,7 +39,7 @@ export class NoteService {
     })
   }
 
-  notesByCohort(noteid) {
+  notesByCohort(cohortid) {
     return this.http.get(`/api/notes/cohort/:${cohortid}`).subscribe((res: APIResponse) => {
       let data: Note[] = res.data
       this.store.dispatch(Actions.getNotes({ notes: data }))
@@ -59,11 +59,11 @@ export class NoteService {
     })
   }
 
-  updateNote(text, read, topicid) {
+  updateNote(text, read, noteid) {
     let update = {
       text: text,
       read: read,
-      topicid: topicid
+      noteid: noteid
     }
     return this.http.put('/api/notes/update', update).subscribe((res: APIResponse) => {
       if (res.success) {
