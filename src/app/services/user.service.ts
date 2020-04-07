@@ -26,7 +26,7 @@ export class UserService {
       let authfirst: string = auth.given_name
       let authlast: string = auth.family_name
       let authuser = {
-        email: auth.email
+        email_address: auth.email
       }
       this.store.dispatch(Actions.setUserInfo({ user: authuser }))
       this.http.post('/api/users/userinfo', auth).subscribe((response: APIResponse) => {
