@@ -2,6 +2,10 @@
     flex: 1 1 auto;
   }
 
+  mat-toolbar{
+      min-width: 100%;
+  }
+
   .example-icon {
     color: white;
     padding: 0 12px;
@@ -9,11 +13,13 @@
   }
 
   .top-bar{
-    height: 100px;
+    height: fit-content;
   }
 
   .image{
+      padding-top: 20px;
       padding-left: 30%;
+      padding-bottom: 20px;
   }
 
   .title{
@@ -39,6 +45,33 @@
     height: 36px;
   }
 
+  @media (max-width: 650px){
+    .small{
+        flex-direction: column !important;
+        justify-content: center;
+    }
+    .image{
+        padding-left: 0px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+    .title{
+        padding-right: 0px;
+        padding-bottom: 5px;
+    }
+    .sml-low{
+        justify-content: center;
+    }
+    .example-spacer{
+        width: 0px;
+    }
+    .test{
+        width: 100%;
+    }
+    .nav{
+        padding-right: 0px;
+    }
+  }
 
 
   
