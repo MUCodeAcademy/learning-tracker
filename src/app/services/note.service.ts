@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { RootState } from '../store';
 import { APIResponse } from '../interfaces/APIResponse.interface';
-import { Note } from '../interfaces/note.interface';
 import * as Actions from '../store/actions';
+import { Note } from 'Notes.interface';
 
 
 
