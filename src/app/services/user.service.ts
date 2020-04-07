@@ -29,7 +29,7 @@ export class UserService {
         email_address: auth.email
       }
       this.store.dispatch(Actions.setUserInfo({ user: authuser }))
-      this.http.post('/api/users/userinfo', auth).subscribe((response: APIResponse) => {
+      this.http.post('/api/users/userinfo', authuser).subscribe((response: APIResponse) => {
         let data: User = response.data
         console.log(data)
         this.store.dispatch(Actions.setUserInfo({ user: data }))
