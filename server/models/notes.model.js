@@ -16,7 +16,9 @@ export function getAllNotes(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllNotesByStudent(response, request) {
@@ -27,7 +29,9 @@ export function getAllNotesByStudent(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllNotesByCohort(response, request) {
@@ -38,7 +42,9 @@ export function getAllNotesByCohort(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllNotesByTopic(response, request) {
@@ -49,7 +55,9 @@ export function getAllNotesByTopic(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function updateNote(response, request) {

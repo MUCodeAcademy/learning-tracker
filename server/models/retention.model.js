@@ -7,7 +7,9 @@ export function getAllRetention(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function newRetention(response, request) {
@@ -26,7 +28,9 @@ export function getAllRetentionByStudent(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllRetentionByCohort(response, request) {
@@ -37,7 +41,9 @@ export function getAllRetentionByCohort(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function getAllRetentionByTopic(response, request) {
@@ -48,7 +54,9 @@ export function getAllRetentionByTopic(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function updateRetention(response, request) {

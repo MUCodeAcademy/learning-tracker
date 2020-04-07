@@ -16,7 +16,9 @@ export function getAllCohorts(response, request) {
         }
         else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
     })
-    .catch(err => console.log(err))
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
 }
 
 export function updateCohort(response, request) {

@@ -1,7 +1,8 @@
 
 import { RootState } from '..';
 
-export const getUserRole = (state: RootState) => state.user.userRole
-export const getUserEmail = (state: RootState) => state.user.userEmail
-export const getUserId = (state: RootState) => state.user.userId
-export const getUser = (state: RootState) => state.user
+export const getUserRole = (state: RootState) => state.user.currentuser.role_id
+export const getUserEmail = (state: RootState) => state.user.currentuser.email_address
+export const getUserId = (state: RootState) => state.user.currentuser.id
+export const getUserList = (state: RootState) => state.user.userList
+export const getUserInfo = (state: RootState) => state.user.currentuser

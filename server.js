@@ -3,13 +3,17 @@ import bodyParser from 'body-parser'
 const app = express();
 const https = require("https");
 const fs = require("fs");
+import mongoose from 'mongoose'
 import retention from './server/routes/retention.routes'
 import cohorts from './server/routes/cohort.routes'
 import questions from './server/routes/questions.routes'
 import users from './server/routes/user.routes'
 import lessons from './server/routes/lessons.routes'
 import notes from './server/routes/notes.routes'
+import quiz from './server/routes/quiz.routes'
 
+import mongooseConf from "./server/config/mongodb.conf";
+mongooseConf(mongoose);
 
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json())
@@ -21,7 +25,7 @@ app.use('/api/questions/', questions);
 app.use('/api/lessons/', lessons);
 app.use('/api/users/', users);
 app.use('/api/notes/', notes);
-
+app.use("/api/quiz/", quiz);
 
 // Allows for angular routing to take precedent
 app.get("*", (req, res) =>
