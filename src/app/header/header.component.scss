@@ -4,7 +4,8 @@
 
   .example-icon {
     color: white;
-    padding: 0 18px;
+    padding: 0 12px;
+    font-size: 36px;
   }
 
   .top-bar{
@@ -27,5 +28,13 @@
       padding-right: 10%;
       line-height: 64px;
   }
+
+  .test{
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+
 
   
