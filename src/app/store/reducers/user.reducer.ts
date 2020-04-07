@@ -14,7 +14,7 @@ export const initialUserState: UserState = {
         first_name: '',
         last_name: '',
         id: '',
-        email: '',
+        email_address: '',
     }
 };
 
