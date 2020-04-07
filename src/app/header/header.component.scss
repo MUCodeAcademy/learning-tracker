@@ -27,7 +27,12 @@
   }
 
   .link{
+      color: white;
       padding-right: 50px;
+  }
+
+  .link:hover{
+      color: #002a5c;
   }
 
   .nav{
@@ -43,6 +48,10 @@
 
   mat-icon{
     height: 36px;
+  }
+
+  mat-icon:hover{
+      color: #002a5c;
   }
 
   @media (max-width: 650px){
