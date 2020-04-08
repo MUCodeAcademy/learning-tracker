@@ -15,8 +15,8 @@ import { CohortService } from 'src/app/services/cohort.service';
   styleUrls: ['./activate.component.scss']
 })
 export class ActivateComponent implements OnInit {
-  userlist$: Observable<Array<Object>>;
-  userlist: Array<Object>;
+  userlist$: Observable<Array<User>>;
+  userlist: Array<User>;
   user$: Observable<any>;
   user: User = {
     first_name: "",
@@ -40,8 +40,8 @@ export class ActivateComponent implements OnInit {
    }
 
   update(person){
-    let studentid = person.id;
-    let cohortid = person.newCohort_id;
+    let studentid = this.userlist[person].id;
+    let cohortid = this.userlist[person].newCohort_id;
     this.userService.activateUser(studentid, cohortid)
   }
    
