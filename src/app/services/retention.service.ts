@@ -6,18 +6,22 @@ import { Store } from '@ngrx/store';
 import { RootState } from '../store';
 import * as Actions from '../store/actions'
 import { map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RetentionService {
 
-  constructor(private http: HttpClient, private store: Store<RootState>) { }
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
   getAllRetentions() {
     return this.http.get('/api/retention/all').subscribe((res: APIResponse) => {
-      let data: Retention[] = res.data
-      this.store.dispatch(Actions.getRetentions({ retentions: data }))
+      if (res.success) {
+        let data: Retention[] = res.data
+        this.store.dispatch(Actions.getRetentions({ retentions: data }))
+      }
+      else console.log("Could not fetch retention data.")
     })
   }
 
@@ -26,14 +30,18 @@ export class RetentionService {
       if (res.success) {
         this.getAllRetentions()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
     })
   }
 
   getRetentionByStudent(userid) {
     return this.http.get(`/api/retention/student/:${userid}`).subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Retention[] = res.data
       this.store.dispatch(Actions.getRetentions({ retentions: data }))
+      }
+      else console.log("Could not fetch retention data by student.")
     })
   }
 
@@ -47,8 +55,10 @@ export class RetentionService {
         res.data = cleaned
         return res
       })).subscribe((res: APIResponse) => {
+        if (res.success) {
         let data: Retention[] = res.data
-        this.store.dispatch(Actions.getRetentions({ retentions: data }))
+        this.store.dispatch(Actions.getRetentions({ retentions: data }))}
+        else console.log("Could not get retention by cohort.")
       })
   }
 
@@ -66,8 +76,10 @@ export class RetentionService {
         res.data = cleaned
         return res
       })).subscribe((res: APIResponse) => {
+        if (res.success) {
         let data: Retention[] = res.data
-        this.store.dispatch(Actions.getRetentions({ retentions: data }))
+        this.store.dispatch(Actions.getRetentions({ retentions: data }))}
+        else console.log("Could not get retention by topic.")
       })
   }
 
@@ -81,7 +93,8 @@ export class RetentionService {
       if (res.success) {
         this.getAllRetentions()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
     })
   }
 
@@ -90,7 +103,8 @@ export class RetentionService {
       if (res.success) {
         this.getAllRetentions()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
     })
   }
 

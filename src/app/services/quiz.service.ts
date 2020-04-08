@@ -5,32 +5,42 @@ import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions'
 import { Quiz } from '../interfaces/quiz.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
 
-  constructor(private http: HttpClient, private store: Store<RootState>) { }
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
   getQuizById(id) {
     return this.http.get("/api/quiz/id/" + id).subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Quiz[] = res.data
       // this.store.dispatch(Actions.setQuizList ({ list: data }))
+      }
+      else console.log("Couldn't get quiz by ID.")
     })
   }
 
   getQuizzesByCohort(cohort) {
     return this.http.get("/api/quiz/cohort/" + cohort).subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Quiz[] = res.data
       // this.store.dispatch(Actions.setQuizList ({ list: data }))
+      }
+      else console.log("Couldn't get quizzes by cohort.")
     })
   }
 
   getAllQuizzes() {
     return this.http.get("/api/quiz/all").subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Quiz[] = res.data
       // this.store.dispatch(Actions.setQuizList ({ list: data }))
+      }
+      else console.log("Couldn't get quizzes.")
     })
   }
 
@@ -39,7 +49,7 @@ export class QuizService {
       if (res.success) {
         this.getAllQuizzes()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };
 
@@ -48,7 +58,7 @@ export class QuizService {
       if (res.success) {
         this.getAllQuizzes()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };
 
@@ -57,7 +67,7 @@ export class QuizService {
       if (res.success) {
         this.getAllQuizzes()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };
 }

@@ -8,13 +8,14 @@ import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions'
 import { map } from 'rxjs/operators';
 import { Enrollment } from '../interfaces/enrollment.interface'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CohortService {
 
-  constructor(private http: HttpClient, private user: UserService, private store: Store<RootState>) { }
+  constructor(private http: HttpClient, private user: UserService, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
   getAllCohorts() {
     return this.http.get("/api/cohorts/all").subscribe((res: APIResponse) => {
@@ -29,7 +30,8 @@ export class CohortService {
       if (res.success) {
         this.getAllCohorts()
       }
-      else console.log("Error activating user, feedback to UI here.")
+            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+
     })
   };
   //* POST `'/api/cohorts/new'` - creates a new cohort.  Requires name:(cohort name), instructorid:(instructor's user id)
@@ -39,7 +41,7 @@ export class CohortService {
       if (res.success) {
         this.getAllCohorts()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
     })
   };
   // * DELETE `'/api/cohorts/delete/:id'` - deletes a cohort w/ cohort_id = to the id in the route. eg api/cohorts/delete/3 deletes cohort with cohort_id 3.
@@ -49,7 +51,8 @@ export class CohortService {
       if (res.success) {
         this.getAllCohorts()
       }
-      else console.log("Error activating user, feedback to UI here.")
+            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+
     })
   };
 
@@ -84,7 +87,8 @@ export class CohortService {
       if (res.success) {
         this.getCohortEnrollment()
       }
-      else console.log("Error activating user, feedback to UI here.")
+            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+
     })
   }
   // * DELETE `'/api/cohorts/remove/:id'` - removes a student from a cohort.  The ID is -the ID of the entry on the cohort_to_student table-, not the student or the cohort.  
@@ -94,7 +98,8 @@ export class CohortService {
       if (res.success) {
         this.getCohortEnrollment()
       }
-      else console.log("Error activating user, feedback to UI here.")
+            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+
     })
   }
   // * PUT `'/api/cohorts/change'` - Changes a student's cohort.  Requires new cohortid & studentid, as well as the id of the entry on the cohort_to_student table.  
