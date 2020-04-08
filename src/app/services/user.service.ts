@@ -89,15 +89,19 @@ export class UserService {
       console.log("done getting student's data")
     }
     if (roleid === "2") {
+      let cohorts$ = this.store.select(Selectors.getCohortList)
       this.getAllUsers()
       this.cohorts.getAllCohorts()
-      let cohorts$ = this.store.select(Selectors.getCohortList)
       cohorts$.subscribe(res => {
-        let assigned = res.filter((obj: Cohort) => obj.instructor_id.toFixed() === id)
+        let assigned = res.filter((obj: Cohort) => {let iid = obj.instructor_id; iid.toString() === id})
         console.log("assigned cohort array", assigned)
         assigned.sort((a, b) => b.id - a.id)
         // should put latest cohort last .. for now
-        let cohort = assigned[0].id
+        let cohort 
+        if (assigned.length > 0) {
+          cohort = assigned[0].id
+        }
+        else cohort = 0
         // this code doesn't support an instructor with multiple cohorts, api endpoints don't do this
         this.notes.notesByCohort(cohort)
         this.lessons.getLessonsbyCohort(cohort)

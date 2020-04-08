@@ -18,8 +18,10 @@ export class CohortService {
 
   getAllCohorts() {
     return this.http.get("/api/cohorts/all").subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Cohort[] = res.data
-      this.store.dispatch(Actions.setCohortList ({ list: data }))
+      this.store.dispatch(Actions.setCohortList({ list: data }))}
+      else console.log("Couldn't get all cohorts.")
     })
   }
   //* GET `'/api/cohorts/all'` - returns a list of all cohorts
@@ -29,7 +31,7 @@ export class CohortService {
       if (res.success) {
         this.getAllCohorts()
       }
-            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
 
     })
   };
@@ -40,7 +42,7 @@ export class CohortService {
       if (res.success) {
         this.getAllCohorts()
       }
-      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };
   // * DELETE `'/api/cohorts/delete/:id'` - deletes a cohort w/ cohort_id = to the id in the route. eg api/cohorts/delete/3 deletes cohort with cohort_id 3.
@@ -50,7 +52,7 @@ export class CohortService {
       if (res.success) {
         this.getAllCohorts()
       }
-            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
 
     })
   };
@@ -60,8 +62,9 @@ export class CohortService {
   getStudentEnrollment(studentid: string) {
     return this.http.get(`/api/cohorts/enrollment/${studentid}`).subscribe((res: APIResponse) => {
       if (res.success) {
-      let data: Enrollment[] = res.data.data
-      this.store.dispatch(Actions.setUserEnrollment({ enrollment: data[0] }))}
+        let data: Enrollment[] = res.data.data
+        this.store.dispatch(Actions.setUserEnrollment({ enrollment: data[0] }))
+      }
       else console.log("Couldn't get student enrollment info.")
     })
   }
@@ -78,8 +81,9 @@ export class CohortService {
       }))
       .subscribe((res: APIResponse) => {
         if (res.success) {
-        let data: Enrollment[] = res.data
-        this.store.dispatch(Actions.setCohortRosters({ rosters: data }))}
+          let data: Enrollment[] = res.data
+          this.store.dispatch(Actions.setCohortRosters({ rosters: data }))
+        }
         else console.log("Couldnt get cohort enrollments")
       })
 
@@ -90,8 +94,7 @@ export class CohortService {
       if (res.success) {
         this.getCohortEnrollment()
       }
-            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
-
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   }
   // * DELETE `'/api/cohorts/remove/:id'` - removes a student from a cohort.  The ID is -the ID of the entry on the cohort_to_student table-, not the student or the cohort.  
@@ -101,8 +104,7 @@ export class CohortService {
       if (res.success) {
         this.getCohortEnrollment()
       }
-            else this.snackbar.open("The database encountered an error, your work did not save.", "Close", {duration: 3000})
-
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   }
   // * PUT `'/api/cohorts/change'` - Changes a student's cohort.  Requires new cohortid & studentid, as well as the id of the entry on the cohort_to_student table.  

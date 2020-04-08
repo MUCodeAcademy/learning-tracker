@@ -39,8 +39,10 @@ export class QuestionsService {
   byCohortId(id){
     this.http.get('/api/questions/cohort/'+id)    
     .subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: InstructorQuestion[] = res.data
-      this.store.dispatch(Actions.setInstructorQuestions({instructorQuestions: data}))
+      this.store.dispatch(Actions.setInstructorQuestions({instructorQuestions: data}))}
+      else console.log("Couldn't get questions by cohort id")
   })}
 
   byTopic(topicId, cohortId){
