@@ -69,6 +69,7 @@ export class UserService {
       this.quiz.getAllQuizzes()
       this.retention.getAllRetentions()
       this.questions.allQuestions()
+      console.log("Done fetching data for an admin")
     }
     if (roleid = "3") {
       this.cohorts.getStudentEnrollment(id)
@@ -84,25 +85,26 @@ export class UserService {
           this.lessons.getLessonsbyCohort(enrollment.cohort_id)
         }
       })
-      if (roleid = "2") {
-        this.getAllUsers()
-        this.cohorts.getAllCohorts()
-        let cohorts$ = this.store.select(Selectors.getCohortList)
-        cohorts$.subscribe(res=> {
-          let assigned = res.filter((obj: Cohort) => obj.instructor_id.toFixed() === id)
-          console.log("assigned cohort array", assigned)
-          assigned.sort((a,b) => b.id - a.id)
-          // should put latest cohort last .. for now
-          let cohort = assigned[0].id
-          // this code doesn't support an instructor with multiple cohorts, api endpoints don't do this
-          this.notes.notesByCohort(cohort)
-          this.lessons.getLessonsbyCohort(cohort)
-          this.quiz.getQuizzesByCohort(cohort)
-          this.retention.getRetentionByCohort(cohort)
-          this.questions.byCohortId(cohort)
-        })
-      }
-
+    }
+    console.log("done getting student's data")
+    if (roleid = "2") {
+      this.getAllUsers()
+      this.cohorts.getAllCohorts()
+      let cohorts$ = this.store.select(Selectors.getCohortList)
+      cohorts$.subscribe(res => {
+        let assigned = res.filter((obj: Cohort) => obj.instructor_id.toFixed() === id)
+        console.log("assigned cohort array", assigned)
+        assigned.sort((a, b) => b.id - a.id)
+        // should put latest cohort last .. for now
+        let cohort = assigned[0].id
+        // this code doesn't support an instructor with multiple cohorts, api endpoints don't do this
+        this.notes.notesByCohort(cohort)
+        this.lessons.getLessonsbyCohort(cohort)
+        this.quiz.getQuizzesByCohort(cohort)
+        this.retention.getRetentionByCohort(cohort)
+        this.questions.byCohortId(cohort)
+      })
+      console.log("done fetching data for an instructor")
     }
   }
 
