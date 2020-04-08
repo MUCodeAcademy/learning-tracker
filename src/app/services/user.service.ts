@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user.interface'
 import { Auth0User } from '../interfaces/auth0user.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { APIResponse } from '../interfaces/apiresponse.interface';
 export class UserService {
   user$: Observable<Object>;
 
-  constructor(private store: Store<RootState>, private auth: AuthService, private http: HttpClient) { }
+  constructor(private store: Store<RootState>, private auth: AuthService, private http: HttpClient, private snackbar: MatSnackBar) { }
 
 
   // this function controls all data acquisition when the app initially loads.
@@ -30,27 +31,32 @@ export class UserService {
       }
       this.store.dispatch(Actions.setUserInfo({ user: authuser }))
       this.http.post('/api/users/userinfo', authuser).subscribe((response: APIResponse) => {
+        if (response.success) {
         let data: User = response.data
-        console.log(data)
         this.store.dispatch(Actions.setUserInfo({ user: data }))
         if (data.first_name != authfirst || data.last_name != authlast) {
-          let fixed:User = {...data, first_name: auth.given_name, last_name: auth.family_name}
+          let fixed: User = { ...data, first_name: auth.given_name, last_name: auth.family_name }
           this.http.put('/api/users/edit', fixed).subscribe(res => {
-            console.log("DB updated w/ new google data.")
+            this.snackbar.open("Profile updated to match your Google profile.", "OK")
           })
         }
-      })
+      }
+      else this.snackbar.open("Your profile could not be retrieved from the database.", "Close", {duration: 3000})
+    })
     });
   }
 
   getAllUsers() {
-    this.http.get('/api/users/all').subscribe((res: APIResponse) =>{
+    this.http.get('/api/users/all').subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: User[] = res.data
-      this.store.dispatch(Actions.setUserList({userlist: data}))
-      })
+      this.store.dispatch(Actions.setUserList({ userlist: data }))
+      }
+      else this.snackbar.open("The database could not retrieve user data.", "Close", {duration: 3000})
+    })
   }
 
-  activateUser(studentid: string, cohortid: string){
+  activateUser(studentid: string, cohortid: string) {
     let activate = {
       userid: studentid,
       cohortid: cohortid
@@ -59,7 +65,7 @@ export class UserService {
       if (res.success) {
         this.getAllUsers()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   }
 
@@ -68,7 +74,7 @@ export class UserService {
       if (res.success) {
         this.getAllUsers()
       }
-      else console.log("Error updating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   }
 

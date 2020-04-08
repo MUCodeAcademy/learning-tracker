@@ -6,6 +6,7 @@ import { APIResponse } from '../interfaces/apiresponse.interface';
 import * as Actions from '../store/actions/notes.action';
 import { Note } from '../interfaces/notes.interface';
 import { map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -14,12 +15,15 @@ import { map } from 'rxjs/operators';
 })
 export class NoteService {
 
-  constructor(private http: HttpClient, private store: Store<RootState>) { }
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
   getAllNotes() {
     return this.http.get('/api/notes/all').subscribe((res: APIResponse) => {
-      let data: Note[] = res.data
-      this.store.dispatch(Actions.getNotes({ notes: data }))
+      if (res.success) {
+        let data: Note[] = res.data
+        this.store.dispatch(Actions.getNotes({ notes: data }))
+      }
+      else console.log("Couldn't get notes.")
     })
   }
 
@@ -29,14 +33,16 @@ export class NoteService {
       if (res.success) {
         this.getAllNotes()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   }
 
   notesByStudent(userid) {
     return this.http.get(`/api/notes/student/:${userid}`).subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Note[] = res.data
-      this.store.dispatch(Actions.getNotes({ notes: data }))
+      this.store.dispatch(Actions.getNotes({ notes: data }))}
+      else console.log("Couldn't get notes by student.")
     })
   }
 
@@ -50,9 +56,12 @@ export class NoteService {
         res.data = cleaned
         return res
       })).subscribe((res: APIResponse) => {
-      let data: Note[] = res.data
-      this.store.dispatch(Actions.getNotes({ notes: data }))
-    })
+        if (res.success) {
+          let data: Note[] = res.data
+          this.store.dispatch(Actions.getNotes({ notes: data }))
+        }
+        else console.log("Couldn't get notes by cohort.")
+      })
   }
 
   notesByTopic(topicid, cohortid) {
@@ -69,11 +78,12 @@ export class NoteService {
         res.data = cleaned
         return res
       })).subscribe((res: APIResponse) => {
-      if (res.success) {
-        this.getAllNotes()
-      }
-      else console.log("Error activating user, feedback to UI here.")
-    })
+        if (res.success) {
+          let data: Note[] = res.data
+          this.store.dispatch(Actions.getNotes({ notes: data }))
+        }
+        else console.log("Couldn't get notes by topic.")
+      })
   }
 
   updateNote(text, read, noteid) {
@@ -86,7 +96,8 @@ export class NoteService {
       if (res.success) {
         this.getAllNotes()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
     })
   }
 
@@ -95,7 +106,8 @@ export class NoteService {
       if (res.success) {
         this.getAllNotes()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
     })
   }
 

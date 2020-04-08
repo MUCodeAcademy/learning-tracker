@@ -5,21 +5,25 @@ import { APIResponse } from '../interfaces/apiresponse.interface';
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LessonService {
 
-  constructor(private http: HttpClient, private store: Store<RootState>) { }
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
   getAllLessons() {
     return this.http.get("/api/lessons/all").subscribe((res: APIResponse) => {
-      let data: Lesson[] = res.data
-      this.store.dispatch(Actions.setLessons({ lessons: data }))
+      if (res.success) {
+        let data: Lesson[] = res.data
+        this.store.dispatch(Actions.setLessons({ lessons: data }))
+      }
+      else console.log("Couldn't get all lessons.")
     })
   };
-  
+
   // * GET `'/api/lessons/all'` - gets all lessons
 
   newLesson(lesson: Lesson) {
@@ -27,10 +31,10 @@ export class LessonService {
       if (res.success) {
         this.getAllLessons()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };;
-  
+
   // * POST `'/api/lessons/new'` - creates a new lesson.   Requires cohortid, topicid, title, week, and day
 
   editLesson(lesson: Lesson) {
@@ -38,7 +42,7 @@ export class LessonService {
       if (res.success) {
         this.getAllLessons()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };;
   // * PUT `'/api/lessons/edit'` - updates a lesson.  Requires cohortid, topicid, title, week, day, and the id of the lesson.
@@ -48,7 +52,7 @@ export class LessonService {
       if (res.success) {
         this.getAllLessons()
       }
-      else console.log("Error activating user, feedback to UI here.")
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
     })
   };;
   // * DELETE `'/api/lessons/delete/:id'` - deletes lesson with a given id
