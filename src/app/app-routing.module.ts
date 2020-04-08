@@ -7,12 +7,14 @@ import { LessonLandingComponent } from './lesson/lesson-landing.component';
 import { UserGuard } from './guards/user.guard'
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
+import { RetentionComponent } from './components/retention/retention.component';
 
 
 
 
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
+  { path: 'retention', component: RetentionComponent},
   { path: 'quiz', component: QuizLandingComponent, canActivate: [UserGuard] },
   { path: 'lesson', component: LessonLandingComponent, canActivate: [UserGuard] },
   { path: 'admin', component: AdminLandingComponent },
