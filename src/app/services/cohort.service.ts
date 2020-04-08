@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cohort } from '../interfaces/Cohort.interface';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { RootState } from '../store';
+import * as Actions from '../store/actions'
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CohortService {
+  cohortList$: Observable<Object>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private store: Store<RootState>, private http: HttpClient) { }
 
   getAllCohorts() {
-    return this.http.get("/api/cohort/all");
+    this.http.get("/api/cohort/all").subscribe((res: APIResponse) => {
+      let data: Cohort[] = res.data
+      this.store.dispatch(Actions.setCohortList({cohort_list: data}))
+    })
   }
   //* GET `'/api/cohort/all'` - returns a list of all cohorts
 
