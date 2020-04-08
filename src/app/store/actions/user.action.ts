@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import { User } from '../../interfaces/User.interface'
+import { User } from '../../interfaces/user.interface'
 
 export const setUserInfo = createAction('[USER STATE] Set User Info', props<{user: User}>())
 export const setUserList = createAction('[USER STATE] Set Userlist', props<{userlist: User[]}>())
