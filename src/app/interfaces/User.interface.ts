@@ -3,5 +3,6 @@ export interface User {
     last_name?: string,
     email_address?: string,
     id?: string,
-    role_id?: string
+    role_id?: string,
+    newCohort_id?: string
 }

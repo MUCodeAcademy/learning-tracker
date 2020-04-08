@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { RootState } from '../store';
-import { UserService } from '../services/user.service';
-import * as Selectors from '../store/selectors'
-import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/User.interface';
+import { Store, select } from '@ngrx/store';
+import { RootState } from 'src/app/store';
+import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import * as Selectors from 'src/app/store/selectors'
+import * as qclone from 'qclone'
 
 @Component({
-  selector: 'app-admin-landing',
-  templateUrl: './admin-landing.component.html',
-  styleUrls: ['./admin-landing.component.scss']
+  selector: 'app-activate',
+  templateUrl: './activate.component.html',
+  styleUrls: ['./activate.component.scss']
 })
-export class AdminLandingComponent implements OnInit {
+export class ActivateComponent implements OnInit {
   userlist$: Observable<Array<Object>>;
   userlist: Array<Object>;
   user$: Observable<any>;
@@ -27,6 +26,7 @@ export class AdminLandingComponent implements OnInit {
   };
   cohortList$: Observable<Array<Object>>;
   cohortList: Array<Object>;
+
   constructor(
     private store: Store<RootState>,
     private userService: UserService,
@@ -36,21 +36,10 @@ export class AdminLandingComponent implements OnInit {
     this.userlist$ = store.pipe(select(Selectors.getUserList))
     this.user$ = this.store.select(Selectors.getUserInfo)
     // this.cohortList$ = this.store.select(Selectors.getCohort)
-  }
+   }
 
- 
-  save(person){
-    this.userService.activateUser(person.id, person.newCohort_id)
-  }
-
-  navigate(value: string){
-    console.log("navigate");
-    
-    this.router.navigate([value], {relativeTo: this.actr})
-  }
-
-
- 
+  
+ // [(ngModel)]="user[i].newCohort_id"
 
   ngOnInit(): void {
     this.userService.getAllUsers()
@@ -67,7 +56,6 @@ export class AdminLandingComponent implements OnInit {
     // this.cohortList$.subscribe(res => {
     //   this.cohortList = qclone.qclone(res)
     // })
-
   }
 
 }

@@ -16,6 +16,9 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { CohortComponent } from './admin/cohort/cohort.component';
+import { UseradminComponent } from './admin/useradmin/useradmin.component';
+import { ActivateComponent } from './admin/activate/activate.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { HeaderComponent } from './header/header.component';
     LessonLandingComponent,
     UnauthorizedComponent,
     ErrorComponent,
-    HeaderComponent
+    HeaderComponent,
+    CohortComponent,
+    UseradminComponent,
+    ActivateComponent
   ],
   imports: [
     BrowserModule,

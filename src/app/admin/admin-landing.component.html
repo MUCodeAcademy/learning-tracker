@@ -1,2 +1,13 @@
 <app-navbar></app-navbar>
 
+<mat-label for="nav">Other Features</mat-label>
+<mat-select #nav (ngModelChanges)="navigate($event)">
+    <mat-option value='cohort'>Cohort</mat-option>
+    <mat-option value='useradmin'>User Admin</mat-option>
+    <mat-option value='admin'>Activate</mat-option>
+</mat-select>
+
+<router-outlet></router-outlet>
+
+
+
