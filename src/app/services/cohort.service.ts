@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cohort } from '../interfaces/Cohort.interface';
-import { APIResponse } from '../interfaces/APIResponse.interface';
+import { APIResponse } from '../interfaces/apiresponse.interface';
 import { UserService } from './user.service';
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions'
 import { map } from 'rxjs/operators';
-import { Enrollment } from '../interfaces/Enrollment.interface'
+import { Enrollment } from '../interfaces/enrollment.interface'
 
 @Injectable({
   providedIn: 'root'
