@@ -49,9 +49,10 @@ export class RetentionService {
     return this.http.get(`/api/retention/cohort/${cohortid}`).pipe(
       map((res: APIResponse) => {
         let cleaned: Retention[] = [];
+        if (res.data) {
         res.data.forEach(x => {
           cleaned.push(x.data)
-        })
+        })}
         res.data = cleaned
         return res
       })).subscribe((res: APIResponse) => {
