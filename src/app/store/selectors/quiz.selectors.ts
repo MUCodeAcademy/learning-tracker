@@ -1,3 +1,3 @@
 import { RootState } from '..'
 
-export const getInstructorQuestions = (state: RootState) => state.InstructorQuestion.InstructorQuestions
+export const getQuiz = (state: RootState) => state.quiz.quiz
