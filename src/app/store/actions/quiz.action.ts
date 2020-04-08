@@ -1,10 +1,9 @@
 import { createAction, props } from "@ngrx/store";
-import {Quiz} from "src/app/interfaces/quiz.interface";
+import {Quiz} from "../../interfaces/quiz.interface";
 
-export const getQuizzes = createAction( "[QUIZ STATE] Get Quizzes", props<{ quizzes: Quiz[] }>()
-);
+export const getQuizzes = createAction( "[QUIZ STATE] Get Quizzes", props<{ quizzes: Quiz[] }>());
 
-export const clearQuizzes = createAction("[QUIZ STATE clear Quizzes", props<{ quiz: Quiz}>());
+export const clearQuizzes = createAction("[QUIZ STATE] Clear Quizzes");
 
 
-export const createQuizzes = createAction("[QUIZ STATE post Quizzes", props<{ quiz: Quiz}>());
+export const addQuiz = createAction("[QUIZ STATE] Add Quiz", props<{ quiz: Quiz}>());
