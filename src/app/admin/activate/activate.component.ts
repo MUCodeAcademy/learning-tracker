@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
 import { CohortService } from 'src/app/services/cohort.service';
+import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 
 @Component({
@@ -26,17 +27,17 @@ export class ActivateComponent implements OnInit {
     email_address: "",
     newCohort_id: ""
   };
-  cohortList$: Observable<Array<Object>>;
-  cohortList: Array<Object>;
+  cohortList$: Observable<Array<Cohort>>;
+  cohortList: Array<Cohort>;
 
   constructor(
     private store: Store<RootState>,
     private userService: UserService,
     private cohortService: CohortService
   ) {
-    this.userlist$ = store.pipe(select(Selectors.getUserList))
-    this.user$ = this.store.select(Selectors.getUserInfo)
-    this.cohortList$ = this.store.select(Selectors.getCohortList)
+    this.userlist$ = this.store.pipe(select(Selectors.getUserList))
+    this.user$ = this.store.pipe(select(Selectors.getUserInfo))
+    this.cohortList$ = this.store.pipe(select(Selectors.getCohortList))
    }
 
   update(person){

@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { RootState } from 'src/app/store';
+import { CohortService } from 'src/app/services/cohort.service';
+import * as Selectors from 'src/app/store/selectors'
+import * as qclone from 'qclone'
+import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
+import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 @Component({
   selector: 'app-cohort',
@@ -6,10 +14,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cohort.component.scss']
 })
 export class CohortComponent implements OnInit {
+  roster$: Observable<Array<Enrollment>>;
+  roster: Array<Enrollment>;
+  cohortList$: Observable<Array<Cohort>>;
+  cohortList: Array<Cohort>;
 
-  constructor() { }
+
+  constructor(
+    private store: Store<RootState>,
+    private cohortService: CohortService
+  ) {
+    this.roster$ = this.store.pipe(select(Selectors.getCohortRosters))
+    this.cohortList$ = this.store.pipe(select(Selectors.getCohortList))
+  }
 
   ngOnInit(): void {
+    this.cohortService.getCohortEnrollment()
+    this.cohortService.getAllCohorts()
+
+    this.roster$.subscribe((res: Enrollment[]) => {
+      this.roster = qclone.qclone(res)
+    })
+
+
+    this.cohortList$.subscribe(res => {
+      this.cohortList = qclone.qclone(res)
+    })
+
   }
 
 }
