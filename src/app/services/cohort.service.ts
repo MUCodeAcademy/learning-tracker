@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cohort } from '../interfaces/Cohort.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
-import { UserService } from './user.service';
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions'
@@ -15,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CohortService {
 
-  constructor(private http: HttpClient, private user: UserService, private store: Store<RootState>, private snackbar: MatSnackBar) { }
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
   getAllCohorts() {
     return this.http.get("/api/cohorts/all").subscribe((res: APIResponse) => {
@@ -37,7 +36,7 @@ export class CohortService {
   //* POST `'/api/cohorts/new'` - creates a new cohort.  Requires name:(cohort name), instructorid:(instructor's user id)
 
   deleteCohort(cohort_id: string) {
-    return this.http.delete(`/api/cohorts/delete/:${cohort_id}`).subscribe((res: APIResponse) => {
+    return this.http.delete(`/api/cohorts/delete/${cohort_id}`).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllCohorts()
       }
@@ -83,7 +82,7 @@ export class CohortService {
   }
 
   removeStudentfromCohort(topicid: string) {
-    return this.http.delete(`/api/cohorts/remove/:${topicid}`).subscribe((res: APIResponse) => {
+    return this.http.delete(`/api/cohorts/remove/${topicid}`).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getCohortEnrollment()
       }
