@@ -59,8 +59,10 @@ export class CohortService {
 
   getStudentEnrollment(studentid: string) {
     return this.http.get(`/api/cohorts/enrollment/${studentid}`).subscribe((res: APIResponse) => {
+      if (res.success) {
       let data: Enrollment[] = res.data.data
-      this.store.dispatch(Actions.setUserEnrollment({ enrollment: data[0] }))
+      this.store.dispatch(Actions.setUserEnrollment({ enrollment: data[0] }))}
+      else console.log("Couldn't get student enrollment info.")
     })
   }
 
@@ -75,8 +77,10 @@ export class CohortService {
         return res
       }))
       .subscribe((res: APIResponse) => {
+        if (res.success) {
         let data: Enrollment[] = res.data
-        this.store.dispatch(Actions.setCohortRosters({ rosters: data }))
+        this.store.dispatch(Actions.setCohortRosters({ rosters: data }))}
+        else console.log("Couldnt get cohort enrollments")
       })
 
   }

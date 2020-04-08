@@ -60,7 +60,8 @@ export class UserService {
   }
 
   getInitialData(roleid: string, id: string) {
-    if (roleid = "1") {
+    console.log("get initial data firing, with role of:", roleid, "and userid of", id)
+    if (roleid === "1") {
       this.getAllUsers()
       this.cohorts.getAllCohorts()
       this.cohorts.getCohortEnrollment(),
@@ -71,7 +72,7 @@ export class UserService {
       this.questions.allQuestions()
       console.log("Done fetching data for an admin")
     }
-    if (roleid = "3") {
+    if (roleid === "3") {
       this.cohorts.getStudentEnrollment(id)
       this.getAllUsers()
       this.cohorts.getAllCohorts()
@@ -85,9 +86,9 @@ export class UserService {
           this.lessons.getLessonsbyCohort(enrollment.cohort_id)
         }
       })
+      console.log("done getting student's data")
     }
-    console.log("done getting student's data")
-    if (roleid = "2") {
+    if (roleid === "2") {
       this.getAllUsers()
       this.cohorts.getAllCohorts()
       let cohorts$ = this.store.select(Selectors.getCohortList)
