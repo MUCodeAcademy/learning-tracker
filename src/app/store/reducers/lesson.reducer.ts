@@ -12,8 +12,7 @@ export const initialLessonState: LessonState = {
 }
 
 const reducer = createReducer(initialLessonState,
-    on(lessonActions.setLessons, (state, {lessons}) =>({...state, id: lessons.id, cohort_id: lessons.cohort_id, topic_id: lessons.topic_id, lesson_title: lessons.lesson_title, week_number: lessons.week_number, day: lessons.day, last_edit: lessons.last_edit })),
-    on(lessonActions.addLesson, (state, {lesson}) =>({...state, lessons:[...state.lessons, lesson]})),
+    on(lessonActions.setLessons, (state, {lessons}) =>({...state, lessons: lessons})),
     on(lessonActions.clearLessons, (state)=> ({...initialLessonState}))
 )
 

@@ -5,9 +5,9 @@ import * as Actions from '../store/actions'
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../interfaces/User.interface'
-import { Auth0User } from '../interfaces/Auth0User.interface';
-import { APIResponse } from '../interfaces/APIResponse.interface';
+import { User } from '../interfaces/user.interface'
+import { Auth0User } from '../interfaces/auth0user.interface';
+import { APIResponse } from '../interfaces/apiresponse.interface';
 
 @Injectable({
   providedIn: 'root'

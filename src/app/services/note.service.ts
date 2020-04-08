@@ -1,10 +1,11 @@
-import { Injectable, ɵisDefaultChangeDetectionStrategy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { RootState } from '../store';
-import { APIResponse } from '../interfaces/APIResponse.interface';
+import { APIResponse } from '../interfaces/apiresponse.interface';
 import * as Actions from '../store/actions/notes.action';
 import { Note } from '../interfaces/notes.interface';
+import { map } from 'rxjs/operators';
 
 
 
@@ -40,7 +41,15 @@ export class NoteService {
   }
 
   notesByCohort(cohortid) {
-    return this.http.get(`/api/notes/cohort/:${cohortid}`).subscribe((res: APIResponse) => {
+    return this.http.get(`/api/notes/cohort/:${cohortid}`).pipe(
+      map((res: APIResponse) => {
+        let cleaned: Note[] = [];
+        res.data.forEach(x => {
+          cleaned.push(x.data)
+        })
+        res.data = cleaned
+        return res
+      })).subscribe((res: APIResponse) => {
       let data: Note[] = res.data
       this.store.dispatch(Actions.getNotes({ notes: data }))
     })
@@ -51,7 +60,15 @@ export class NoteService {
       topicid: topicid,
       cohortid: cohortid
     }
-    return this.http.post('/api/notes/topic', topic).subscribe((res: APIResponse) => {
+    return this.http.post('/api/notes/topic', topic).pipe(
+      map((res: APIResponse) => {
+        let cleaned: Note[] = [];
+        res.data.forEach(x => {
+          cleaned.push(x.data)
+        })
+        res.data = cleaned
+        return res
+      })).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllNotes()
       }
