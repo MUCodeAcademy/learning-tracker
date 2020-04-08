@@ -60,3 +60,29 @@ export function deleteStudentCohort(response, request) {
         return response.send({ success: true, msg: "Cohort to Student deleted." })
     })
 }
+
+export function getAllEnrollment(response, request) {
+    pool.query("select data from user_get_all_in_cohorts()").then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No cohorts found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
+}
+
+
+export function getStudentEnrollment(response, request) {
+    let id = [request.params.id]
+    pool.query("select data from user_get_cohorts_by_user_id($1)", id).then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No enrollments found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
+}
