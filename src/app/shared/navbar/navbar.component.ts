@@ -4,7 +4,7 @@ import { RootState } from 'src/app/store';
 import { Store } from '@ngrx/store';
 import * as Selectors from '../../store/selectors'
 import * as qclone from 'qclone'
-import { User } from 'src/app/interfaces/User.interface';
+import { User } from 'src/app/interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 

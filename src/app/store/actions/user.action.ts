@@ -1,12 +1,18 @@
-import {createAction, props} from '@ngrx/store';
-<<<<<<< HEAD
-import { User } from '../../interfaces/User.interface'
-import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
-=======
-import { User } from '../../interfaces/user.interface'
->>>>>>> fixes minor import errors
+import { createAction, props } from "@ngrx/store";
 
-export const setUserInfo = createAction('[USER STATE] Set User Info', props<{user: User}>())
-export const setUserList = createAction('[USER STATE] Set Userlist', props<{userlist: User[]}>())
-export const setUserEnrollment = createAction('[USER STATE] Set User Enrollment', props<{enrollment: Enrollment}>())
-export const clearUser = createAction('[USER STATE] Clear User')
+import { User } from "../../interfaces/user.interface";
+import { Enrollment } from "src/app/interfaces/enrollment.interface";
+
+export const setUserInfo = createAction(
+  "[USER STATE] Set User Info",
+  props<{ user: User }>()
+);
+export const setUserList = createAction(
+  "[USER STATE] Set Userlist",
+  props<{ userlist: User[] }>()
+);
+export const setUserEnrollment = createAction(
+  "[USER STATE] Set User Enrollment",
+  props<{ enrollment: Enrollment }>()
+);
+export const clearUser = createAction("[USER STATE] Clear User");
