@@ -6,6 +6,14 @@ router.get('/all', (req, res) => {
     Models.getAllCohorts(res, req);
 });
 
+router.get('/rosters', (req, res) => {
+    Models.getAllEnrollment(res, req);
+});
+
+router.get('/enrollment/:id', (req, res) => {
+    Models.getStudentEnrollment(res, req);
+});
+
 router.post('/new', (req, res) => {
     Models.newCohort(res,req);
 });

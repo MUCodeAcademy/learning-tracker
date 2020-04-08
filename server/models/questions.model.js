@@ -1,7 +1,7 @@
 import { pool } from '../config/postgres.conf'
 
 export function addNewQuestion(response, request){
-    let data = [request.body.studentid, request.body.instructorid, request.body.lessonid, request.body.text, request.body.answer]
+    let data = [request.body.student_id, request.body.instructor_id, request.body.lesson_id, request.body.question_text, request.body.question_answer]
     pool.query("INSERT INTO question (id, student_id, instructor_id, lesson_id, question_text, question_answer) VALUES (DEFAULT, $1, $2, $3, $4, $5)", data, (err, results) => {
         if (err) {
             return response.send({ success: false, err: err });
@@ -11,7 +11,7 @@ export function addNewQuestion(response, request){
 }
 
 export function editQuestion(response, request){
-    let data = [request.body.text, request.body.answer, request.body.id]
+    let data = [request.body.question_text, request.body.question_answer, request.body.id]
     pool.query("UPDATE question SET question.question_text = $1, question.question_answer = $2 WHERE id = $3", data, (err, result, field) => {
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
         return response.send({ success: true, msg: "Question deleted." })

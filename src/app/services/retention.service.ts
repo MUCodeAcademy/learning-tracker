@@ -1,86 +1,115 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { APIResponse } from '../interfaces/APIResponse.interface';
+import { APIResponse } from '../interfaces/apiresponse.interface';
 import { Retention } from '../interfaces/retention.interface';
 import { Store } from '@ngrx/store';
 import { RootState } from '../store';
 import * as Actions from '../store/actions'
+import { map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RetentionService {
 
-  constructor(private http: HttpClient, private store: Store<RootState>) { }
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 
-getAllRetentions(){
-  return this.http.get('/api/retention/all').subscribe((res: APIResponse) =>{
-    let data: Retention [] = res.data
-    this.store.dispatch(Actions.getRetentions({retentions: data}))
-  })
-}
-
-addRetention(newRetention: Retention){
-  return this.http.post('/api/retention/new', newRetention).subscribe((res: APIResponse) => {
-    if (res.success) {
-      this.getAllRetentions()
-    }
-    else console.log("Error activating user, feedback to UI here.")
-  })
-}
-
-retentionByStudent(userid){
-  return this.http.get(`/api/retention/student/:${userid}`).subscribe((res: APIResponse) =>{
-    let data: Retention [] = res.data
-    this.store.dispatch(Actions.getRetentions({retentions: data}))
-  })
-}
-
-retentionByCohort(cohortid){
-  return this.http.get(`/api/retention/cohort/:${cohortid}`).subscribe((res: APIResponse) =>{
-    let data: Retention [] = res.data
-    this.store.dispatch(Actions.getRetentions({retentions: data}))
-  })
-}
-
-retentionByTopic(topicid, cohortid){
-  let topic = {
-    topicid: topicid,
-    cohortid: cohortid
+  getAllRetentions() {
+    return this.http.get('/api/retention/all').subscribe((res: APIResponse) => {
+      if (res.success) {
+        let data: Retention[] = res.data
+        this.store.dispatch(Actions.getRetentions({ retentions: data }))
+      }
+      else console.log("Could not fetch retention data.")
+    })
   }
-  return this.http.post('/api/retention/topic', topic).subscribe((res: APIResponse) => {
-    if (res.success) {
-      this.getAllRetentions()
-    }
-    else console.log("Error activating user, feedback to UI here.")
-  })
-}
 
-updateRetention(studentrating, teacherrating, topicid){
-  let update = {
-    studentrating: studentrating,
-    teacherrating: teacherrating,
-    topicid: topicid
+  addRetention(newRetention: Retention) {
+    return this.http.post('/api/retention/new', newRetention).subscribe((res: APIResponse) => {
+      if (res.success) {
+        this.getAllRetentions()
+      }
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
+    })
   }
-  return this.http.put('/api/retention/update', update).subscribe((res: APIResponse) => {
-    if (res.success) {
-      this.getAllRetentions()
-    }
-    else console.log("Error activating user, feedback to UI here.")
-  })
-}
 
-deleteRetention(topicid){
-  return this.http.delete(`/api/retention/delete/:${topicid}`).subscribe((res: APIResponse) => {
-    if (res.success) {
-      this.getAllRetentions()
-    }
-    else console.log("Error activating user, feedback to UI here.")
-  })
-}
+  getRetentionByStudent(userid) {
+    return this.http.get(`/api/retention/student/:${userid}`).subscribe((res: APIResponse) => {
+      if (res.success) {
+      let data: Retention[] = res.data
+      this.store.dispatch(Actions.getRetentions({ retentions: data }))
+      }
+      else console.log("Could not fetch retention data by student.")
+    })
+  }
 
-clearRetentions(){
-  this.store.dispatch(Actions.clearRetention())
-}
+  getRetentionByCohort(cohortid) {
+    return this.http.get(`/api/retention/cohort/:${cohortid}`).pipe(
+      map((res: APIResponse) => {
+        let cleaned: Retention[] = [];
+        res.data.forEach(x => {
+          cleaned.push(x.data)
+        })
+        res.data = cleaned
+        return res
+      })).subscribe((res: APIResponse) => {
+        if (res.success) {
+        let data: Retention[] = res.data
+        this.store.dispatch(Actions.getRetentions({ retentions: data }))}
+        else console.log("Could not get retention by cohort.")
+      })
+  }
+
+  getRetentionByTopic(topicid, cohortid) {
+    let topic = {
+      topicid: topicid,
+      cohortid: cohortid
+    }
+    return this.http.post('/api/retention/topic', topic).pipe(
+      map((res: APIResponse) => {
+        let cleaned: Retention[] = [];
+        res.data.forEach(x => {
+          cleaned.push(x.data)
+        })
+        res.data = cleaned
+        return res
+      })).subscribe((res: APIResponse) => {
+        if (res.success) {
+        let data: Retention[] = res.data
+        this.store.dispatch(Actions.getRetentions({ retentions: data }))}
+        else console.log("Could not get retention by topic.")
+      })
+  }
+
+  updateRetention(studentrating, teacherrating, topicid) {
+    let update = {
+      studentrating: studentrating,
+      teacherrating: teacherrating,
+      topicid: topicid
+    }
+    return this.http.put('/api/retention/update', update).subscribe((res: APIResponse) => {
+      if (res.success) {
+        this.getAllRetentions()
+      }
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
+    })
+  }
+
+  deleteRetention(topicid) {
+    return this.http.delete(`/api/retention/delete/:${topicid}`).subscribe((res: APIResponse) => {
+      if (res.success) {
+        this.getAllRetentions()
+      }
+      else this.snackbar.open("The database encountered an error, your work did not save.", "Close", { duration: 3000 })
+
+    })
+  }
+
+  clearRetentions() {
+    this.store.dispatch(Actions.clearRetention())
+  }
 
 }
