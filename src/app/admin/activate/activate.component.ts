@@ -4,7 +4,6 @@ import { User } from 'src/app/interfaces/user.interface';
 import { Store, select } from '@ngrx/store';
 import { RootState } from 'src/app/store';
 import { UserService } from 'src/app/services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
 import { CohortService } from 'src/app/services/cohort.service';
@@ -57,8 +56,12 @@ export class ActivateComponent implements OnInit {
       console.log(res, this.user)
     })
 
-    this.userlist$.subscribe(res => {
-      this.userlist = qclone.qclone(res)
+    this.userlist$.subscribe((res: User[]) => {
+      let data = qclone.qclone(res)
+      data.forEach((res: User) => {
+        res.newCohort_id = ""
+      });
+      this.userlist = data
     })
 
     this.cohortList$.subscribe(res => {
