@@ -24,6 +24,17 @@ export class LessonService {
     })
   };
 
+  getLessonsbyCohort(id) {
+    this.http.get(`/api/lessons/cohort/${id}`)
+      .subscribe((res: APIResponse) => {
+        if (res.success) {
+          let data: Lesson[] = res.data
+          this.store.dispatch(Actions.setLessons({ lessons: data }))
+        }
+        else return console.log("Couldn't get lessons by cohort.")
+      })
+  }
+
   // * GET `'/api/lessons/all'` - gets all lessons
 
   newLesson(lesson: Lesson) {
