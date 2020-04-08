@@ -2,18 +2,12 @@ import * as Reducers from "./reducers";
 import { ActionReducerMap } from "@ngrx/store";
 
 export interface RootState {
-<<<<<<< HEAD
   user: Reducers.UserState;
   lessons: Reducers.LessonState;
   retentions: Reducers.RetentionState;
   instructorQuestions: Reducers.InstructorQuestionState;
-=======
-  user: Reducers.UserState,
-  lessons: Reducers.LessonState,
-  retentions: Reducers.RetentionState,
-  instructorQuestions: Reducers.InstructorQuestionState,
-  cohort: Reducers.CohortState
->>>>>>> fixes error with merge conflict
+  cohort: Reducers.CohortState;
+  notes: Reducers.NoteState;
 }
 
 export const reducers: ActionReducerMap<RootState> = {
@@ -21,4 +15,6 @@ export const reducers: ActionReducerMap<RootState> = {
   lessons: Reducers.lessonReducer,
   retentions: Reducers.retentionReducer,
   instructorQuestions: Reducers.instructorQuestionReducer,
+  cohort: Reducers.cohortReducer,
+  notes: Reducers.noteReducer,
 };
