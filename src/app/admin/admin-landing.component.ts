@@ -25,6 +25,7 @@ export class AdminLandingComponent implements OnInit {
     id: "",
     email_address: ""
   };
+  menuChoice: string = 'activate'
   cohortList$: Observable<Array<Object>>;
   cohortList: Array<Object>;
   constructor(
@@ -44,7 +45,6 @@ export class AdminLandingComponent implements OnInit {
   }
 
   navigate(value: string){
-    console.log("navigate");
     this.router.navigate([value], {relativeTo: this.actr})
   }
 

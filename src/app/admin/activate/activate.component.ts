@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
+import { CohortService } from 'src/app/services/cohort.service';
+
 
 @Component({
   selector: 'app-activate',
@@ -22,7 +24,8 @@ export class ActivateComponent implements OnInit {
     last_name: "",
     role_id: "4",
     id: "",
-    email_address: ""
+    email_address: "",
+    newCohort_id: ""
   };
   cohortList$: Observable<Array<Object>>;
   cohortList: Array<Object>;
@@ -30,19 +33,24 @@ export class ActivateComponent implements OnInit {
   constructor(
     private store: Store<RootState>,
     private userService: UserService,
-    private router: Router,
-    private actr: ActivatedRoute
+    private cohortService: CohortService
   ) {
     this.userlist$ = store.pipe(select(Selectors.getUserList))
     this.user$ = this.store.select(Selectors.getUserInfo)
-    // this.cohortList$ = this.store.select(Selectors.getCohort)
+    this.cohortList$ = this.store.select(Selectors.getCohortList)
    }
 
-  
- // [(ngModel)]="user[i].newCohort_id"
+  update(person){
+    let studentid = person.id;
+    let cohortid = person.newCohort_id;
+    this.userService.activateUser(studentid, cohortid)
+  }
+   
 
   ngOnInit(): void {
     this.userService.getAllUsers()
+    this.cohortService.getAllCohorts()
+
 
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
@@ -53,9 +61,9 @@ export class ActivateComponent implements OnInit {
       this.userlist = qclone.qclone(res)
     })
 
-    // this.cohortList$.subscribe(res => {
-    //   this.cohortList = qclone.qclone(res)
-    // })
+    this.cohortList$.subscribe(res => {
+      this.cohortList = qclone.qclone(res)
+    })
   }
 
 }
