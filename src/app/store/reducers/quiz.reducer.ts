@@ -11,7 +11,7 @@ export const initialQuiz: QuizState = {
 }
 
 const reducer = createReducer(initialQuizState,
-    on(quizActions.getQuizzes, (state, {Quiz}) => ({...state, Quiz: [...state.Quizzes, ...Quiz]})),
+    on(quizActions.getQuizzes, (state, {Quiz}) => ({...state, Quiz: [...state.Quiz, ...Quiz]})),
     on(quizActions.addQuiz, (state, {Quiz}) => ({...state, Quiz:[...state.Quiz, Quiz]})),
     on(quizActions.deleteQuiz, (state) => ({...initialQuizState}))
     )
