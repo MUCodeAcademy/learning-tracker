@@ -38,7 +38,7 @@ export class NoteService {
   }
 
   notesByStudent(userid) {
-    return this.http.get(`/api/notes/student/:${userid}`).subscribe((res: APIResponse) => {
+    return this.http.get(`/api/notes/student/${userid}`).subscribe((res: APIResponse) => {
       if (res.success) {
       let data: Note[] = res.data
       this.store.dispatch(Actions.getNotes({ notes: data }))}
@@ -47,7 +47,7 @@ export class NoteService {
   }
 
   notesByCohort(cohortid) {
-    return this.http.get(`/api/notes/cohort/:${cohortid}`).pipe(
+    return this.http.get(`/api/notes/cohort/${cohortid}`).pipe(
       map((res: APIResponse) => {
         let cleaned: Note[] = [];
         res.data.forEach(x => {
@@ -102,7 +102,7 @@ export class NoteService {
   }
 
   deleteNote(topicid) {
-    return this.http.delete(`/api/notes/delete/:${topicid}`).subscribe((res: APIResponse) => {
+    return this.http.delete(`/api/notes/delete/${topicid}`).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllNotes()
       }
