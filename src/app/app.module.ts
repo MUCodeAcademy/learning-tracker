@@ -16,6 +16,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InstructorQuestionComponent } from './instructor-question/instructor-question.component';
+import { InstructorQuestionListComponent } from './instructor-question-list/instructor-question-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { InstructorQuestionComponent } from './instructor-question/instructor-qu
     LessonLandingComponent,
     UnauthorizedComponent,
     ErrorComponent,
-    InstructorQuestionComponent
+    InstructorQuestionComponent,
+    InstructorQuestionListComponent
   ],
   imports: [
     BrowserModule,
