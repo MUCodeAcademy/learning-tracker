@@ -5,8 +5,8 @@ import * as Actions from '../store/actions'
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../interfaces/User.interface'
-import { Auth0User } from '../interfaces/Auth0User.interface';
+import { User } from '../interfaces/user.interface'
+import { Auth0User } from '../interfaces/Auth0user.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({

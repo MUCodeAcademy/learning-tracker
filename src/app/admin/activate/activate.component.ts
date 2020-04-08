@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/interfaces/User.interface';
+import { User } from 'src/app/interfaces/user.interface';
 import { Store, select } from '@ngrx/store';
 import { RootState } from 'src/app/store';
 import { UserService } from 'src/app/services/user.service';

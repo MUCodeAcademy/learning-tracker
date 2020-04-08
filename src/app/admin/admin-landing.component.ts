@@ -5,7 +5,7 @@ import { RootState } from '../store';
 import { UserService } from '../services/user.service';
 import * as Selectors from '../store/selectors'
 import * as qclone from 'qclone'
-import { User } from 'src/app/interfaces/User.interface';
+import { User } from 'src/app/interfaces/user.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
