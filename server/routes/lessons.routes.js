@@ -6,6 +6,10 @@ router.get('/all', (req, res)=>{
     Models.getAllLessons(res,req)
 });
 
+router.get('/cohort/:id', (req, res) => {
+    Models.getLessonsByCohort(res, req)
+})
+
 router.post('/new', (req, res)=>{
     Models.postLesson(res,req)
     });
