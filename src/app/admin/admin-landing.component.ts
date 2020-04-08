@@ -45,7 +45,6 @@ export class AdminLandingComponent implements OnInit {
 
   navigate(value: string){
     console.log("navigate");
-    
     this.router.navigate([value], {relativeTo: this.actr})
   }
 
