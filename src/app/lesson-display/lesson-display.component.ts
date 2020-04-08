@@ -17,19 +17,14 @@ export class LessonDisplayComponent implements OnInit {
   cohortList: Array<Cohort>
 
   constructor(private store: Store<RootState>, private cohortService: CohortService) {
-    console.log('TODDTESTING1');
-    //this.cohortService.getAllCohorts();   // THIS ON IS CAUSING THE ERROR
-    console.log('TODDTESTING2');
+    this.cohortService.getAllCohorts();
     this.cohortList$ = this.store.select(Selectors.getCohortList);
-    console.log('TODDTESTING3');
    }
 
   ngOnInit(): void {
-    console.log('TODDTESTING4');
-    // this.cohortList$.subscribe((res: Cohort[]) => {
-    //   this.cohortList = qclone.qclone(res)
-    // })
-    console.log('TODDTESTING');
+    this.cohortList$.subscribe((res: Cohort[]) => {
+      this.cohortList = qclone.qclone(res)
+    })
   }
 
 }
