@@ -1,22 +1,22 @@
-import * as notesActions from '../actions/notes.action'
+import * as quizActions from '../actions/quiz.action'
 import { createReducer, on, Action } from '@ngrx/store';
-import {InstructorQuestion} from "src/app/interfaces/instructorquestion.interface";
+import {Quiz} from "src/app/interfaces/quiz.interface";
 
-export interface InstructorQuestionState {
-    notes: InstructorQuestion []
+export interface Quiz {
+    quizzes: Quiz []
 }
 
-export const initialInstructorQuestionState: InstructorQuestionState = {
-    notes: []
+export const initialQuiz: QuizState = {
+    quizzes: []
 }
 
-const reducer = createReducer(initialInstructorQuestionState,
-    on(notesActions.getInstructorQuestions, (state, {InstructorQuestions}) => ({...state, InstructorQuestions: [...state.InstructorQuestions, ...InstructorQuestions]})),
-    on(notesActions.addInstructorQuestion, (state, {InstructorQuestion}) => ({...state, InstructorQuestions:[...state.InstructorQuestions, InstructorQuestion]})),
-    on(notesActions.deleteInstructorQuestion, (state) => ({...initialInstructorQuestionState}))
+const reducer = createReducer(initialQuizState,
+    on(quizActions.getQuizzes, (state, {Quiz}) => ({...state, Quiz: [...state.Quizzes, ...Quiz]})),
+    on(quizActions.addQuiz, (state, {Quiz}) => ({...state, Quiz:[...state.Quiz, Quiz]})),
+    on(quizActions.deleteQuiz, (state) => ({...initialQuizState}))
     )
 
 
-export function noteReducer(state: InstructorQuestionState, action: Action){
+export function quizReducer(state: QuizState, action: Action){
     return reducer(state, action);
 }
