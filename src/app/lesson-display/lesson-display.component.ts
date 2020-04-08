@@ -16,11 +16,11 @@ export class LessonDisplayComponent implements OnInit {
   cohortList: Array<Cohort>
 
   constructor(private store: Store<RootState>) {
-    this.cohortList$ = this.store.select(Selectors.getCohort);
+    this.cohortList$ = this.store.select(Selectors.getCohortList);
    }
 
   ngOnInit(): void {
-    this.cohortList$.subscribe((res: Cohort) => {
+    this.cohortList$.subscribe((res: Cohort[]) => {
       this.cohortList = qclone.qclone(res)
     })
   }
