@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { RootState } from 'src/app/store';
 import { Store } from '@ngrx/store';
 import * as Selectors from '../../store/selectors'
+import * as Actions from '../../store/actions'
 import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/user.interface';
 import { Observable } from 'rxjs';
@@ -41,5 +42,26 @@ export class NavbarComponent implements OnInit {
       console.log(res, this.user)
     })
   }
+    fixcohort() {
+      let fixed = [
+        {
+            "id": "1",
+            "cohort_name": "Cohort 1",
+            "instructor_id": "1"
+        },
+        {
+            "id": "2",
+            "cohort_name": "Cohort 2",
+            "instructor_id": "1"
+        },
+        {
+            "id": "3",
+            "cohort_name": "Cohort 3 is mine now",
+            "instructor_id": "13"
+        }
+    ]
+    this.store.dispatch(Actions.setCohortList({list: fixed}))
+    }
+  }
 
-}
+
