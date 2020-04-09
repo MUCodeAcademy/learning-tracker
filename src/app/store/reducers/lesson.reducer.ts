@@ -4,15 +4,18 @@ import { Lesson } from 'src/app/interfaces/lesson.interface';
 
 
 export interface LessonState {
-   lessons: Lesson[]
+   lessons: Lesson[],
+   viewedLesson: string,
 }
 
 export const initialLessonState: LessonState = {
-    lessons: []
+    lessons: [],
+    viewedLesson: ""
 }
 
 const reducer = createReducer(initialLessonState,
     on(lessonActions.setLessons, (state, {lessons}) =>({...state, lessons: lessons})),
+    on(lessonActions.setViewedLesson, (state, {lessonid}) => ({...state, viewedLesson: lessonid})),
     on(lessonActions.clearLessons, (state)=> ({...initialLessonState}))
 )
 
