@@ -6,7 +6,6 @@ import { RootState } from "../store/";
 import { QuestionsService } from "../services/questions.service";
 import * as Selectors from "../store/selectors";
 import * as qclone from "qclone";
-import { User } from "../interfaces/user.interface";
 
 @Component({
   selector: "app-instructor-question-list",
@@ -23,7 +22,20 @@ export class InstructorQuestionListComponent implements OnInit {
   instructor$: Observable<string>;
   instructor: string;
 
-  constructor() {}
+  constructor(
+    private store: Store<RootState>,
+    private questions: QuestionsService
+  ) {
+    this.instructorQuestion$ = this.store.select(
+      Selectors.getInstructorQuestions
+    );
+    this.userid$ = this.store.select(Selectors.getUserId);
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.instructorQuestion$.subscribe((res) => {
+      let data = qclone.qclone(res);
+      this.instructorQuestion = data;
+    });
+  }
 }
