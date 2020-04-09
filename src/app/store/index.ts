@@ -18,5 +18,5 @@ export const reducers: ActionReducerMap<RootState> = {
   retentions: Reducers.retentionReducer,
   instructorQuestions: Reducers.instructorQuestionReducer,
   notes: Reducers.noteReducer,
-  quizzes: Reducers.quizReducer
+  quizzes: Reducers.quizReducer,
 };

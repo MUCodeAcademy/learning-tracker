@@ -21,6 +21,8 @@ import { UseradminComponent } from './admin/useradmin/useradmin.component';
 import { ActivateComponent } from './admin/activate/activate.component';
 import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
 import { RetentionComponent } from './components/retention/retention.component';
+import { InstructorQuestionComponent } from "./instructor-question/instructor-question.component";
+import { InstructorQuestionListComponent } from "./instructor-question-list/instructor-question-list.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { RetentionComponent } from './components/retention/retention.component';
     CohortComponent,
     UseradminComponent,
     ActivateComponent,
+    InstructorQuestionComponent,
+    InstructorQuestionListComponent,
     LessonSelectionComponent,
     RetentionComponent
   ],
@@ -43,13 +47,13 @@ import { RetentionComponent } from './components/retention/retention.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
