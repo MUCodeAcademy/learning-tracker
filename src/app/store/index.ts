@@ -7,7 +7,8 @@ export interface RootState {
   retentions: Reducers.RetentionState,
   instructorQuestions: Reducers.InstructorQuestionState,
   cohort: Reducers.CohortState,
-  notes: Reducers.NoteState
+  notes: Reducers.NoteState,
+  quizzes: Reducers.QuizState
 }
 
 export const reducers: ActionReducerMap<RootState> = {
@@ -16,5 +17,6 @@ export const reducers: ActionReducerMap<RootState> = {
   lessons: Reducers.lessonReducer,
   retentions: Reducers.retentionReducer,
   instructorQuestions: Reducers.instructorQuestionReducer,
-  notes: Reducers.noteReducer
+  notes: Reducers.noteReducer,
+  quizzes: Reducers.quizReducer
 };

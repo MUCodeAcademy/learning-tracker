@@ -21,6 +21,19 @@ export function getAllLessons(response, request) {
         })
 }
 
+export function getLessonsByCohort(response, request) {
+    let id = [request.body.params]
+    pool.query("SELECT * FROM lesson WHERE cohort_id = $1", id).then(res => {
+        if (res.rows.length === 0) {
+            return response.send({ success: false, msg: "No lessons found." })
+        }
+        else return response.send({ success: true, msg: "Data retrieved.", data: res.rows })
+    })
+    .catch(err => {console.log(err)
+        response.send({success: false, msg: "An error occurred."})
+        })
+}
+
 export function updateLesson(response, request) {
     let now = new Date();
     let change = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, now, request.body.id];
