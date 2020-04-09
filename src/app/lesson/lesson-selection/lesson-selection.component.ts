@@ -9,6 +9,7 @@ import { CohortService } from '../../services/cohort.service';
 import { Lesson } from '../../interfaces/lesson.interface';
 import { LessonService } from '../../services/lesson.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { User } from 'src/app/interfaces/user.interface';
 
 @Component({
   selector: 'app-lesson-selection',
@@ -21,8 +22,8 @@ export class LessonSelectionComponent implements OnInit {
   lessonList$: Observable<any>
   lessonList: Array<Lesson>
   lessonMenu: Array<Lesson>
-  userrole$: Observable<string>
-  userrole: string
+  user$: Observable<User>
+  user: User
   lessonmenu: FormGroup
   cohortmenu: FormGroup
   selectedlesson$
@@ -32,7 +33,7 @@ export class LessonSelectionComponent implements OnInit {
   constructor(private store: Store<RootState>, private form: FormBuilder) {
     this.cohortList$ = this.store.select(Selectors.getCohortList);
     this.lessonList$ = this.store.select(Selectors.getLessons);
-    this.userrole$ = this.store.select(Selectors.getUserRole);
+    this.user$ = this.store.select(Selectors.getUserInfo);
     this.cohortmenu = this.form.group({selectedcohort: ""})
     this.lessonmenu = this.form.group({selectedlesson: ""})
     this.selectedcohort$ = this.cohortmenu.valueChanges
@@ -45,12 +46,17 @@ export class LessonSelectionComponent implements OnInit {
       console.log(res)
     })
     this.lessonList$.subscribe(res => this.lessonList = res)
-    this.userrole$.subscribe(res => this.userrole = res)
+    this.user$.subscribe(res => {this.user = res;
+      if (res.role_id === "3"){
+        // the below needs to be the student's cohort
+        this.selectedcohort$ = from([""])
+      }})
     this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({lessonid: res.selectedlesson})))
     this.selectedcohort$.subscribe(res => {
+      if (this.user.role_id === "2" || this.user.role_id === "3"){
       let seenlessons = this.lessonList.filter(obj => {return obj.cohort_id === res})
       this.lessonMenu = seenlessons
-    })
+    }})
   }
 
 }

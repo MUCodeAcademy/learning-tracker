@@ -1,7 +1,7 @@
 <p>lesson-display works!</p>
 <div>
     <form [formGroup]="cohortmenu">
-        <mat-form-field *ngIf="userrole == '1' || userrole == '2'">
+        <mat-form-field *ngIf="user.role_id == '1' || user.role_id == '2'">
             <mat-label>Cohort</mat-label>
             <mat-select formControlName="selectedcohort">
                 <mat-option *ngFor="let c of cohortList" value="{{c.id}}">
