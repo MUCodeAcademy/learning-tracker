@@ -80,9 +80,21 @@ export class CohortService {
   getStudentEnrollment(studentid: string) {
     return this.http
       .get(`/api/cohorts/enrollment/${studentid}`)
+      .pipe(
+        map((res: APIResponse) => {
+          console.log(res)
+          let cleaned: Enrollment[] = [];
+          res.data.forEach((x) => {
+            cleaned.push(x.data);
+          });
+          res.data = cleaned;
+          return res;
+        })
+      )
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          let data: Enrollment[] = res.data.data;
+          console.log(res)
+          let data: Enrollment[] = res.data;
           this.store.dispatch(
             Actions.setUserEnrollment({ enrollment: data[0] })
           );
