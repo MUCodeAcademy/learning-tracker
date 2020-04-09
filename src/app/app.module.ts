@@ -17,6 +17,7 @@ import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
+import { RetentionComponent } from './components/retention/retention.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selec
     UnauthorizedComponent,
     ErrorComponent,
     HeaderComponent,
-    LessonSelectionComponent
+    LessonSelectionComponent,
+    RetentionComponent
   ],
   imports: [
     BrowserModule,
