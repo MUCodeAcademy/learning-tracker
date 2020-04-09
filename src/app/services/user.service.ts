@@ -64,8 +64,8 @@ export class UserService {
     if (roleid === "1") {
       this.getAllUsers()
       this.cohorts.getAllCohorts()
-      this.cohorts.getCohortEnrollment(),
-        this.lessons.getAllLessons()
+      this.cohorts.getCohortEnrollment()
+      this.lessons.getAllLessons()
       this.notes.getAllNotes()
       this.quiz.getAllQuizzes()
       this.retention.getAllRetentions()

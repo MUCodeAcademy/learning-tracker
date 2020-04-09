@@ -30,11 +30,15 @@ export class CohortComponent implements OnInit {
 
     this.roster$.subscribe((res: Enrollment[]) => {
       this.roster = qclone.qclone(res)
+      console.log(this.roster);
+      
     })
 
 
     this.cohortList$.subscribe(res => {
       this.cohortList = res
+      console.log(this.cohortList);
+      
     })
 
   }
