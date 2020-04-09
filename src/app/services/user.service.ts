@@ -6,7 +6,7 @@ import * as Selectors from '../store/selectors'
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import { User } from '../interfaces/user.interface'
-import { Auth0User } from '../interfaces/authouser.interface';
+import { Auth0User } from '../interfaces/auth0user.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CohortService } from './cohort.service';
