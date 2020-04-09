@@ -16,7 +16,7 @@ import { NoteService } from './note.service';
 import { QuizService } from './quiz.service';
 import { RetentionService } from './retention.service';
 import { QuestionsService } from './questions.service';
-import { Enrollment } from '../interfaces/enrollment.interface';
+import { Enrollment } from '../interfaces/Enrollment.interface';
 import { Cohort } from '../interfaces/Cohort.interface';
 
 @Injectable({
@@ -39,10 +39,12 @@ export class UserService {
       let authfirst: string = auth.given_name
       let authlast: string = auth.family_name
       let authuser = {
+        first_name: auth.given_name,
+        last_name: auth.family_name,
         email_address: auth.email
       }
       this.store.dispatch(Actions.setUserInfo({ user: authuser }))
-      this.http.post('/api/users/userinfo', authuser).subscribe((response: APIResponse) => {
+      this.http.post('/api/users/userinfo', auth).subscribe((response: APIResponse) => {
         if (response.success) {
           let data: User = response.data
           this.store.dispatch(Actions.setUserInfo({ user: data }))
