@@ -22,7 +22,8 @@ export function getAllLessons(response, request) {
 }
 
 export function getLessonsByCohort(response, request) {
-    let id = [request.body.params]
+    let id = [request.params.id]
+    console.log(id)
     pool.query("SELECT * FROM lesson WHERE cohort_id = $1", id).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No lessons found." })

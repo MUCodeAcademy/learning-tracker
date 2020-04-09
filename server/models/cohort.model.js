@@ -23,7 +23,7 @@ export function getAllCohorts(response, request) {
 
 export function updateCohort(response, request) {
     let change = [request.body.name, request.body.instructorid, request.body.id];
-    pool.query("UPDATE cohort SET cohort_name = $1, instructor_id = $2 WHERE cohort.id = $2", change, (err, result, field) => {
+    pool.query("UPDATE cohort SET cohort_name = $1, instructor_id = $2 WHERE cohort.id = $3", change, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort updated." })
     })
