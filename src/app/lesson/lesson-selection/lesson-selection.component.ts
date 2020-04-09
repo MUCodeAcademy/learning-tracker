@@ -8,6 +8,7 @@ import * as Actions from '../../store/actions'
 import { CohortService } from '../../services/cohort.service';
 import { Lesson } from '../../interfaces/lesson.interface';
 import { LessonService } from '../../services/lesson.service';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson-selection',
@@ -19,17 +20,23 @@ export class LessonSelectionComponent implements OnInit {
   cohortList: Array<Cohort>
   lessonList$: Observable<any>
   lessonList: Array<Lesson>
+  lessonMenu: Array<Lesson>
   userrole$: Observable<string>
   userrole: string
-  selectedlesson: string
-  selectedcohort: string = ""
-  selectedcohort$: Observable<string> 
+  lessonmenu: FormGroup
+  cohortmenu: FormGroup
+  selectedlesson$
+  selectedcohort$
+  
 
-  constructor(private store: Store<RootState>, private cohortService: CohortService, private lessonService: LessonService) {
+  constructor(private store: Store<RootState>, private form: FormBuilder) {
     this.cohortList$ = this.store.select(Selectors.getCohortList);
     this.lessonList$ = this.store.select(Selectors.getLessons);
     this.userrole$ = this.store.select(Selectors.getUserRole);
-    this.selectedcohort$ = of(this.selectedcohort)
+    this.cohortmenu = this.form.group({selectedcohort: ""})
+    this.lessonmenu = this.form.group({selectedlesson: ""})
+    this.selectedcohort$ = this.cohortmenu.valueChanges
+    this.selectedlesson$ = this.lessonmenu.valueChanges
    }
 
   ngOnInit(): void {
@@ -37,20 +44,13 @@ export class LessonSelectionComponent implements OnInit {
       this.cohortList = res
       console.log(res)
     })
-    this.lessonList$.subscribe((res: Lesson[]) => {
-      this.lessonList = res
-    })
+    this.lessonList$.subscribe(res => this.lessonList = res)
     this.userrole$.subscribe(res => this.userrole = res)
-    this.selectedcohort$.subscribe(res => console.log("from sub", res))
-  }
-
-  lessonChoice(id: string) {
-    this.store.dispatch(Actions.setViewedLesson({lessonid: id}))
-  }
-
-  cohortChoice(id: string){
-    this.selectedcohort = id
-    console.log("I changed it", id, this.selectedcohort)
+    this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({lessonid: res.selectedlesson})))
+    this.selectedcohort$.subscribe(res => {
+      let seenlessons = this.lessonList.filter(obj => {return obj.cohort_id === res})
+      this.lessonMenu = seenlessons
+    })
   }
 
 }
