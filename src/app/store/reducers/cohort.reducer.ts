@@ -4,7 +4,7 @@ import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
 import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 export interface CohortState {
-    list: Cohort[]
+    list: Cohort[],
     rosters: Enrollment[]
 };
 

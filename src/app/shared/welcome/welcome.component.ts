@@ -14,7 +14,6 @@ export class WelcomeComponent implements OnInit {
   }
 
 login() {
-  console.log("WHAT WHAT WHAT")
   this.auth.login('/lesson').subscribe()
 }
 

@@ -70,12 +70,7 @@ export class UserService {
   }
 
   getInitialData(roleid: string, id: string) {
-    console.log(
-      "get initial data firing, with role of:",
-      roleid,
-      "and userid of",
-      id
-    );
+    console.log("get initial data firing, with role of:",roleid,"and userid of",id);
     if (roleid === "1") {
       this.getAllUsers()
       this.cohorts.getAllCohorts()

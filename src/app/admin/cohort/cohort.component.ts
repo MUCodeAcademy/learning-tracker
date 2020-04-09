@@ -36,8 +36,6 @@ export class CohortComponent implements OnInit {
   }
 
   update(cohort){
-    console.log(cohort);
-    
     this.CohortService.updateCohort(cohort)
   }
 
@@ -47,17 +45,11 @@ export class CohortComponent implements OnInit {
 
   ngOnInit(): void {
     this.roster$.subscribe((res: Enrollment[]) => {
-      console.log(res)
-      this.roster = qclone.qclone(res)
-      console.log(this.roster);
-      
+      this.roster = qclone.qclone(res)      
     })
     this.cohortList$.subscribe(res => {
       this.cohortList = qclone.qclone(res)
-      console.log(this.cohortList);
-      
     })
-
     this.instructors$.subscribe(res => {
       this.instructors = qclone.qclone(res)
       })

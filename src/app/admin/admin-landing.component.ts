@@ -55,7 +55,6 @@ export class AdminLandingComponent implements OnInit {
 
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
-      console.log(res, this.user)
     })
 
     this.userlist$.subscribe(res => {

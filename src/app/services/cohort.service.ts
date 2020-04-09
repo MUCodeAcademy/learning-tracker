@@ -82,7 +82,6 @@ export class CohortService {
       .get(`/api/cohorts/enrollment/${studentid}`)
       .pipe(
         map((res: APIResponse) => {
-          console.log(res)
           let cleaned: Enrollment[] = [];
           res.data.forEach((x) => {
             cleaned.push(x.data);
@@ -93,7 +92,6 @@ export class CohortService {
       )
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          console.log(res)
           let data: Enrollment[] = res.data;
           this.store.dispatch(
             Actions.setUserEnrollment({ enrollment: data[0] })
@@ -118,7 +116,6 @@ export class CohortService {
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Enrollment[] = res.data
-          console.log(res.data, "hi its me get enrollment")
           this.store.dispatch(Actions.setCohortRosters({ rosters: data }))
         }
         else console.log("Couldnt get cohort enrollments")

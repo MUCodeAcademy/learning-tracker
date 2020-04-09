@@ -58,15 +58,11 @@ export class ActivateComponent implements OnInit {
       data.forEach((res: User) => {
         res.newCohort_id = ""
       });
-      this.userlist = data
-      console.log(this.userlist);
-      
+      this.userlist = data      
     })
 
     this.cohortList$.subscribe(res => {
       this.cohortList = qclone.qclone(res)
-      console.log(this.cohortList);
-      
     })
   }
 

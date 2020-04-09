@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
-      console.log(res, this.user)
     })
   }
     
