@@ -8,11 +8,13 @@ import * as Actions from '../store/actions'
 import { map } from 'rxjs/operators';
 import { Enrollment } from '../interfaces/enrollment.interface'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CohortService {
+  cohortList$: Observable<Cohort[]>;
 
   constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) { }
 

@@ -16,6 +16,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
 import { RetentionComponent } from './components/retention/retention.component';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { RetentionComponent } from './components/retention/retention.component';
     UnauthorizedComponent,
     ErrorComponent,
     HeaderComponent,
+    LessonSelectionComponent,
     RetentionComponent
   ],
   imports: [
