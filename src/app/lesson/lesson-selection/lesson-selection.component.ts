@@ -28,6 +28,8 @@ export class LessonSelectionComponent implements OnInit {
   cohortmenu: FormGroup
   selectedlesson$
   selectedcohort$
+  studentcohort$:Observable<any>
+  studentcohort: Array<Cohort>
   
 
   constructor(private store: Store<RootState>, private form: FormBuilder) {
@@ -38,6 +40,7 @@ export class LessonSelectionComponent implements OnInit {
     this.lessonmenu = this.form.group({selectedlesson: ""})
     this.selectedcohort$ = this.cohortmenu.valueChanges
     this.selectedlesson$ = this.lessonmenu.valueChanges
+    this.studentcohort$ = this.store.select(Selectors.getUserEnrollment);
    }
 
   ngOnInit(): void {
@@ -48,8 +51,9 @@ export class LessonSelectionComponent implements OnInit {
     this.lessonList$.subscribe(res => this.lessonList = res)
     this.user$.subscribe(res => {this.user = res;
       if (res.role_id === "3"){
-        // the below needs to be the student's cohort
-        this.selectedcohort$ = from([""])
+        this.studentcohort$.subscribe(res => {
+         this.selectedcohort$ = from([res]) 
+        })
       }})
     this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({lessonid: res.selectedlesson})))
     this.selectedcohort$.subscribe(res => {
@@ -57,6 +61,8 @@ export class LessonSelectionComponent implements OnInit {
       let seenlessons = this.lessonList.filter(obj => {return obj.cohort_id === res})
       this.lessonMenu = seenlessons
     }})
+
+    
   }
 
 }
