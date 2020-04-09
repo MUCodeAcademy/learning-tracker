@@ -1,5 +1,5 @@
 <mat-list>
-    <div mat-subheader>Edit Cohort</div>
+    <div mat-subheader>Change Student's Cohort</div>
 
     <mat-list-item *ngFor="let user of roster, index as i">
         <h3>{{user.first_name}} </h3>
@@ -16,6 +16,8 @@
     </mat-list-item>
 </mat-list>
 
+<mat-list>
+<div mat-subheader>Edit Cohort</div>
 <div *ngFor='let cohort of cohortList'>
     <div>
         <mat-form-field>
@@ -35,5 +37,5 @@
         </mat-form-field>
         <button mat-raised-button color="warn" (click)='update(cohort)'>Save</button>
     </div>
-
 </div>
+</mat-list>
