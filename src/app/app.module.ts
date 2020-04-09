@@ -33,14 +33,11 @@ import { RetentionComponent } from './components/retention/retention.component';
     UnauthorizedComponent,
     ErrorComponent,
     HeaderComponent,
-<<<<<<< HEAD
     CohortComponent,
     UseradminComponent,
-    ActivateComponent
-=======
+    ActivateComponent,
     LessonSelectionComponent,
     RetentionComponent
->>>>>>> master
   ],
   imports: [
     BrowserModule,

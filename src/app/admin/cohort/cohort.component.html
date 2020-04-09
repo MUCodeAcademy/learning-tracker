@@ -1,20 +1,39 @@
-
 <mat-list>
     <div mat-subheader>Edit Cohort</div>
-    
+
     <mat-list-item *ngFor="let user of roster, index as i">
         <h3>{{user.first_name}} </h3>
         <h3>{{user.last_name}} </h3>
         <h3>{{user.cohort_id}}</h3>
         <mat-label for="cohort">Change Cohort: </mat-label>
-                <mat-select [(ngModel)]='user.cohort_id' >
-                    <mat-option *ngFor='let cohort of cohortList' value={{cohort.id}}>{{cohort.cohort_name}}</mat-option>
-                </mat-select>
-        <button mat-icon-button >
-           <mat-icon>edit</mat-icon>
+        <mat-select [(ngModel)]='user.cohort_id'>
+            <mat-option *ngFor='let cohort of cohortList' value={{cohort.id}}>{{cohort.cohort_name}}</mat-option>
+        </mat-select>
+        <button mat-icon-button (click)='changeCohort(user)'>
+            <mat-icon>edit</mat-icon>
         </button>
         <mat-divider></mat-divider>
     </mat-list-item>
 </mat-list>
 
+<div *ngFor='let cohort of cohortList'>
+    <div>
+        <mat-form-field>
+            <mat-label>Cohort Name:</mat-label>
+            <input matInput [(ngModel)]="cohort.cohort_name">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Instructor:</mat-label>
+            <mat-select [(ngModel)]="cohort.instructor_id">
+                <ng-container *ngFor='let instructor of instructors'>
+                    <mat-option *ngIf='instructor.role_id == 2' value='{{cohort.instructor_id}}'>{{instructor.first_name}} {{instructor.last_name}}
+                    </mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="warn" (click)='update(cohort)'>Save</button>
+    </div>
 
+</div>

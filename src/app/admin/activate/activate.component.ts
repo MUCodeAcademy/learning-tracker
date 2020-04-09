@@ -33,7 +33,6 @@ export class ActivateComponent implements OnInit {
   constructor(
     private store: Store<RootState>,
     private userService: UserService,
-    private cohortService: CohortService
   ) {
     this.userlist$ = this.store.pipe(select(Selectors.getUserList))
     this.user$ = this.store.pipe(select(Selectors.getUserInfo))
@@ -52,7 +51,6 @@ export class ActivateComponent implements OnInit {
 
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
-      console.log(res, this.user)
     })
 
     this.userlist$.subscribe((res: User[]) => {
@@ -61,10 +59,14 @@ export class ActivateComponent implements OnInit {
         res.newCohort_id = ""
       });
       this.userlist = data
+      console.log(this.userlist);
+      
     })
 
     this.cohortList$.subscribe(res => {
       this.cohortList = qclone.qclone(res)
+      console.log(this.cohortList);
+      
     })
   }
 
