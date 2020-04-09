@@ -1,5 +1,5 @@
 export interface Cohort {
-    id: number,
+    id: any,
     cohort_name: string,
-    instructor_id: number
+    instructor_id: any
 }
