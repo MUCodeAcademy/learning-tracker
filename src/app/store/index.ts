@@ -17,7 +17,6 @@ export const reducers: ActionReducerMap<RootState> = {
   lessons: Reducers.lessonReducer,
   retentions: Reducers.retentionReducer,
   instructorQuestions: Reducers.instructorQuestionReducer,
-  cohort: Reducers.cohortReducer,
   notes: Reducers.noteReducer,
   quizzes: Reducers.quizReducer,
 };
