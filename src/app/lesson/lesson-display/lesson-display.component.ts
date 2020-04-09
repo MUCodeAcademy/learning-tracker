@@ -21,7 +21,6 @@ export class LessonDisplayComponent implements OnInit {
 
   constructor(private store: Store<RootState>) {
     this.lessonid("3")
-    this.store.dispatch(Actions.setViewedLesson({ lessonid: "3" }));  // THIS IS FOR TESTING ONLY
     this.lessonList$ = this.store.select(Selectors.getLessons);
     this.viewedLessonid$ = this.store.select(Selectors.getViewedLesson);
   }
@@ -38,27 +37,9 @@ export class LessonDisplayComponent implements OnInit {
   .subscribe(pair => {
   
       this.lessonList = pair.list as Lesson[]
-      console.log(pair.viewedId, "Im the ID")
       this.viewedLessonid = pair.viewedId;
-      console.log('lessonList below:')
-      console.log(this.lessonList);
-      let target = this.lessonList.find(obj => { console.log(obj, "its me here in the find"); return obj.id === pair.viewedId })
-      console.log('target is', target)
+      let target = this.lessonList.find(obj => { return obj.id === pair.viewedId })
       this.viewedLesson = target
-  // });
-  //   this.lessonList$.subscribe((res: Lesson[]) => {
-  //     console.log(res)
-  //     this.lessonList = res
-  //   })
-  //   this.viewedLessonid$.subscribe((res: string) => {
-  //     console.log(res, "Im the ID")
-  //     this.viewedLessonid = res;
-  //     console.log('lessonList below:')
-  //     console.log(this.lessonList);
-  //     let target = this.lessonList.find(obj => { console.log(obj, "its me here in the find"); return obj.id === res })
-  //     console.log('target is', target)
-  //     this.viewedLesson = target
-  //   })
   })
   }
 }
