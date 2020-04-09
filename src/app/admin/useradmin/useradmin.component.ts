@@ -37,7 +37,6 @@ export class UseradminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getAllUsers()
 
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)

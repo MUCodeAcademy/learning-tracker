@@ -48,8 +48,6 @@ export class ActivateComponent implements OnInit {
    
 
   ngOnInit(): void {
-    this.userService.getAllUsers()
-    this.cohortService.getAllCohorts()
 
 
     this.user$.subscribe((res: User) => {

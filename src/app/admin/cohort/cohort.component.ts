@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { RootState } from 'src/app/store';
-import { CohortService } from 'src/app/services/cohort.service';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
 import { Enrollment } from 'src/app/interfaces/enrollment.interface';
@@ -22,7 +21,6 @@ export class CohortComponent implements OnInit {
 
   constructor(
     private store: Store<RootState>,
-    private cohortService: CohortService
   ) {
     this.roster$ = this.store.pipe(select(Selectors.getCohortRosters))
     this.cohortList$ = this.store.pipe(select(Selectors.getCohortList))

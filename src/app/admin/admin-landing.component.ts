@@ -52,7 +52,6 @@ export class AdminLandingComponent implements OnInit {
  
 
   ngOnInit(): void {
-    this.userService.getAllUsers()
 
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
