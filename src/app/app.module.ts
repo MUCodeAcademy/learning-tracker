@@ -16,7 +16,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
-import { LessonDisplayComponent } from './lesson-display/lesson-display.component';
+import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { LessonDisplayComponent } from './lesson-display/lesson-display.componen
     UnauthorizedComponent,
     ErrorComponent,
     HeaderComponent,
-    LessonDisplayComponent
+    LessonSelectionComponent
   ],
   imports: [
     BrowserModule,
