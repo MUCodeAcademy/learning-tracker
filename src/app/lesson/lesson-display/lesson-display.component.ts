@@ -30,7 +30,11 @@ export class LessonDisplayComponent implements OnInit {
     })
     this.viewedLessonid$.subscribe((res: string) => {
       this.viewedLessonid = res;
+      console.log('lessonList below:')
+      console.log(this.lessonList);
       let target = this.lessonList.find(obj => {return obj.id === res})
+      console.log('taget below:')
+      console.log(target)
       this.viewedLesson = target
     })
   }
