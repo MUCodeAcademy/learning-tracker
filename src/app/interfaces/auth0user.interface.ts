@@ -9,4 +9,5 @@ updated_at: string
 email: string
 email_verified: boolean
 sub: string
+email_address?: string
 }
