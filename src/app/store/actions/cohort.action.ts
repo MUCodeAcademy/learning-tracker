@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import { Cohort } from '../../interfaces/Cohort.interface'
+import { Cohort } from '../../interfaces/cohort.interface'
 import { Enrollment } from 'src/app/interfaces/enrollment.interface';
 
 export const setCohortList = createAction('[COHORT STATE] Set Cohort Rosters', props<{list: Cohort[]}>())

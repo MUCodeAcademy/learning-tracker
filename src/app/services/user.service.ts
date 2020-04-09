@@ -7,7 +7,7 @@ import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user.interface'
-import { Auth0User } from '../interfaces/auth0user.interface';
+import { Auth0User } from '../interfaces/authouser.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CohortService } from './cohort.service';
@@ -17,7 +17,7 @@ import { QuizService } from './quiz.service';
 import { RetentionService } from './retention.service';
 import { QuestionsService } from './questions.service';
 import { Enrollment } from '../interfaces/enrollment.interface';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../interfaces/cohort.interface';
 
 @Injectable({
   providedIn: 'root'
