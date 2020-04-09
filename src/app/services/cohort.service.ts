@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../interfaces/cohort.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
@@ -84,6 +84,7 @@ export class CohortService {
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Enrollment[] = res.data
+          console.log(res.data, "hi its me get enrollment")
           this.store.dispatch(Actions.setCohortRosters({ rosters: data }))
         }
         else console.log("Couldnt get cohort enrollments")

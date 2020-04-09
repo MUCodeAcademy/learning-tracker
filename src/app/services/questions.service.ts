@@ -4,7 +4,7 @@ import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions/instructorquestion.action'
 import { InstructorQuestion } from '../interfaces/instructorquestion.interface';
-import { APIResponse } from '../interfaces/APIResponse.interface';
+import { APIResponse } from '../interfaces/apiresponse.interface';
 
 @Injectable({
   providedIn: 'root'

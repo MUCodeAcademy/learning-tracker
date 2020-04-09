@@ -5,9 +5,8 @@ import * as Actions from '../store/actions'
 import * as Selectors from '../store/selectors'
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user.interface'
-import { Auth0User } from '../interfaces/auth0user.interface';
+import { Auth0User } from '../interfaces/authouser.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CohortService } from './cohort.service';
@@ -16,8 +15,9 @@ import { NoteService } from './note.service';
 import { QuizService } from './quiz.service';
 import { RetentionService } from './retention.service';
 import { QuestionsService } from './questions.service';
-import { Enrollment } from '../interfaces/Enrollment.interface';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Enrollment } from '../interfaces/enrollment.interface';
+import { Cohort } from '../interfaces/cohort.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -66,8 +66,8 @@ export class UserService {
     if (roleid === "1") {
       this.getAllUsers()
       this.cohorts.getAllCohorts()
-      this.cohorts.getCohortEnrollment(),
-        this.lessons.getAllLessons()
+      this.cohorts.getCohortEnrollment()
+      this.lessons.getAllLessons()
       this.notes.getAllNotes()
       this.quiz.getAllQuizzes()
       this.retention.getAllRetentions()

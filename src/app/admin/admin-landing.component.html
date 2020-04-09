@@ -1,2 +1,13 @@
 <app-navbar></app-navbar>
-<p>admin-landing works!</p>
+
+<mat-label for="nav">Other Features</mat-label>
+<mat-select #nav [(ngModel)]="menuChoice" (ngModelChange)="navigate($event)">
+    <mat-option value='cohort'>Cohort</mat-option>
+    <mat-option value='useradmin'>User Admin</mat-option>
+    <mat-option value='activate'>Activate</mat-option>
+</mat-select>
+
+<router-outlet></router-outlet> 
+
+
+

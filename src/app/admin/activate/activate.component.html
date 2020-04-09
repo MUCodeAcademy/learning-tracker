@@ -1,0 +1,16 @@
+<mat-list>
+    <div mat-subheader>ACTIVATE USER</div>
+    <ng-container *ngFor="let user of userlist, index as i">
+    <mat-list-item *ngIf='user.role_id==4'>
+        <h3>{{user.first_name}} {{user.last_name}}</h3>
+        <mat-label for="cohort">Add to Cohort: </mat-label>
+                <mat-select [(ngModel)]='user.newCohort_id' >
+                    <mat-option *ngFor='let cohort of cohortList' value={{cohort.id}}>{{cohort.cohort_name}}</mat-option>
+                </mat-select>
+        <button mat-icon-button (click)="update(i)" >
+           <mat-icon>edit</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+    </ng-container>
+</mat-list>

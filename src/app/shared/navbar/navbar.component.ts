@@ -8,6 +8,7 @@ import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import * as Actions from '../../store/actions'
 
 @Component({
   selector: 'app-navbar',
@@ -34,6 +35,27 @@ export class NavbarComponent implements OnInit {
 
   saveMe() {
     this.usersvc.updateUserRole(this.user)
+  }
+
+  fixcohort() {
+    let fixed = [
+      {
+          "id": "1",
+          "cohort_name": "Cohort 1",
+          "instructor_id": "1"
+      },
+      {
+          "id": "2",
+          "cohort_name": "Cohort 2",
+          "instructor_id": "1"
+      },
+      {
+          "id": "3",
+          "cohort_name": "Cohort 3 is mine now",
+          "instructor_id": "13"
+      }
+  ]
+  this.store.dispatch(Actions.setCohortList({list: fixed}))
   }
 
   ngOnInit(): void {
