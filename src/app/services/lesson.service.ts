@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Lesson } from "../interfaces/lesson.interface";
-import { apiresponse } from "../interfaces/apiresponse.interface";
+import { APIResponse } from "../interfaces/apiresponse.interface";
 import { RootState } from "../store";
 import { Store } from "@ngrx/store";
 import * as Actions from "../store/actions";
@@ -18,7 +18,7 @@ export class LessonService {
   ) {}
 
   getAllLessons() {
-    return this.http.get("/api/lessons/all").subscribe((res: apiresponse) => {
+    return this.http.get("/api/lessons/all").subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Lesson[] = res.data;
         this.store.dispatch(Actions.setLessons({ lessons: data }));
@@ -26,7 +26,7 @@ export class LessonService {
     });
   }
   getLessonsbyCohort(id) {
-    this.http.get(`/api/lessons/cohort/${id}`).subscribe((res: apiresponse) => {
+    this.http.get(`/api/lessons/cohort/${id}`).subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Lesson[] = res.data;
         this.store.dispatch(Actions.setLessons({ lessons: data }));
@@ -38,7 +38,7 @@ export class LessonService {
   newLesson(lesson: Lesson) {
     return this.http
       .post("/api/lessons/new", lesson)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllLessons();
         } else
@@ -55,7 +55,7 @@ export class LessonService {
   editLesson(lesson: Lesson) {
     return this.http
       .put("/api/lessons/edit", lesson)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllLessons();
         } else
@@ -71,7 +71,7 @@ export class LessonService {
   deleteLessson(id: number) {
     return this.http
       .delete(`/api/lessons/delete/${id}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllLessons();
         } else

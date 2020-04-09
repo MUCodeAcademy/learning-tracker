@@ -4,7 +4,7 @@ import { RootState } from "../store";
 import { Store } from "@ngrx/store";
 import * as Actions from "../store/actions";
 import { Quiz } from "../interfaces/quiz.interface";
-import { apiresponse } from "../interfaces/apiresponse.interface";
+import { APIResponse } from "../interfaces/apiresponse.interface";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
@@ -18,7 +18,7 @@ export class QuizService {
   ) {}
 
   getQuizById(id) {
-    return this.http.get("/api/quiz/id/" + id).subscribe((res: apiresponse) => {
+    return this.http.get("/api/quiz/id/" + id).subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Quiz[] = res.data;
         // this.store.dispatch(Actions.setQuizList ({ list: data }))
@@ -29,7 +29,7 @@ export class QuizService {
   getQuizzesByCohort(cohort) {
     return this.http
       .get(`/api/quiz/cohort/${cohort}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         console.log(res);
         if (res.success) {
           let data: Quiz[] = res.data;
@@ -39,7 +39,7 @@ export class QuizService {
   }
 
   getAllQuizzes() {
-    return this.http.get("/api/quiz/all").subscribe((res: apiresponse) => {
+    return this.http.get("/api/quiz/all").subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Quiz[] = res.data;
         // this.store.dispatch(Actions.setQuizList ({ list: data }))
@@ -48,7 +48,7 @@ export class QuizService {
   }
 
   createQuiz(quiz) {
-    return this.http.post("/api/add", quiz).subscribe((res: apiresponse) => {
+    return this.http.post("/api/add", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllQuizzes();
       } else
@@ -61,7 +61,7 @@ export class QuizService {
   }
 
   editQuiz(quiz) {
-    return this.http.put("/api/edit", quiz).subscribe((res: apiresponse) => {
+    return this.http.put("/api/edit", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
         this.getAllQuizzes();
       } else
@@ -76,7 +76,7 @@ export class QuizService {
   deleteQuizById(id) {
     return this.http
       .delete(`/api/quiz/delete/${id}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllQuizzes();
         } else
