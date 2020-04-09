@@ -10,8 +10,4 @@ export interface Quiz {
             code?: string
         }
     ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> update

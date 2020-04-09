@@ -24,6 +24,7 @@ export class LessonService {
     })
   };
 
+<<<<<<< HEAD
   getLessonsbyCohort(id) {
     this.http.get(`/api/lessons/cohort/${id}`)
       .subscribe((res: APIResponse) => {
@@ -35,6 +36,8 @@ export class LessonService {
       })
   }
 
+=======
+>>>>>>> master
   // * GET `'/api/lessons/all'` - gets all lessons
 
   newLesson(lesson: Lesson) {
