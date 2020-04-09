@@ -39,6 +39,8 @@ export class UserService {
       let authfirst: string = auth.given_name
       let authlast: string = auth.family_name
       let authuser = {
+        first_name: auth.given_name,
+        last_name: auth.family_name,
         email_address: auth.email
       }
       this.store.dispatch(Actions.setUserInfo({ user: authuser }))
@@ -89,12 +91,16 @@ export class UserService {
       console.log("done getting student's data")
     }
     if (roleid === "2") {
-      let cohorts$ = this.store.select(Selectors.getCohortList)
-      this.getAllUsers()
       this.cohorts.getAllCohorts()
+      this.getAllUsers()
       this.cohorts.getCohortEnrollment()
+      let cohorts$ = this.store.select(Selectors.getCohortList)
       cohorts$.subscribe(res => {
-        let assigned = res.filter((obj: Cohort) => {let iid = obj.instructor_id; iid.toString() === id})
+        console.log(res, "should be cohort enrollment")
+        if (res && res.length > 0) {
+        let assigned = res.filter((obj: Cohort) => {
+          let iid = obj.instructor_id;
+          if (iid.toString() === id) {return true}})
         console.log("assigned cohort array", assigned)
         assigned.sort((a, b) => b.id - a.id)
         // should put latest cohort last .. for now
@@ -102,14 +108,14 @@ export class UserService {
         if (assigned.length > 0) {
           cohort = assigned[0].id
         }
-        else cohort = 0
+        if (cohort != undefined) {
         // this code doesn't support an instructor with multiple cohorts, api endpoints don't do this
         this.notes.notesByCohort(cohort)
         this.lessons.getLessonsbyCohort(cohort)
         this.quiz.getQuizzesByCohort(cohort)
         this.retention.getRetentionByCohort(cohort)
         this.questions.byCohortId(cohort)
-      })
+      }}})
       console.log("done fetching data for an instructor")
     }
   }
