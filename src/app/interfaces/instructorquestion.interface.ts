@@ -1,8 +1,8 @@
 export interface InstructorQuestion {
-  id: number;
-  student_id: number;
-  instructor_id: number;
-  lesson_id: number;
+  id: any;
+  student_id: any;
+  instructor_id: any;
+  lesson_id: any;
   question_text: string;
   question_answer: string;
 }
