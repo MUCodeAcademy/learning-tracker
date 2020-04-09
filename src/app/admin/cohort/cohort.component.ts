@@ -36,6 +36,8 @@ export class CohortComponent implements OnInit {
   }
 
   update(cohort){
+    console.log(cohort);
+    
     this.CohortService.updateCohort(cohort)
   }
 
