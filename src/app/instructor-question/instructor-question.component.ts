@@ -6,6 +6,7 @@ import { RootState } from "../store/";
 import { QuestionsService } from "../services/questions.service";
 import * as Selectors from "../store/selectors";
 import * as qclone from "qclone";
+import { Cohort } from '../interfaces/Cohort.interface';
 
 @Component({
   selector: "app-instructor-question",
@@ -21,8 +22,8 @@ export class InstructorQuestionComponent implements OnInit {
   instructorQuestion: InstructorQuestion[];
   viewedlesson$: Observable<string>;
   viewedlesson: string;
-  instructor$: Observable<string>;
-  instructor: string;
+  instructor$: Observable<Array<Cohort>>
+  instructor: Array<Cohort>
 
   newinstructorQuestion: InstructorQuestion = {
     id: "",
@@ -51,18 +52,11 @@ export class InstructorQuestionComponent implements OnInit {
     );
     this.userid$ = this.store.select(Selectors.getUserId);
     this.userrole$ = this.store.select(Selectors.getUserRole);
+    this.viewedlesson$ = this.store.select(Selectors.getViewedLesson)
+    this.instructor$ = this.store.select(Selectors.getCohortList)
   }
 
   saveQuestion(question: InstructorQuestion) {
-    if (question.id != "" || 0) {
-      this.questions.editQuestion(
-        question.id,
-        question.question_text,
-        question.question_answer
-      );
-      // this is an edit and we will call the edit function
-    }
-
     if (question.id === "") {
       // this is a new question and we must configure it
       question.student_id = this.userid;
@@ -80,5 +74,7 @@ export class InstructorQuestionComponent implements OnInit {
     });
     this.userid$.subscribe((res) => (this.userid = res));
     this.userrole$.subscribe((res) => (this.userrole = res));
+    this.viewedlesson$.subscribe(res => {this.viewedlesson = res})
+    this.instructor$.subscribe(res => {this.instructor = res})
   }
 }
