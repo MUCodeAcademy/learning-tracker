@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { RootState } from "../store";
-import { apiresponse } from "../interfaces/apiresponse.interface";
+import { APIResponse } from "../interfaces/apiresponse.interface";
 import * as Actions from "../store/actions/notes.action";
 import { Note } from "../interfaces/notes.interface";
 import { map } from "rxjs/operators";
@@ -19,7 +19,7 @@ export class NoteService {
   ) {}
 
   getAllNotes() {
-    return this.http.get("/api/notes/all").subscribe((res: apiresponse) => {
+    return this.http.get("/api/notes/all").subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Note[] = res.data;
         this.store.dispatch(Actions.getNotes({ notes: data }));
@@ -30,7 +30,7 @@ export class NoteService {
   addNote(newNote: Note) {
     return this.http
       .post("/api/notes/new", newNote)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllNotes();
         } else
@@ -45,7 +45,7 @@ export class NoteService {
   notesByStudent(userid) {
     return this.http
       .get(`/api/notes/student/${userid}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Note[] = res.data;
           this.store.dispatch(Actions.getNotes({ notes: data }));
@@ -57,7 +57,7 @@ export class NoteService {
     return this.http
       .get(`/api/notes/cohort/${cohortid}`)
       .pipe(
-        map((res: apiresponse) => {
+        map((res: APIResponse) => {
           let cleaned: Note[] = [];
           if (res.data) {
             res.data.forEach((x) => {
@@ -68,7 +68,7 @@ export class NoteService {
           return res;
         })
       )
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Note[] = res.data;
           this.store.dispatch(Actions.getNotes({ notes: data }));
@@ -84,7 +84,7 @@ export class NoteService {
     return this.http
       .post("/api/notes/topic", topic)
       .pipe(
-        map((res: apiresponse) => {
+        map((res: APIResponse) => {
           let cleaned: Note[] = [];
           res.data.forEach((x) => {
             cleaned.push(x.data);
@@ -93,7 +93,7 @@ export class NoteService {
           return res;
         })
       )
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Note[] = res.data;
           this.store.dispatch(Actions.getNotes({ notes: data }));
@@ -109,7 +109,7 @@ export class NoteService {
     };
     return this.http
       .put("/api/notes/update", update)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllNotes();
         } else
@@ -124,7 +124,7 @@ export class NoteService {
   deleteNote(topicid) {
     return this.http
       .delete(`/api/notes/delete/${topicid}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllNotes();
         } else

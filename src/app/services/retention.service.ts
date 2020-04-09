@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { apiresponse } from "../interfaces/apiresponse.interface";
+import { APIResponse } from "../interfaces/apiresponse.interface";
 import { Retention } from "../interfaces/retention.interface";
 import { Store } from "@ngrx/store";
 import { RootState } from "../store";
@@ -19,7 +19,7 @@ export class RetentionService {
   ) {}
 
   getAllRetentions() {
-    return this.http.get("/api/retention/all").subscribe((res: apiresponse) => {
+    return this.http.get("/api/retention/all").subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Retention[] = res.data;
         this.store.dispatch(Actions.getRetentions({ retentions: data }));
@@ -30,7 +30,7 @@ export class RetentionService {
   addRetention(newRetention: Retention) {
     return this.http
       .post("/api/retention/new", newRetention)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllRetentions();
         } else
@@ -45,7 +45,7 @@ export class RetentionService {
   getRetentionByStudent(userid) {
     return this.http
       .get(`/api/retention/student/${userid}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Retention[] = res.data;
           this.store.dispatch(Actions.getRetentions({ retentions: data }));
@@ -57,7 +57,7 @@ export class RetentionService {
     return this.http
       .get(`/api/retention/cohort/${cohortid}`)
       .pipe(
-        map((res: apiresponse) => {
+        map((res: APIResponse) => {
           let cleaned: Retention[] = [];
           if (res.data) {
             res.data.forEach((x) => {
@@ -68,7 +68,7 @@ export class RetentionService {
           return res;
         })
       )
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Retention[] = res.data;
           this.store.dispatch(Actions.getRetentions({ retentions: data }));
@@ -84,7 +84,7 @@ export class RetentionService {
     return this.http
       .post("/api/retention/topic", topic)
       .pipe(
-        map((res: apiresponse) => {
+        map((res: APIResponse) => {
           let cleaned: Retention[] = [];
           res.data.forEach((x) => {
             cleaned.push(x.data);
@@ -93,7 +93,7 @@ export class RetentionService {
           return res;
         })
       )
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Retention[] = res.data;
           this.store.dispatch(Actions.getRetentions({ retentions: data }));
@@ -109,7 +109,7 @@ export class RetentionService {
     };
     return this.http
       .put("/api/retention/update", update)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllRetentions();
         } else
@@ -124,7 +124,7 @@ export class RetentionService {
   deleteRetention(topicid) {
     return this.http
       .delete(`/api/retention/delete/${topicid}`)
-      .subscribe((res: apiresponse) => {
+      .subscribe((res: APIResponse) => {
         if (res.success) {
           this.getAllRetentions();
         } else
