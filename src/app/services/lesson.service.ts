@@ -23,8 +23,6 @@ export class LessonService {
       else console.log("Couldn't get all lessons.")
     })
   };
-
-<<<<<<< HEAD
   getLessonsbyCohort(id) {
     this.http.get(`/api/lessons/cohort/${id}`)
       .subscribe((res: APIResponse) => {
@@ -35,9 +33,6 @@ export class LessonService {
         else return console.log("Couldn't get lessons by cohort.")
       })
   }
-
-=======
->>>>>>> master
   // * GET `'/api/lessons/all'` - gets all lessons
 
   newLesson(lesson: Lesson) {

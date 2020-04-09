@@ -25,12 +25,8 @@ export class QuizService {
   }
 
   getQuizzesByCohort(cohort) {
-<<<<<<< HEAD
     return this.http.get(`/api/quiz/cohort/${cohort}`).subscribe((res: APIResponse) => {
       console.log(res)
-=======
-    return this.http.get("/api/quiz/cohort/" + cohort).subscribe((res: APIResponse) => {
->>>>>>> master
       if (res.success) {
       let data: Quiz[] = res.data
       // this.store.dispatch(Actions.setQuizList ({ list: data }))
