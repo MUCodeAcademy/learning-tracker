@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
 import { RetentionComponent } from './components/retention/retention.component';
+import { LessonDisplayComponent } from './lesson/lesson-display/lesson-display.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RetentionComponent } from './components/retention/retention.component';
     ErrorComponent,
     HeaderComponent,
     LessonSelectionComponent,
-    RetentionComponent
+    RetentionComponent,
+    LessonDisplayComponent
   ],
   imports: [
     BrowserModule,
