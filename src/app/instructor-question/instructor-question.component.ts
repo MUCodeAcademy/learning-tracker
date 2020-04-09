@@ -6,7 +6,6 @@ import { RootState } from "../store/";
 import { QuestionsService } from "../services/questions.service";
 import * as Selectors from "../store/selectors";
 import * as qclone from "qclone";
-import { User } from "../interfaces/user.interface";
 
 @Component({
   selector: "app-instructor-question",
@@ -51,6 +50,7 @@ export class InstructorQuestionComponent implements OnInit {
       Selectors.getInstructorQuestions
     );
     this.userid$ = this.store.select(Selectors.getUserId);
+    this.userrole$ = this.store.select(Selectors.getUserRole);
   }
 
   saveQuestion(question: InstructorQuestion) {
@@ -62,6 +62,7 @@ export class InstructorQuestionComponent implements OnInit {
       );
       // this is an edit and we will call the edit function
     }
+
     if (question.id === "") {
       // this is a new question and we must configure it
       question.student_id = this.userid;
@@ -78,5 +79,6 @@ export class InstructorQuestionComponent implements OnInit {
       this.instructorQuestion = data;
     });
     this.userid$.subscribe((res) => (this.userid = res));
+    this.userrole$.subscribe((res) => (this.userrole = res));
   }
 }
