@@ -92,6 +92,7 @@ export class UserService {
       let cohorts$ = this.store.select(Selectors.getCohortList)
       this.getAllUsers()
       this.cohorts.getAllCohorts()
+      this.cohorts.getCohortEnrollment()
       cohorts$.subscribe(res => {
         let assigned = res.filter((obj: Cohort) => {let iid = obj.instructor_id; iid.toString() === id})
         console.log("assigned cohort array", assigned)

@@ -1,8 +1,8 @@
 export interface Enrollment {
-    id?: number
+    id?: any
     first_name?: string
     last_name?: string
     email_address?: string
-    cth_id?: number
-    cohort_id?: number
+    cth_id?: any
+    cohort_id?: any
 }

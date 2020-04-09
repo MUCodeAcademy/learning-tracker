@@ -19,6 +19,8 @@ import { HeaderComponent } from './header/header.component';
 import { CohortComponent } from './admin/cohort/cohort.component';
 import { UseradminComponent } from './admin/useradmin/useradmin.component';
 import { ActivateComponent } from './admin/activate/activate.component';
+import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
+import { RetentionComponent } from './components/retention/retention.component';
 
 @NgModule({
   declarations: [
@@ -31,9 +33,14 @@ import { ActivateComponent } from './admin/activate/activate.component';
     UnauthorizedComponent,
     ErrorComponent,
     HeaderComponent,
+<<<<<<< HEAD
     CohortComponent,
     UseradminComponent,
     ActivateComponent
+=======
+    LessonSelectionComponent,
+    RetentionComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,

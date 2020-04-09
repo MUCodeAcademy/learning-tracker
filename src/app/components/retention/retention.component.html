@@ -1,0 +1,5 @@
+<button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'star_'+ratingId" (click)="rate(ratingId)" [matTooltip]="ratingId" matTooltipPosition="above">
+    <mat-icon>
+        {{rating >= ratingId ? 'star' : 'star_border'}}
+    </mat-icon>
+</button>

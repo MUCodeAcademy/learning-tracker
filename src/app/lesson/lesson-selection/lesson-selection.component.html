@@ -1,0 +1,37 @@
+<p>lesson-display works!</p>
+<div>
+    <mat-form-field>
+        <mat-label>Cohort</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let c of cohortList">
+                {{c.cohort_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Week</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let w of lessonList">
+                {{w.week_number}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div>
+    <mat-form-field>
+        <mat-label>Day</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let d of lessonList">
+                {{d.day}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Lesson</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let l of lessonList">
+                {{l.lesson_title}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
