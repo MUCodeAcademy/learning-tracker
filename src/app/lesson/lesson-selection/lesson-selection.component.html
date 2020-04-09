@@ -3,7 +3,7 @@
     <mat-form-field *ngIf="userrole == '1' || userrole == '2'">
         <mat-label>Cohort</mat-label>
         <mat-select [(ngModel)]="selectedcohort" (ngModelChange)="cohortChoice($event)">
-            <mat-option *ngFor="let c of cohortList" value="c.id">
+            <mat-option *ngFor="let c of cohortList" value="{{c.id}}">
                 {{c.cohort_name}}
             </mat-option>
         </mat-select>
@@ -11,7 +11,7 @@
     <mat-form-field>
         <mat-label>Week</mat-label>
         <mat-select [(ngModel)]="selectedlesson" (ngModelChange)="lessonChoice($event)">
-            <mat-option *ngFor="let w of lessonList" value="w.id">
+            <mat-option *ngFor="let w of lessonList" value="{{w.id}}">
                 Week {{w.week_number}} - Day {{w.day}} - {{w.lesson_title}} 
             </mat-option>
         </mat-select>
