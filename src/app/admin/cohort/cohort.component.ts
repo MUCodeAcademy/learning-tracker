@@ -29,13 +29,12 @@ export class CohortComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.roster$.subscribe((res: Enrollment[]) => {
+      console.log(res)
       this.roster = qclone.qclone(res)
     })
-
-
     this.cohortList$.subscribe(res => {
+      console.log(res)
       this.cohortList = res
     })
 

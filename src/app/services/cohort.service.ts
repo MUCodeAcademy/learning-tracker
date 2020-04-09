@@ -82,6 +82,7 @@ export class CohortService {
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Enrollment[] = res.data
+          console.log(res.data, "hi its me get enrollment")
           this.store.dispatch(Actions.setCohortRosters({ rosters: data }))
         }
         else console.log("Couldnt get cohort enrollments")
