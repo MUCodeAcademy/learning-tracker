@@ -59,6 +59,7 @@ export class RetentionService {
   }
 
   addRetention(newRetention: Retention) {
+    console.log("only in student mode should i be seen", newRetention)
     return this.http
       .post("/api/retention/new", newRetention)
       .subscribe((res: APIResponse) => {
@@ -137,7 +138,9 @@ export class RetentionService {
       studentrating: rating.student_retention_rating,
       teacherrating: rating.teacher_retention_rating,
       id: rating.id,
+      instructorid: rating.instructor_id
     };
+    console.log(rating, "I should only be seen in instructor mode")
     return this.http.put("/api/retention/update", update).subscribe((res: APIResponse) => {
         if (res.success) {
           this.getUserRetentionData();

@@ -61,8 +61,8 @@ export function getAllRetentionByTopic(response, request) {
 }
 
 export function updateRetention(response, request) {
-    let retention = [request.body.studentrating, request.body.teacherrating, request.body.id]
-    pool.query("UPDATE topic_retention SET student_retention_rating = $1, teacher_retention_rating = $2 WHERE topic_retention.id = $3", retention, (err, result, field) => {
+    let retention = [request.body.studentrating, request.body.teacherrating, request.body.instructorid, request.body.id]
+    pool.query("UPDATE topic_retention SET student_retention_rating = $1, teacher_retention_rating = $2, instructor_id = $3 WHERE topic_retention.id = $4", retention, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Updated Retention" })
     })
