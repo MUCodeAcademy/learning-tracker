@@ -12,9 +12,9 @@ export function addNewQuestion(response, request){
 
 export function editQuestion(response, request){
     let data = [request.body.question_text, request.body.question_answer, request.body.id]
-    pool.query("UPDATE question SET question.question_text = $1, question.question_answer = $2 WHERE id = $3", data, (err, result, field) => {
+    pool.query("UPDATE question SET question_text = $1, question_answer = $2 WHERE id = $3", data, (err, result, field) => {
         if (err) { return response.send({msg:"Error on query", err: err.stack}) }
-        return response.send({ success: true, msg: "Question deleted." })
+        return response.send({ success: true, msg: "Question edited." })
     })
 }
 

@@ -28,7 +28,7 @@ export class InstructorQuestionComponent implements OnInit {
   newinstructorQuestion: InstructorQuestion = {
     id: "",
     student_id: "",
-    instructor_id: "",
+    instructor_id: "0",
     lesson_id: "",
     question_text: "",
     question_answer: "",
@@ -37,7 +37,7 @@ export class InstructorQuestionComponent implements OnInit {
   questionTemplate: InstructorQuestion = {
     id: "",
     student_id: "",
-    instructor_id: "",
+    instructor_id: "0",
     lesson_id: "",
     question_text: "",
     question_answer: "",
@@ -57,20 +57,29 @@ export class InstructorQuestionComponent implements OnInit {
   }
 
   saveQuestion(question: InstructorQuestion) {
-    if (question.id === "") {
-      // this is a new question and we must configure it
       question.student_id = this.userid;
       question.lesson_id = this.viewedlesson;
-      question.instructor_id = this.instructor;
+      console.log(question);
+      
       this.questions.questionQuestion(question);
       this.newinstructorQuestion = { ...this.questionTemplate };
-    }
+  }
+
+  editQuestion(question: InstructorQuestion){
+    let id = question.id
+    let quest = question.question_text
+    let ans = question.question_answer
+    this.questions.editQuestion(id, quest, ans)
+    console.log(this.instructorQuestion);
+    
   }
 
   ngOnInit(): void {
     this.instructorQuestion$.subscribe((res) => {
       let data = qclone.qclone(res);
       this.instructorQuestion = data;
+      console.log(this.instructorQuestion);
+      
     });
     this.userid$.subscribe((res) => (this.userid = res));
     this.userrole$.subscribe((res) => (this.userrole = res));
