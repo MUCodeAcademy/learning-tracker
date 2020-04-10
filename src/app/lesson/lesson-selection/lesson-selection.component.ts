@@ -42,6 +42,13 @@ export class LessonSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
+    combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
+      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3" || this.user.role_id === "1") {
+        let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
+        this.lessonMenu = seenlessons
+      }
+    })
     combineLatest([this.user$, this.cohortList$, this.studentcohort$]).pipe(map(([user, list, cohort]) => ({ user, list, cohort }))).subscribe(res => {
       this.user = res.user
       this.studentcohort = res.cohort
@@ -61,15 +68,6 @@ export class LessonSelectionComponent implements OnInit {
         else this.cohortList = res.list
       }
     })
-    this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
-    combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
-      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3" || this.user.role_id === "1") {
-        let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
-        this.lessonMenu = seenlessons
-      }
-    })
-
-
   }
 
 }

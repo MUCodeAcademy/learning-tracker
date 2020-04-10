@@ -42,7 +42,7 @@ export class QuizSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.selectedquiz$.subscribe(res => { console.log("sending quiz to state:", res.selectedquiz); this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })) })
     combineLatest([this.selectedcohort$, this.quizList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
       console.log(res, "does this ever fire?")
       if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3" || this.user.role_id === "1") {
