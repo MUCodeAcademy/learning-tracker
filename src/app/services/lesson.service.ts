@@ -89,9 +89,7 @@ export class LessonService {
 
   editLesson(lesson: Lesson, dialogRef: MatDialogRef<LessonEditComponent>) {
     console.log("edit lesson", lesson)
-    return this.http
-      .put("/api/lessons/edit", lesson)
-      .subscribe((res: APIResponse) => {
+    return this.http.put("/api/lessons/edit", lesson).subscribe((res: APIResponse) => {
         if (res.success) {
           dialogRef.close();
           this.getUserLessonData();
