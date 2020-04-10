@@ -61,17 +61,12 @@ export class InstructorQuestionComponent implements OnInit {
   saveQuestion(question: InstructorQuestion) {
       question.student_id = this.userid;
       question.lesson_id = this.viewedlesson;
-      console.log(question);
-      
       this.questions.questionQuestion(question);
       this.newinstructorQuestion = { ...this.questionTemplate };
   }
 
   editQuestion(question: InstructorQuestion){
-    console.log(question)
-    this.questions.editQuestion(question)
-    console.log(this.instructorQuestion);
-    
+    this.questions.editQuestion(question)    
   }
 
   ngOnInit(): void {

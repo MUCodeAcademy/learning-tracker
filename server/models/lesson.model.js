@@ -1,7 +1,6 @@
 import { pool } from '../config/postgres.conf'
 
 export function postLesson(response, request) {
-    console.log(response.body)
     let now = new Date();
     let lesson  = [request.body.cohort_id, request.body.topic_id,request.body.lesson_title, request.body.week_number, request.body.day, request.body.lesson_content, now]
     pool.query("INSERT INTO lesson(id, cohort_id, topic_id,lesson_title, week_number, day, lesson_content, last_edit) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7)", lesson, (err, result, field) => {
@@ -24,7 +23,6 @@ export function getAllLessons(response, request) {
 
 export function getLessonsByCohort(response, request) {
     let id = [request.params.id]
-    console.log(id, "HI im the lesson by cohort")
     pool.query("SELECT * FROM lesson WHERE cohort_id = $1", id).then(res => {
         if (res.rows.length === 0) {
             return response.send({ success: false, msg: "No lessons found." })

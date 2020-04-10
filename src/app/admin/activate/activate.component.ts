@@ -41,8 +41,6 @@ export class ActivateComponent implements OnInit {
   update(person){
     let studentid = this.userlist[person].id;
     let cohortid = this.userlist[person].newCohort_id;
-    console.log(studentid, cohortid);
-    
     this.userService.activateUser(studentid, cohortid)
   }
    

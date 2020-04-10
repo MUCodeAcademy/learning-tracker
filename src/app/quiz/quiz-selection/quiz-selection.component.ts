@@ -42,13 +42,11 @@ export class QuizSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedquiz$.subscribe(res => { console.log("sending quiz to state:", res.selectedquiz); this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })) })
+    this.selectedquiz$.subscribe(res => this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })))
     combineLatest([this.selectedcohort$, this.quizList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
-      console.log(res, "does this ever fire?")
       if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3" || this.user.role_id === "1") {
         let seenquiz = res.list.filter(obj => { return obj.cohort == res.cohort['selectedcohort'] })
         this.quizMenu = seenquiz
-        console.log(res.list, seenquiz)
       }
     })
     combineLatest([this.user$, this.cohortList$, this.studentcohort$]).pipe(map(([user, list, cohort]) => ({ user, list, cohort }))).subscribe(res => {
@@ -57,24 +55,20 @@ export class QuizSelectionComponent implements OnInit {
       if (res.user.role_id != "" && res.list.length > 0) {
         let filteredcohort: Cohort[] = []
         if (res.user.role_id === "3" && res.cohort.cohort_id) {
-          console.log(res.list)
           filteredcohort = res.list.filter((cohort: Cohort) => { return cohort.id == res.cohort.cohort_id })
-          console.log(res.cohort.cohort_id, "student cohort id being patched here")
           this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
         }
         else if (res.user.role_id === "2") {
           filteredcohort = res.list.filter((cohort: Cohort) => { return cohort.instructor_id == res.user.id })
-          console.log(filteredcohort[0].id, "instructor cohort id being patched here")
           this.cohortmenu.patchValue({ selectedcohort: filteredcohort[0].id })
         }
-        console.log(filteredcohort, "filtered after all the ifs")
         if (filteredcohort && filteredcohort.length > 0) {
           this.cohortList = filteredcohort
         }
         else this.cohortList = res.list
       }
     })
-    this.selectedquiz$.subscribe(res => { console.log("sending quiz to state:", res.selectedquiz); this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })) })
+    this.selectedquiz$.subscribe(res => this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })))
 
 
 
