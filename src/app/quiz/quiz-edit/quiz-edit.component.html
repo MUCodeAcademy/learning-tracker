@@ -1,1 +1,65 @@
-<p>quiz-edit works!</p>
+<h2 mat-dialog-title class="text-center text-warning">{{data.id ? "Edit" : "Add"}} Quiz</h2>
+<div mat-dialog-content class="dialog-content" role="form">
+    <form class="add-edit-form" [formGroup]="quizForm">
+
+        <mat-form-field class="input1">
+            <mat-label>Quiz Name</mat-label>
+            <input matInput name="quizName" formControlName="quizName" placeholder="Quiz Name" type="text">
+        </mat-form-field>
+        <mat-form-field class="input1">
+            <mat-label>Quiz Week</mat-label>
+            <input type="number" matInput name="day" placeholder="Week Number" formControlName="quizWeek">
+        </mat-form-field>
+        <mat-form-field class="input2">
+            <mat-label>Cohort</mat-label>
+            <mat-select formControlName="cohort">
+                <mat-option *ngFor="let c of (cohortList$ | async)" value="{{c.id}}">
+                    {{c.cohort_name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="questions">
+            <h3 class="text-center">
+                Questions: <button mat-icon-button color="primary" class="add" (click)="addQuestion()">
+                    <mat-icon>note_add</mat-icon>
+                </button>
+            </h3>
+            <div class="addTabs" formArrayName="questions">
+                <div *ngFor="let q of questions.controls; let i = index" class="question-container" [formGroupName]="i">
+                        <h4 class="text-center qInput2">Question {{i+1}} <button mat-icon-button color="primary"
+                                class="remove-individual" (click)="removeQuestion(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button></h4>
+                        <mat-form-field class="qInput1">
+                            <mat-label>Question</mat-label>
+                            <input formControlName="Q" matInput placeholder="Question" />
+                        </mat-form-field>
+                        <mat-form-field class="qInput1">
+                            <mat-label>Answer</mat-label>
+                            <input formControlName="A" matInput placeholder="Answer" />
+                        </mat-form-field>
+                        <mat-form-field class="qInput2">
+                            <mat-label>Multiple Choices If Needed</mat-label>
+                            <input formControlName="Choices" matInput placeholder="Choices" />
+                            <mat-hint>Comma Separated Values</mat-hint>
+                        </mat-form-field>
+                        <mat-form-field class="qInput2">
+                            <mat-label>Code (If Needed)</mat-label>
+                            <textarea rows="5" cols="30" matInput formControlName="code"></textarea>
+                        </mat-form-field>
+                        <br>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="buttons">
+
+    <button mat-raised-button color="primary" class="submit" [class.disabled]="quizForm.valid && (quizForm.touched)"
+        type="submit" (click)="upsertQuiz()">
+        {{data.id ? "Save" : "Add"}} Quiz
+    </button>
+
+    <button mat-raised-button color="basic" class="cancel" type="submit" (click)="close()">
+        Cancel
+    </button>

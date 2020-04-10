@@ -1,0 +1,46 @@
+.input1{
+    width: 45%;
+    min-width: 200px;
+    margin: auto;
+}
+.input2{
+    width: 98%;
+}
+.qInput1{
+    flex-basis: 45%;
+    min-width: 200px;
+}
+.qInput2{
+    flex-basis: 98%;
+}
+.buttons{
+    justify-content: space-evenly;
+}
+.question{
+    width: 98%;
+}
+
+.lesson-content{
+    width: 90%;
+    height: 70px;
+}
+.add-edit-form{
+    justify-content: space-evenly;
+    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.dialog-content{
+    height: auto;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.question-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}

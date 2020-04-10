@@ -72,14 +72,14 @@ router.post("/add", (req, res) => {
 
 router.put("/edit", (req, res) => {
   // Quiz.findByIdAndUpdate()
-  Quiz.findByIdAndUpdate(req.params.id, req.body, function(err, quiz) {
+  Quiz.update({_id: req.params._id}, req.body, function(err, quiz) {
     if (err) {
       return res.send({
         success: false,
-        msg: "Something went wrong, please try again later."
+        msg: "Something went, wrong please try again later."
       });
     }
-    return res.send({ success: true, data: docs });
+    return res.send({ success: true, data: quiz });
   });
 });
 

@@ -83,7 +83,8 @@ export class QuizService {
   }
 
   createQuiz(quiz, dialog: MatDialogRef<QuizEditComponent>) {
-    return this.http.post("/api/add", quiz).subscribe((res: APIResponse) => {
+    console.log(quiz);
+    return this.http.post("/api/quiz/add", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
         dialog.close();
         this.getUserQuizData();
@@ -97,7 +98,8 @@ export class QuizService {
   }
 
   editQuiz(quiz, dialog: MatDialogRef<QuizEditComponent>) {
-    return this.http.put("/api/edit", quiz).subscribe((res: APIResponse) => {
+    console.log(quiz);
+    return this.http.put("/api/quiz/edit", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
         dialog.close();
         this.getUserQuizData();
