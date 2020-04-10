@@ -67,10 +67,19 @@ export class InstructorQuestionComponent implements OnInit {
     }
   }
 
+  editQuestion(question: InstructorQuestion){
+    let id = question.id
+    let quest = question.question_text
+    let ans = question.question_answer
+    this.questions.editQuestion(id, quest, ans )
+  }
+
   ngOnInit(): void {
     this.instructorQuestion$.subscribe((res) => {
       let data = qclone.qclone(res);
       this.instructorQuestion = data;
+      console.log(this.instructorQuestion);
+      
     });
     this.userid$.subscribe((res) => (this.userid = res));
     this.userrole$.subscribe((res) => (this.userrole = res));

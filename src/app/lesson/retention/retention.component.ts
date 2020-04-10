@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { RootState } from '../../store';
 import { Observable } from 'rxjs';
 import * as Selectors from '../../store/selectors';
-import { User } from '../../interfaces/User.interface';
+import { User } from '../../interfaces/user.interface';
 import * as qclone from 'qclone'
 
 @Component({

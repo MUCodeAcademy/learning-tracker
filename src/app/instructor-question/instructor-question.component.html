@@ -1,22 +1,18 @@
-<textarea
-  [disabled]="userrole != '3'"
-  [(ngModel)]="newinstructorQuestion.question_text"
-  placeholder="Ask the instructor a question about the lesson..."
-  cols="50"
-  rows="8"
-></textarea>
-<textarea
-  [disabled]="userrole != '2'"
-  [(ngModel)]="newinstructorQuestion.question_answer"
-  placeholder="Answer goes here."
-  cols="50"
-  rows="8"
-></textarea>
-
-<button
-  mat-raised-button
-  color="primary"
-  (click)="saveQuestion(this.newinstructorQuestion)"
->
+<textarea [disabled]="userrole != '3'" [(ngModel)]="newinstructorQuestion.question_text"
+  placeholder="Ask the instructor a question about the lesson..." cols="50" rows="8"></textarea>
+<button [disabled]="userrole != '3'" mat-raised-button color="primary"
+  (click)="saveQuestion(newinstructorQuestion)">
   Save
 </button>
+
+<div>
+  <div *ngFor='let question of instructorQuestion'>
+    <textarea [disabled]="userrole != '3'" [(ngModel)]="question.question_text"></textarea>
+    <textarea [disabled]="userrole != '2'" [(ngModel)]="question.question_answer" cols="50" rows="8"></textarea>
+    <button [disabled]="userrole != '3' || '2'" mat-raised-button color="primary" (click)='editQuestion(question)'>
+      Edit
+    </button>
+  </div>
+</div>
+
+
