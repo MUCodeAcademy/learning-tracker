@@ -55,7 +55,6 @@ export class LessonSelectionComponent implements OnInit {
           filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.instructor_id == res.user.id})
           this.cohortmenu.patchValue({ selectedcohort: filteredcohort[0].id })
         }
-        console.log(filteredcohort, "filtered after all the ifs")
         if (filteredcohort && filteredcohort.length > 0) {
           this.cohortList = filteredcohort
         }

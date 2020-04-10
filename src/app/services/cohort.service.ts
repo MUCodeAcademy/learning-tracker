@@ -31,7 +31,6 @@ export class CohortService {
       thisuser = this.user
     }
     else thisuser = user
-    console.log(thisuser, "User used to get cohort data")
     this.getAllCohorts()
     this.getCohortEnrollment()
     if (thisuser.role_id === '3') {

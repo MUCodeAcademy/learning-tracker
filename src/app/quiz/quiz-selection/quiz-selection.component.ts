@@ -49,10 +49,12 @@ export class QuizSelectionComponent implements OnInit {cohortList$: Observable<a
         if (res.user.role_id === "3" && res.cohort.cohort_id) {
           console.log(res.list)
           filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.id == res.cohort.cohort_id})
+          console.log(res.cohort.cohort_id)
           this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
         }
         else if (res.user.role_id === "2") {
           filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.instructor_id == res.user.id})
+          console.log(filteredcohort[0].id)
           this.cohortmenu.patchValue({ selectedcohort: filteredcohort[0].id })
         }
         console.log(filteredcohort, "filtered after all the ifs")
