@@ -1,3 +1,5 @@
+console.log(process.env.MGDB_URI)
+
 export default mongoose => {
   const options = {
     useNewUrlParser: true,
