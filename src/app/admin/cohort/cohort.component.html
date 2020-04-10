@@ -17,25 +17,49 @@
 </mat-list>
 
 <mat-list>
-<div mat-subheader>Edit Cohort</div>
-<div *ngFor='let cohort of cohortList'>
-    <div>
-        <mat-form-field>
-            <mat-label>Cohort Name:</mat-label>
-            <input matInput [(ngModel)]="cohort.cohort_name">
-        </mat-form-field>
+    <div mat-subheader>Create Cohort</div>
+        <div>
+            <mat-form-field>
+                <mat-label>Cohort Name:</mat-label>
+                <input matInput [(ngModel)]="newCohort.cohort_name">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Instructor:</mat-label>
+                <mat-select [(ngModel)]="newCohort.instructor_id">
+                    <ng-container *ngFor='let instructor of instructors'>
+                        <mat-option *ngIf='instructor.role_id == 2' value='{{instructor.id}}'>
+                            {{instructor.first_name}} {{instructor.last_name}}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="warn" (click)='createCohort(newCohort)'>Create</button>
+        </div>
+</mat-list>
+
+<mat-list>
+    <div mat-subheader>Edit Cohort</div>
+    <div *ngFor='let cohort of cohortList'>
+        <div>
+            <mat-form-field>
+                <mat-label>Cohort Name:</mat-label>
+                <input matInput [(ngModel)]="cohort.cohort_name">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Instructor:</mat-label>
+                <mat-select [(ngModel)]="cohort.instructor_id">
+                    <ng-container *ngFor='let instructor of instructors'>
+                        <mat-option *ngIf='instructor.role_id == 2' value='{{cohort.instructor_id}}'>
+                            {{instructor.first_name}} {{instructor.last_name}}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="warn" (click)='update(cohort)'>Update</button>
+        </div>
     </div>
-    <div>
-        <mat-form-field>
-            <mat-label>Instructor:</mat-label>
-            <mat-select [(ngModel)]="cohort.instructor_id">
-                <ng-container *ngFor='let instructor of instructors'>
-                    <mat-option *ngIf='instructor.role_id == 2' value='{{cohort.instructor_id}}'>{{instructor.first_name}} {{instructor.last_name}}
-                    </mat-option>
-                </ng-container>
-            </mat-select>
-        </mat-form-field>
-        <button mat-raised-button color="warn" (click)='update(cohort)'>Update</button>
-    </div>
-</div>
 </mat-list>
