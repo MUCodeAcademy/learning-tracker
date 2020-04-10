@@ -1,4 +1,3 @@
-<p>lesson-display works!</p>
 <div>
     <form [formGroup]="cohortmenu">
         <mat-form-field *ngIf="user.role_id == '1' || user.role_id == '2'">
@@ -11,13 +10,13 @@
         </mat-form-field>
     </form>
     <form [formGroup]="lessonmenu">
-    <mat-form-field>
-        <mat-label>Week</mat-label>
-        <mat-select formControlName="selectedlesson">
-            <mat-option *ngFor="let w of lessonMenu" value="{{w.id}}">
-                Week {{w.week_number}} - Day {{w.day}} - {{w.lesson_title}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Week</mat-label>
+            <mat-select formControlName="selectedlesson">
+                <mat-option *ngFor="let w of lessonMenu" value="{{w.id}}">
+                    Week {{w.week_number}} - Day {{w.day}} - {{w.lesson_title}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
 </div>
-<app-lesson-display></app-lesson-display>
