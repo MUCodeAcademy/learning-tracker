@@ -92,9 +92,11 @@ export class UserService {
 
   activateUser(studentid: string, cohortid: string) {
     let activate = {
-      userid: studentid,
-      cohortid: cohortid,
+      userId: studentid,
+      cohortId: cohortid,
     };
+    console.log('serivce:', activate);
+    
     this.http
       .post("api/users/activate", activate)
       .subscribe((res: APIResponse) => {
