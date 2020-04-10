@@ -7,9 +7,8 @@
 </mat-toolbar>
 <mat-toolbar  color="accent">
     <mat-toolbar-row>
-      <div *ngIf='user.role_id != "4"'>
       <span class="example-spacer"></span>
-      <span class="nav test sml-low">
+      <span *ngIf='user.role_id != "4"' class="nav test sml-low">
         <a class="link" mat-button routerLink="/lesson">LESSONS</a>
         <a class="link" mat-button routerLink="/quiz">QUIZZES</a>
         <mat-icon routerLink="/message" class="example-icon" aria-hidden="false" aria-label="Message icon">chat_bubble
@@ -17,6 +16,5 @@
         <mat-icon *ngIf='user.role_id != 3' routerLink="/admin" class="example-icon" aria-hidden="false" aria-label="Setings icon">settings
         </mat-icon>
       </span>
-      </div>
     </mat-toolbar-row>
 </mat-toolbar>

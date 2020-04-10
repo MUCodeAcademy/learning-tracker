@@ -17,6 +17,8 @@ export class QuizDisplayComponent implements OnInit {
   viewedQuiz$: Observable<any>
   viewedQuiz: string
   viewedQuizTarget: Quiz
+  questions: Array<Object>
+  choices: Array<Object>
 
   constructor(private store: Store<RootState>) {
     this.quizList$ = this.store.select(Selectors.getQuiz);
@@ -33,6 +35,9 @@ export class QuizDisplayComponent implements OnInit {
       this.viewedQuiz = pair.viewedId;
       let target = this.quizList.find(obj => { return obj._id === pair.viewedId })
       this.viewedQuizTarget = target
+      this.questions = this.quizList[0].questions
+      console.log(this.questions);
+      
   })
   }
 }
