@@ -5,18 +5,50 @@ import { Retention } from "../interfaces/retention.interface";
 import { Store } from "@ngrx/store";
 import { RootState } from "../store";
 import * as Actions from "../store/actions";
+import * as Selectors from '../store/selectors';
 import { map } from "rxjs/operators";
+import { combineLatest, Observable } from 'rxjs'
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { User } from '../interfaces/user.interface';
+import { Cohort } from '../interfaces/Cohort.interface';
+import { Enrollment } from '../interfaces/Enrollment.interface';
 
 @Injectable({
   providedIn: "root",
 })
 export class RetentionService {
+  user$: Observable<User>
+  user: User
+
   constructor(
-    private http: HttpClient,
-    private store: Store<RootState>,
-    private snackbar: MatSnackBar
-  ) {}
+    private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) {
+      this.user$ = this.store.select(Selectors.getUserInfo)
+      this.user$.subscribe((res: User) => this.user = res)
+     }
+
+  getUserRetentionData(user?: User) {
+    let thisuser
+    if (!user && this.user != "") {
+      thisuser = this.user
+    }
+    else thisuser = user
+    let cohortlist$ = this.store.select(Selectors.getCohortList)
+    let enrollment$ = this.store.select(Selectors.getUserEnrollment)
+    combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
+      let clist: Cohort[] = res.list
+      let enroll: Enrollment = res.enrollment
+      if (user.role_id === "1") {
+        this.getAllRetentions()
+      }
+      else if (user.role_id === "2" && clist.length > 0) {
+        let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == user.id })
+        this.getRetentionByCohort(mycohorts[0].id)
+      }
+      else if (user.role_id === "3" && clist.length > 0 && enroll != {}) {
+        this.getRetentionByStudent(enroll.cohort_id)
+      }
+    })
+  }
 
   getAllRetentions() {
     return this.http.get("/api/retention/all").subscribe((res: APIResponse) => {
@@ -32,7 +64,7 @@ export class RetentionService {
       .post("/api/retention/new", newRetention)
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.getAllRetentions();
+          this.getUserRetentionData();
         } else
           this.snackbar.open(
             "The database encountered an error, your work did not save.",
@@ -111,7 +143,7 @@ export class RetentionService {
       .put("/api/retention/update", update)
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.getAllRetentions();
+          this.getUserRetentionData();
         } else
           this.snackbar.open(
             "The database encountered an error, your work did not save.",
@@ -126,7 +158,7 @@ export class RetentionService {
       .delete(`/api/retention/delete/${topicid}`)
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.getAllRetentions();
+          this.getUserRetentionData();
         } else
           this.snackbar.open(
             "The database encountered an error, your work did not save.",

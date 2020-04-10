@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import * as Actions from '../store/actions'
 import * as Selectors from '../store/selectors'
 import { RootState } from '../store';
@@ -18,6 +18,7 @@ import { QuestionsService } from './questions.service';
 import { Enrollment } from '../interfaces/enrollment.interface';
 import { Cohort } from '../interfaces/cohort.interface';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
@@ -56,7 +57,7 @@ export class UserService {
         if (response.success) {
           let data: User = response.data
           this.store.dispatch(Actions.setUserInfo({ user: data }))
-          this.getInitialData(data.role_id, data.id)
+          this.getInitialData(data)
           if (data.first_name != authfirst || data.last_name != authlast) {
             let fixed: User = { ...data, first_name: auth.given_name, last_name: auth.family_name }
             this.http.put('/api/users/edit', fixed).subscribe(res => {
@@ -69,63 +70,14 @@ export class UserService {
     });
   }
 
-  getInitialData(roleid: string, id: string) {
-    console.log("get initial data firing, with role of:",roleid,"and userid of",id);
-    if (roleid === "1") {
-      this.getAllUsers()
-      this.cohorts.getAllCohorts()
-      this.cohorts.getCohortEnrollment()
-      this.lessons.getAllLessons()
-      this.notes.getAllNotes()
-      this.quiz.getAllQuizzes()
-      this.retention.getAllRetentions()
-      this.questions.allQuestions()
-      console.log("Done fetching data for an admin")
-    }
-    if (roleid === "3") {
-      this.cohorts.getStudentEnrollment(id);
-      this.getAllUsers();
-      this.cohorts.getAllCohorts();
-      this.notes.notesByStudent(id);
-      this.retention.getRetentionByStudent(id);
-      let enrollment$ = this.store.select(Selectors.getUserEnrollment);
-      enrollment$.subscribe((enrollment: Enrollment) => {
-        if (enrollment.cohort_id > 0) {
-          this.quiz.getQuizzesByCohort(enrollment.cohort_id);
-          this.questions.byCohortId(enrollment.cohort_id);
-          this.lessons.getLessonsbyCohort(enrollment.cohort_id);
-        }
-      });
-      console.log("done getting student's data");
-    }
-    if (roleid === "2") {
-      this.cohorts.getAllCohorts()
-      this.getAllUsers()
-      this.cohorts.getCohortEnrollment()
-      let cohorts$ = this.store.select(Selectors.getCohortList)
-      cohorts$.subscribe(res => {
-        console.log(res, "should be cohort enrollment")
-        if (res && res.length > 0) {
-        let assigned = res.filter((obj: Cohort) => {
-          let iid = obj.instructor_id;
-          if (iid.toString() === id) {return true}})
-        console.log("assigned cohort array", assigned)
-        assigned.sort((a, b) => b.id - a.id)
-        // should put latest cohort last .. for now
-        let cohort;
-        if (assigned.length > 0) {
-          cohort = assigned[0].id
-        }
-        if (cohort != undefined) {
-        // this code doesn't support an instructor with multiple cohorts, api endpoints don't do this
-        this.notes.notesByCohort(cohort)
-        this.lessons.getLessonsbyCohort(cohort)
-        this.quiz.getQuizzesByCohort(cohort)
-        this.retention.getRetentionByCohort(cohort)
-        this.questions.byCohortId(cohort)
-      }}})
-      console.log("done fetching data for an instructor")
-    }
+  getInitialData(user: User) {
+    console.log("get initial data firing, with role of:",user.role_id,"and userid of",user.id);
+    this.getAllUsers()
+    this.cohorts.getUserCohortData(user)
+    this.lessons.getUserLessonData(user)
+    this.retention.getUserRetentionData(user)
+    this.questions.getUserQuestionData(user)
+    this.quiz.getUserQuizData(user)
   }
 
   getAllUsers() {

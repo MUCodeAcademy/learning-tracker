@@ -3,19 +3,51 @@ import { HttpClient } from "@angular/common/http";
 import { RootState } from "../store";
 import { Store } from "@ngrx/store";
 import * as Actions from "../store/actions";
+import * as Selectors from '../store/selectors'
 import { Quiz } from "../interfaces/quiz.interface";
 import { APIResponse } from "../interfaces/apiresponse.interface";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { combineLatest, Observable } from 'rxjs';
+import { User } from '../interfaces/user.interface';
+import { map } from 'rxjs/operators';
+import { Cohort } from '../interfaces/Cohort.interface';
+import { Enrollment } from '../interfaces/Enrollment.interface';
 
 @Injectable({
   providedIn: "root",
 })
 export class QuizService {
-  constructor(
-    private http: HttpClient,
-    private store: Store<RootState>,
-    private snackbar: MatSnackBar
-  ) {}
+  user$: Observable<User>
+  user: User
+  
+  constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) {
+    this.user$ = this.store.select(Selectors.getUserInfo)
+    this.user$.subscribe((res: User) => this.user = res)
+  }
+
+  getUserQuizData(user?: User) {
+    let thisuser
+    if (!user && this.user != "") {
+      thisuser = this.user
+    }
+    else thisuser = user
+    let cohortlist$ = this.store.select(Selectors.getCohortList)
+    let enrollment$ = this.store.select(Selectors.getUserEnrollment)
+    combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
+      let clist: Cohort[] = res.list
+      let enroll: Enrollment = res.enrollment
+      if (user.role_id === "1") {
+        this.getAllQuizzes()
+      }
+      else if (user.role_id === "2" && clist.length > 0) {
+        let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == user.id })
+        this.getQuizzesByCohort(mycohorts[0].id)
+      }
+      else if (user.role_id === "3" && clist.length > 0 && enroll != {}) {
+        this.getQuizzesByCohort(enroll.cohort_id)
+      }
+    })
+  }
 
   getQuizById(id) {
     return this.http.get("/api/quiz/id/" + id).subscribe((res: APIResponse) => {
@@ -49,7 +81,7 @@ export class QuizService {
   createQuiz(quiz) {
     return this.http.post("/api/add", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
-        this.getAllQuizzes();
+        this.getUserQuizData();
       } else
         this.snackbar.open(
           "The database encountered an error, your work did not save.",
@@ -62,7 +94,7 @@ export class QuizService {
   editQuiz(quiz) {
     return this.http.put("/api/edit", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
-        this.getAllQuizzes();
+        this.getUserQuizData();
       } else
         this.snackbar.open(
           "The database encountered an error, your work did not save.",
@@ -77,7 +109,7 @@ export class QuizService {
       .delete(`/api/quiz/delete/${id}`)
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.getAllQuizzes();
+          this.getUserQuizData();
         } else
           this.snackbar.open(
             "The database encountered an error, your work did not save.",

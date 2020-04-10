@@ -2,15 +2,51 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
-import * as Actions from '../store/actions/instructorquestion.action'
+import * as Actions from '../store/actions';
+import * as Selectors from '../store/selectors'
 import { InstructorQuestion } from '../interfaces/instructorquestion.interface';
 import { APIResponse } from '../interfaces/apiresponse.interface';
+import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs'
+import { User } from '../interfaces/user.interface';
+import { Cohort } from '../interfaces/Cohort.interface';
+import { Enrollment } from '../interfaces/Enrollment.interface';
 
 @Injectable({
   providedIn: "root",
 })
 export class QuestionsService {
-  constructor(private http: HttpClient, private store: Store<RootState>) {}
+  user$: Observable<User>
+  user: User
+
+  constructor(private http: HttpClient, private store: Store<RootState>) {
+    this.user$ = this.store.select(Selectors.getUserInfo)
+    this.user$.subscribe((res: User) => this.user = res)
+  }
+
+  getUserQuestionData(user?: User) {
+    let thisuser
+    if (!user && this.user != "") {
+      thisuser = this.user
+    }
+    else thisuser = user
+    let cohortlist$ = this.store.select(Selectors.getCohortList)
+    let enrollment$ = this.store.select(Selectors.getUserEnrollment)
+    combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
+      let clist: Cohort[] = res.list
+      let enroll: Enrollment = res.enrollment
+      if (user.role_id === "1") {
+        this.allQuestions()
+      }
+      else if (user.role_id === "2" && clist.length > 0) {
+        let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == user.id })
+        this.byCohortId(mycohorts[0].id)
+      }
+      else if (user.role_id === "3" && clist.length > 0 && enroll != {}) {
+        this.byStudentId(enroll.cohort_id)
+      }
+    })
+  }
 
   allQuestions() {
     this.http.get("/api/questions/all").subscribe((res: APIResponse) => {
@@ -76,7 +112,7 @@ export class QuestionsService {
       })
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.allQuestions();
+          this.getUserQuestionData();
         }
       });
   }
@@ -86,7 +122,7 @@ export class QuestionsService {
       .post("/api/questions/new", question)
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.allQuestions();
+          this.getUserQuestionData();
         }
       });
   }
@@ -96,7 +132,7 @@ export class QuestionsService {
       .delete("/api/questions/delete/" + id)
       .subscribe((res: APIResponse) => {
         if (res.success) {
-          this.allQuestions();
+          this.getUserQuestionData();
         }
       });
   }
