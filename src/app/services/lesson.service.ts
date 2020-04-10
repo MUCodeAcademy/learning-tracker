@@ -37,6 +37,7 @@ export class LessonService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list,enrollment]) => ({list,enrollment}))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
+      if (enroll != {} && clist.length > 0) {
       if (thisuser.role_id === "1") {
         this.getAllLessons()
       }
@@ -47,7 +48,7 @@ export class LessonService {
       else if (thisuser.role_id === "3" && clist.length > 0 && enroll != {}) {
         this.getLessonsbyCohort(enroll.cohort_id)
       }
-  })
+  }})
 }
   getAllLessons() {
     return this.http.get("/api/lessons/all").subscribe((res: APIResponse) => {

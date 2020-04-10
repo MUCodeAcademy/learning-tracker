@@ -35,6 +35,7 @@ export class QuestionsService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
+      if (clist.length > 0 && enroll != {}) {
       if (thisuser.role_id === "1") {
         this.allQuestions()
       }
@@ -45,7 +46,7 @@ export class QuestionsService {
       else if (thisuser.role_id === "3" && clist.length > 0 && enroll != {}) {
         this.byStudentId(enroll.id)
       }
-    })
+    }})
   }
 
   allQuestions() {
