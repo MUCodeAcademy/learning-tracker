@@ -45,21 +45,20 @@ export class LessonSelectionComponent implements OnInit {
   ngOnInit(): void {
     combineLatest([this.user$, this.cohortList$, this.studentcohort$]).pipe(map(([user, list, cohort]) => ({ user, list, cohort }))).subscribe(res => {
       this.user = res.user
-      if (res.user.role_id != "" && res.list != [] && res.cohort != {}) {
-        console.log(res)
-        let filteredcohort: Cohort[]
-        if (res.user.role_id === "3") {
-          filteredcohort = res.list.filter((cohort: Cohort) => cohort.id == res.cohort.cohort_id)
-          console.log(filteredcohort, "filtered in the student")
+      this.studentcohort = res.cohort
+      if (res.user.role_id != "" && res.list.length > 0) {
+        let filteredcohort: Cohort[] = []
+        if (res.user.role_id === "3" && res.cohort != {}) {
+          filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.id == res.cohort.cohort_id})
           this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
         }
         else if (res.user.role_id === "2") {
-          filteredcohort = res.list.filter((cohort: Cohort) => cohort.instructor_id == res.user.id)
-          console.log(filteredcohort, "filtered in the instructor")
+          console.log(res.list)
+          filteredcohort = res.list.filter((cohort: Cohort) => {console.log(cohort, res.user.id);return cohort.instructor_id == res.user.id})
           this.cohortmenu.patchValue({ selectedcohort: filteredcohort[0].id })
         }
         console.log(filteredcohort, "filtered after all the ifs")
-        if (filteredcohort.length > 0) {
+        if (filteredcohort && filteredcohort.length > 0) {
           this.cohortList = filteredcohort
         }
         else this.cohortList = res.list
@@ -69,7 +68,7 @@ export class LessonSelectionComponent implements OnInit {
     combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
       console.log(res)
       if (this.user.role_id === "2" || this.user.role_id === "3") {
-        let seenlessons = res.list.filter(obj => { return obj.cohort_id === res.cohort['selectedcohort'] })
+        let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
         this.lessonMenu = seenlessons
         console.log(seenlessons)
       }
