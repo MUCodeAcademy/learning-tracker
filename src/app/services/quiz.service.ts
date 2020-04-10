@@ -44,6 +44,7 @@ export class QuizService {
           this.getQuizzesByCohort(mycohorts[0].id)
         }
         else if (thisuser.role_id === "3" && enroll.cohort_id) {
+          console.log("requesting quizzes for cohort", enroll.cohort_id)
           this.getQuizzesByCohort(enroll.cohort_id)
         }
     })
@@ -64,6 +65,7 @@ export class QuizService {
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Quiz[] = res.data;
+          console.log("sending quizzes by cohort to state", data)
           this.store.dispatch(Actions.getQuizzes({ quizzes: data }))
         } else console.log("Couldn't get quizzes by cohort.");
       });

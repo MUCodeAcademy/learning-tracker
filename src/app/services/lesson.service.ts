@@ -26,7 +26,6 @@ export class LessonService {
   }
 
   getUserLessonData(user?: User) {
-    console.log("get user lesson data firing:", user)
     let thisuser
     if (!user && this.user != "") {
       thisuser = this.user
@@ -37,13 +36,11 @@ export class LessonService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
-      console.log(res)
         if (thisuser.role_id === "1") {
           this.getAllLessons()
         }
         else if (thisuser.role_id === "2" && clist.length > 0) {
           let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == thisuser.id })
-          console.log(mycohorts)
           this.getLessonsbyCohort(mycohorts[0].id)
         }
         else if (thisuser.role_id === "3" && enroll.cohort_id) {

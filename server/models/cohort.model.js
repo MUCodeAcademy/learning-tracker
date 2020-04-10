@@ -39,7 +39,7 @@ export function deleteCohort(response, request) {
 
 export function assignStudentCohort(response, request) {
     let data = [request.body.cohortid, request.body.studentid]
-    pool.query("INSERT INTO cohort_to_student(id,cohort_id,student_id) VALUES (DEFAULT, $1, $2)", data, (err, result, field) => {
+    pool.query("INSERT INTO cohort_to_student(id,cohort_id,user_id) VALUES (DEFAULT, $1, $2)", data, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Assigned Cohort to Student" })
     })

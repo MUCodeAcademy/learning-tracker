@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, iif, of } from 'rxjs';
-// import { Store } from '@ngrx/store';
-// import { AppState } from '../store';
 import { tap, map, concatMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -14,8 +12,6 @@ export class UserGuard implements CanActivate {
   initial: boolean = true;
 
   constructor(
-    // private store:Store<AppState>,
-    // private router: Router,
     private auth: AuthService,
     private user: UserService
     ) { }
@@ -27,7 +23,6 @@ export class UserGuard implements CanActivate {
           concatMap(_ => this.auth.handleAuthCallback()),
           tap(res=>{
             if (this.initial && res.loggedIn) {
-              console.log(res)
               this.user.setUserData()
               this.initial = false
             }}),
