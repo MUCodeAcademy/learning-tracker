@@ -1,13 +1,14 @@
 export interface Quiz {
-    quizName?: string
-    quizWeek?: number
-    cohort?: number
+    _id: string,
+    quizName?: string,
+    quizWeek?: number,
+    cohort?: number,
     questions?: [
         {
-            Q?: string
-            A?: string
-            Choices?: string[]
-            code?: string
+            Q?: string,
+            A?: string,
+            Choices?: string[],
+            code?: string,
         }
     ]
 }

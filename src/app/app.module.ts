@@ -25,6 +25,8 @@ import { InstructorQuestionListComponent } from "./instructor-question-list/inst
 import { LessonDisplayComponent } from './lesson/lesson-display/lesson-display.component';
 import { RetentionComponent } from './lesson/retention/retention.component';
 import { NamefromidPipe } from './pipes/namefromid.pipe';
+import { QuizSelectionComponent } from './quiz/quiz-selection/quiz-selection.component';
+import { QuizDisplayComponent } from './quiz/quiz-display/quiz-display.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { NamefromidPipe } from './pipes/namefromid.pipe';
     LessonSelectionComponent,
     RetentionComponent,
     LessonDisplayComponent,
-    NamefromidPipe
+    NamefromidPipe,
+    QuizSelectionComponent,
+    QuizDisplayComponent
   ],
   imports: [
     BrowserModule,
