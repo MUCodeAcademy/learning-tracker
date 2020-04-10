@@ -66,10 +66,8 @@ export class InstructorQuestionComponent implements OnInit {
   }
 
   editQuestion(question: InstructorQuestion){
-    let id = question.id
-    let quest = question.question_text
-    let ans = question.question_answer
-    this.questions.editQuestion(id, quest, ans)
+    console.log(question)
+    this.questions.editQuestion(question)
     console.log(this.instructorQuestion);
     
   }

@@ -126,15 +126,9 @@ export class QuestionsService {
       });
   }
 
-  editQuestion(id, question, answer) {
-    this.http
-      .put("/api/questions/edit", {
-        question_text: question,
-        question_answer: answer,
-        id: id,
-      })
-      .subscribe((res: APIResponse) => {
-        if (res.success) {
+  editQuestion(question: InstructorQuestion) {
+    this.http.put("/api/questions/edit", question).subscribe((res: APIResponse) => {
+        if (res.success) { 
           this.getUserQuestionData();
         }
       });
