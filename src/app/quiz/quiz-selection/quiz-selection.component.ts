@@ -5,39 +5,38 @@ import { Observable, combineLatest } from 'rxjs';
 import { Cohort } from '../../interfaces/Cohort.interface';
 import * as Selectors from '../../store/selectors';
 import * as Actions from '../../store/actions';
-import { Lesson } from '../../interfaces/lesson.interface';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'src/app/interfaces/user.interface';
 import { map } from 'rxjs/operators';
+import { Quiz } from 'src/app/interfaces/quiz.interface';
 
 @Component({
-  selector: 'app-lesson-selection',
-  templateUrl: './lesson-selection.component.html',
-  styleUrls: ['./lesson-selection.component.scss']
+  selector: 'app-quiz-selection',
+  templateUrl: './quiz-selection.component.html',
+  styleUrls: ['./quiz-selection.component.scss']
 })
-export class LessonSelectionComponent implements OnInit {
-  cohortList$: Observable<any>
+export class QuizSelectionComponent implements OnInit {cohortList$: Observable<any>
   cohortList: Array<Cohort>
-  lessonList$: Observable<any>
-  lessonList: Array<Lesson>
-  lessonMenu: Array<Lesson>
+  quizList$: Observable<any>
+  quizList: Array<Quiz>
+  quizMenu: Array<Quiz>
   user$: Observable<User>
   user: User
-  lessonmenu: FormGroup
+  quizmenu: FormGroup
   cohortmenu: FormGroup
   studentcohort$: Observable<any>
   studentcohort: Array<Cohort>
-  selectedlesson$
+  selectedquiz$
   selectedcohort$
 
   constructor(private store: Store<RootState>, private form: FormBuilder) {
     this.cohortList$ = this.store.select(Selectors.getCohortList);
-    this.lessonList$ = this.store.select(Selectors.getLessons);
+    this.quizList$ = this.store.select(Selectors.getQuiz);
     this.user$ = this.store.select(Selectors.getUserInfo);
     this.cohortmenu = this.form.group({ selectedcohort: "" })
-    this.lessonmenu = this.form.group({ selectedlesson: "" })
+    this.quizmenu = this.form.group({ selectedquiz: "" })
     this.selectedcohort$ = this.cohortmenu.valueChanges
-    this.selectedlesson$ = this.lessonmenu.valueChanges
+    this.selectedquiz$ = this.quizmenu.valueChanges
     this.studentcohort$ = this.store.select(Selectors.getUserEnrollment);
   }
 
@@ -62,11 +61,11 @@ export class LessonSelectionComponent implements OnInit {
         else this.cohortList = res.list
       }
     })
-    this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
-    combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
+    this.selectedquiz$.subscribe(res => this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })))
+    combineLatest([this.selectedcohort$, this.quizList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
       if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3") {
-        let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
-        this.lessonMenu = seenlessons
+        let seenquiz = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
+        this.quizMenu = seenquiz
       }
     })
 
