@@ -10,12 +10,12 @@
 <div *ngFor='let question of questions, index as i'>
 <div>{{i}}:{{question.Q}}</div>
 <br>
-<mat-ratio-group *ngIf='question.Choices != []'>
+<mat-radio-group *ngIf='question.Choices != []'>
     <mat-radio-button value="{{question.Choices[0]}}">{{question.Choices[0]}}</mat-radio-button><br>
     <mat-radio-button value="{{question.Choices[1]}}">{{question.Choices[1]}}</mat-radio-button><br>
     <mat-radio-button value="{{question.Choices[2]}}">{{question.Choices[2]}}</mat-radio-button><br>
     <mat-radio-button value="{{question.Choices[3]}}">{{question.Choices[3]}}</mat-radio-button><br>
-</mat-ratio-group>
+</mat-radio-group>
 </div>
 </ng-container>
 <button mat-raised-button color="primary">Answers</button>
