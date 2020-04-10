@@ -2,7 +2,7 @@ import { pool } from '../config/postgres.conf'
 
 
 export function newCohort(response, request) {
-    let name = [request.body.name, request.body.instructorid]
+    let name = [request.body.cohort_name, request.body.instructor_id]
     pool.query("INSERT INTO cohort(id,cohort_name,instructor_id) VALUES (DEFAULT, $1, $2)", name, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Cohort" })
@@ -22,7 +22,7 @@ export function getAllCohorts(response, request) {
 }
 
 export function updateCohort(response, request) {
-    let change = [request.body.name, request.body.instructorid, request.body.id];
+    let change = [request.body.cohort_name, request.body.instructor_id, request.body.id];
     pool.query("UPDATE cohort SET cohort_name = $1, instructor_id = $2 WHERE cohort.id = $3", change, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort updated." })

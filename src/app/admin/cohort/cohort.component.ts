@@ -21,7 +21,13 @@ export class CohortComponent implements OnInit {
   cohortList: Array<Cohort>;
   instructors$: Observable<Array<User>>;
   instructors: Array<User>;
-  cohort: Cohort = {
+  cohortTemplate: Cohort = {
+    id: "",
+    cohort_name: "",
+    instructor_id: ""
+  }
+
+  newCohort: Cohort = {
     id: "",
     cohort_name: "",
     instructor_id: ""
@@ -45,6 +51,13 @@ export class CohortComponent implements OnInit {
     console.log(person);
     
     this.CohortService.changeStudentsCohort(person)
+  }
+
+  createCohort(nextCohort: Cohort){
+    console.log(nextCohort);
+    
+    this.CohortService.createCohort(nextCohort)
+    this.newCohort = {...this.cohortTemplate}
   }
 
   ngOnInit(): void {

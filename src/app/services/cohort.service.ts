@@ -53,6 +53,8 @@ export class CohortService {
       .post("/api/cohorts/new", cohort)
       .subscribe((res: APIResponse) => {
         if (res.success) {
+          console.log('service success');
+          
           this.getUserCohortData();
         } else
           this.snackbar.open(
