@@ -133,15 +133,13 @@ export class RetentionService {
       });
   }
 
-  updateRetention(studentrating, teacherrating, topicid) {
+  updateRetention(rating: Retention) {
     let update = {
-      studentrating: studentrating,
-      teacherrating: teacherrating,
-      topicid: topicid,
+      studentrating: rating.student_retention_rating,
+      teacherrating: rating.teacher_retention_rating,
+      id: rating.id,
     };
-    return this.http
-      .put("/api/retention/update", update)
-      .subscribe((res: APIResponse) => {
+    return this.http.put("/api/retention/update", update).subscribe((res: APIResponse) => {
         if (res.success) {
           this.getUserRetentionData();
         } else
