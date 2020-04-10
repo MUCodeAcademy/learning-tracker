@@ -7,6 +7,7 @@ import { RootState } from '../../store';
 import { Observable } from 'rxjs';
 import * as Selectors from '../../store/selectors';
 import { User } from '../../interfaces/User.interface';
+import * as qclone from 'qclone'
 
 @Component({
   selector: 'app-retention',
@@ -15,7 +16,8 @@ import { User } from '../../interfaces/User.interface';
 })
 
 export class RetentionComponent implements OnInit {
-  @Input('retention') rating: Retention;
+  @Input('retention') rating: Retention
+  newrating: Retention
   @Input('color') color: string = 'accent';
   user$: Observable<User>
   user: User
@@ -25,21 +27,22 @@ export class RetentionComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar, private retention: RetentionService, private store: Store<RootState>) {
     this.user$ = this.store.select(Selectors.getUserInfo)
+
   }
 
-  ngOnInit(): void { this.user$.subscribe(res => this.user = res) }
+  ngOnInit(): void { this.user$.subscribe(res => this.user = res);this.newrating = qclone.qclone(this.rating) }
 
   studentrate(rating: number) {
     if (this.user.role_id === "3") {
-      this.rating.student_retention_rating = rating
+      this.newrating.student_retention_rating = rating
       this.rate(rating)
     }
   }
 
   instructorrate(rating: number) {
     if (this.user.role_id === "2" || this.user.role_id === "1") {
-      this.rating.instructor_id = this.user.id
-      this.rating.teacher_retention_rating = rating
+      this.newrating.instructor_id = this.user.id
+      this.newrating.teacher_retention_rating = rating
       this.rate(rating)
     }
   }
@@ -48,11 +51,11 @@ export class RetentionComponent implements OnInit {
     this.snackBar.open('You rated ' + rating + ' / 5', '', {
       duration: this.snackBarDuration
     });
-    console.log(this.rating)
+    console.log(this.newrating)
     if (this.rating.id != "") {
-      this.retention.updateRetention(this.rating)
+      this.retention.updateRetention(this.newrating)
     }
-    else this.retention.addRetention(this.rating)
+    else this.retention.addRetention(this.newrating)
     console.log(rating);
     return false;
   }
