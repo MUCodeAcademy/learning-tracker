@@ -47,6 +47,7 @@ export class QuizSelectionComponent implements OnInit {cohortList$: Observable<a
       if (res.user.role_id != "" && res.list.length > 0) {
         let filteredcohort: Cohort[] = []
         if (res.user.role_id === "3" && res.cohort.cohort_id) {
+          console.log(res.list)
           filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.id == res.cohort.cohort_id})
           this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
         }
@@ -62,10 +63,13 @@ export class QuizSelectionComponent implements OnInit {cohortList$: Observable<a
       }
     })
     this.selectedquiz$.subscribe(res => this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })))
+    this.selectedcohort$.subscribe(res=>console.log(res, "Im not firing"))
     combineLatest([this.selectedcohort$, this.quizList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
-      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3") {
-        let seenquiz = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
+      console.log(res, "does this ever fire?")
+      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3" || this.user.role_id === "1") {
+        let seenquiz = res.list.filter(obj => { return obj.cohort == res.cohort['selectedcohort'] })
         this.quizMenu = seenquiz
+        console.log(res.list, seenquiz)
       }
     })
 
