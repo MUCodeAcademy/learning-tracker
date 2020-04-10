@@ -9,7 +9,7 @@
   <div *ngFor='let question of instructorQuestion'>
     <textarea [disabled]="userrole != '3'" [(ngModel)]="question.question_text"></textarea>
     <textarea [disabled]="userrole != '2'" [(ngModel)]="question.question_answer" cols="50" rows="8"></textarea>
-    <button [disabled]="userrole != '3' || '2'" mat-raised-button color="primary" (click)='editQuestion(question)'>
+    <button mat-raised-button color="primary" (click)='editQuestion(question)'>
       Edit
     </button>
   </div>
