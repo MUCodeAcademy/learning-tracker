@@ -1,3 +1,5 @@
+
+<div *ngIf='user.role_id !="4"'>
 <app-navbar></app-navbar>
 <app-lesson-selection></app-lesson-selection>
 <app-lesson-display></app-lesson-display>
@@ -7,4 +9,8 @@
 <app-instructor-question></app-instructor-question>
 <div>
     <button mat-raised-button color="primary" (click)="addLesson()">Add Lesson</button>
+</div>
+</div>
+
+<div *ngIf='user.role_id == "4"'>You must be assigned a cohort to have access to this application.
 </div>

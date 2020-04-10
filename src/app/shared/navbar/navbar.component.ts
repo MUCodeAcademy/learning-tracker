@@ -7,6 +7,7 @@ import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { isDevMode } from '@angular/core'
 
 @Component({
   selector: 'app-navbar',
@@ -22,9 +23,11 @@ export class NavbarComponent implements OnInit {
     id: "",
     email_address: ""
   }
+  mode: boolean;
 
   constructor(public auth: AuthService, private store: Store<RootState>, private usersvc: UserService) {
     this.user$ = this.store.select(Selectors.getUserInfo)
+    this.mode = isDevMode()
    }
 
   logout(){
@@ -39,6 +42,9 @@ export class NavbarComponent implements OnInit {
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
     })
+
+    
+    
   }
     
   }
