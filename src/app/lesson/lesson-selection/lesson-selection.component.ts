@@ -48,7 +48,7 @@ export class LessonSelectionComponent implements OnInit {
       this.studentcohort = res.cohort
       if (res.user.role_id != "" && res.list.length > 0) {
         let filteredcohort: Cohort[] = []
-        if (res.user.role_id === "3" && res.cohort != {}) {
+        if (res.user.role_id === "3" && res.cohort.cohort_id) {
           filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.id == res.cohort.cohort_id})
           this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
         }
@@ -65,7 +65,7 @@ export class LessonSelectionComponent implements OnInit {
     })
     this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
     combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
-      if (this.user.role_id === "2" || this.user.role_id === "3") {
+      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3") {
         let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
         this.lessonMenu = seenlessons
       }

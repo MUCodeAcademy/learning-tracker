@@ -36,18 +36,16 @@ export class QuizService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
-      if (enroll.cohort_id && clist.length > 0) {
         if (thisuser.role_id === "1") {
           this.getAllQuizzes()
         }
-        else if (thisuser.role_id === "2") {
+        else if (thisuser.role_id === "2" && clist.length > 0) {
           let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == thisuser.id })
           this.getQuizzesByCohort(mycohorts[0].id)
         }
-        else if (thisuser.role_id === "3") {
+        else if (thisuser.role_id === "3" && enroll.cohort_id) {
           this.getQuizzesByCohort(enroll.cohort_id)
         }
-      }
     })
   }
 
