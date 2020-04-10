@@ -11,13 +11,13 @@ import users from './server/routes/user.routes'
 import lessons from './server/routes/lessons.routes'
 import notes from './server/routes/notes.routes'
 import quiz from './server/routes/quiz.routes'
-import log from './server/middleware/logging.middleware'
+import * as log from './server/middleware/logging.middleware'
 
 import mongooseConf from "./server/config/mongodb.conf";
 mongooseConf(mongoose);
 
 const port = process.env.PORT;
-app.use(log())
+app.use(log.log())
 app.use(bodyParser.json())
 app.use(express.static(__dirname + "/dist"));
 
