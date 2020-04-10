@@ -7,8 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
 import { CohortService } from 'src/app/services/cohort.service';
-import { Cohort } from 'src/app/interfaces/cohort.interface';
-
+import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 @Component({
   selector: 'app-activate',

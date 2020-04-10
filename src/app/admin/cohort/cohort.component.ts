@@ -4,10 +4,10 @@ import { Store, select } from '@ngrx/store';
 import { RootState } from 'src/app/store';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
-import { Enrollment } from 'src/app/interfaces/enrollment.interface';
 import { User } from 'src/app/interfaces/user.interface';
-import { Cohort } from 'src/app/interfaces/cohort.interface';
 import { CohortService } from 'src/app/services/cohort.service';
+import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
+import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 @Component({
   selector: 'app-cohort',
