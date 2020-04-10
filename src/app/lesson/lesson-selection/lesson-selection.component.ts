@@ -8,7 +8,6 @@ import * as Actions from '../../store/actions';
 import { Lesson } from '../../interfaces/lesson.interface';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'src/app/interfaces/user.interface';
-import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
 import { map } from 'rxjs/operators';
 
 @Component({
