@@ -1,10 +1,12 @@
 <app-navbar></app-navbar>
-<p>lesson-landing works!</p>
 <app-lesson-selection></app-lesson-selection>
 <app-lesson-display></app-lesson-display>
 <div *ngFor="let r of retentions">
     <app-retention [retention]="r"></app-retention>
 </div>
+<app-instructor-question> </app-instructor-question>
+<app-instructor-question-list></app-instructor-question-list>
+
 <div>
-    <app-instructor-question></app-instructor-question>
+    <button mat-raised-button color="primary" (click)="addLesson()">Add Lesson</button>
 </div>

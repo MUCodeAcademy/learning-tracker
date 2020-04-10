@@ -6,8 +6,8 @@ import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/user.interface';
 import { CohortService } from 'src/app/services/cohort.service';
-import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
-import { Cohort } from 'src/app/interfaces/Cohort.interface';
+import { Enrollment } from 'src/app/interfaces/enrollment.interface';
+import { Cohort } from 'src/app/interfaces/cohort.interface';
 
 @Component({
   selector: 'app-cohort',

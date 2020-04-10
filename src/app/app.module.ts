@@ -26,6 +26,8 @@ import { RetentionComponent } from './lesson/retention/retention.component';
 import { NamefromidPipe } from './pipes/namefromid.pipe';
 import { QuizSelectionComponent } from './quiz/quiz-selection/quiz-selection.component';
 import { QuizDisplayComponent } from './quiz/quiz-display/quiz-display.component';
+import { QuizEditComponent } from './quiz/quiz-edit/quiz-edit.component';
+import { LessonEditComponent } from './lesson/lesson-edit/lesson-edit.component';
 
 @NgModule({
   declarations: [
@@ -47,8 +49,11 @@ import { QuizDisplayComponent } from './quiz/quiz-display/quiz-display.component
     LessonDisplayComponent,
     NamefromidPipe,
     QuizSelectionComponent,
-    QuizDisplayComponent
+    QuizDisplayComponent,
+    LessonEditComponent,
+    QuizEditComponent
   ],
+  entryComponents: [LessonEditComponent, QuizEditComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
