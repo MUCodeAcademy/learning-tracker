@@ -1,5 +1,5 @@
 
-<div ngIf='user.role_id !="4"'>
+<div *ngIf='user.role_id !="4"'>
 <app-navbar></app-navbar>
 <app-lesson-selection></app-lesson-selection>
 <app-lesson-display></app-lesson-display>
@@ -14,5 +14,5 @@
 </div>
 </div>
 
-<div ngIf='user.role_id == "4"'>You must be assigned a cohort to have access to this application.
+<div *ngIf='user.role_id == "4"'>You must be assigned a cohort to have access to this application.
 </div>
