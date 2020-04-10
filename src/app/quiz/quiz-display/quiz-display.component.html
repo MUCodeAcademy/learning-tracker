@@ -1,4 +1,9 @@
-<div *ngIf="viewedQuizTarget !== undefined" style="max-width:960px;margin:auto;padding:20px;">
-    {{viewedQuizTarget.quizName}}
+<div *ngIf="viewedQuizTarget !== undefined">
+    <h1>
+        {{viewedQuizTarget.quizName}}   
+        <button mat-icon-button color="primary" aria-label="Edit" (click)="edit()">
+            <mat-icon>create</mat-icon>
+          </button>
+        </h1>
 </div>
 <button mat-raised-button color="primary">Answers</button>
