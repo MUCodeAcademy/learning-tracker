@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cohort } from '../interfaces/cohort.interface'
-import { APIResponse } from '../interfaces/apiresponse.interface';
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions'
 import { map } from 'rxjs/operators';
-import { Enrollment } from '../interfaces/enrollment.interface'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { Cohort } from '../interfaces/Cohort.interface';
+import { Enrollment } from '../interfaces/Enrollment.interface';
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: "root",

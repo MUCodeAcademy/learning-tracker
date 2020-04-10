@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { RootState } from "../store";
-import { APIResponse } from "../interfaces/apiresponse.interface";
 import * as Actions from "../store/actions/notes.action";
 import { Note } from "../interfaces/notes.interface";
 import { map } from "rxjs/operators";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: "root",

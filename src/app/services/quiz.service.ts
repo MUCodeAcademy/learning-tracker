@@ -4,8 +4,8 @@ import { RootState } from "../store";
 import { Store } from "@ngrx/store";
 import * as Actions from "../store/actions";
 import { Quiz } from "../interfaces/quiz.interface";
-import { APIResponse } from "../interfaces/apiresponse.interface";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: "root",
