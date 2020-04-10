@@ -64,7 +64,7 @@ export class LessonSelectionComponent implements OnInit {
     })
     this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
     combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
-      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3") {
+      if (res.list.length > 0 && this.user.role_id === "2" || this.user.role_id === "3" || this.user.role_id === "1") {
         let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
         this.lessonMenu = seenlessons
       }
