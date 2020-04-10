@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as Actions from '../store/actions'
-import * as Selectors from '../store/selectors'
 import { RootState } from '../store';
 import { Store } from '@ngrx/store';
 import { User } from '../interfaces/user.interface'
@@ -30,7 +29,6 @@ export class UserService {
     private snackbar: MatSnackBar,
     private cohorts: CohortService,
     private lessons: LessonService,
-    private notes: NoteService,
     private quiz: QuizService,
     private retention: RetentionService,
     private questions: QuestionsService
@@ -57,7 +55,7 @@ export class UserService {
           this.getInitialData(data)
           if (data.first_name != authfirst || data.last_name != authlast) {
             let fixed: User = { ...data, first_name: auth.given_name, last_name: auth.family_name }
-            this.http.put('/api/users/edit', fixed).subscribe(res => {
+            this.http.put('/api/users/edit', fixed).subscribe(() => {
               this.snackbar.open("Profile updated to match your Google profile.", "OK")
             })
           }
