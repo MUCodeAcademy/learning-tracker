@@ -46,7 +46,7 @@ export function assignStudentCohort(response, request) {
 }
 
 export function updateStudentCohort(response, request) {
-    let change = [request.body.cohortid, request.body.studentid, request.body.id];
+    let change = [request.body.cohort_id, request.body.id, request.body.cth_id];
     pool.query("UPDATE cohort_to_student SET cohort_id = $1, user_id = $2 WHERE cohort_to_student.id = $3", change, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Cohort to Student updated." })
