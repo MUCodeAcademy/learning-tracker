@@ -1,5 +1,5 @@
 <div>
-    <div>{{rating.user_id}}</div>
+    <div>Student: {{rating.user_id | namefromid}}</div>
     <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'star_'+ratingId"
         (click)="studentrate(ratingId)" [matTooltip]="ratingId" matTooltipPosition="above">
         <mat-icon>
@@ -7,7 +7,7 @@
         </mat-icon>
     </button>
     <div *ngIf="userrole === '1' || userrole === '2' || rating.teacher_retention_rating != '' ">
-        <div>{{rating.instructor_id}}</div>
+        <div>Instructor: {{rating.instructor_id | namefromid}}</div>
         <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'star_'+ratingId"
             (click)="instructorrate(ratingId)" [matTooltip]="ratingId" matTooltipPosition="above">
             <mat-icon>
