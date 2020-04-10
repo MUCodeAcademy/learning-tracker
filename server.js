@@ -34,7 +34,9 @@ app.get("*", (req, res) =>
   res.sendFile("/dist/index.html", { root: __dirname + "/" })
 );
 
-let httpOpts = process.env.ENV == "PROD" ? {}  :   {
+
+if (process.env.ENV !== "PROD") {
+  let httpOpts = {
   key: fs.readFileSync("./key.pem"),
   cert: fs.readFileSync("./cert.pem"),
   passphrase: "M1dC0d3"
@@ -45,5 +47,7 @@ https
     app
   )
   .listen(port);
+}
+else app.listen(port)
 console.log("App listening on port:", process.env.PORT)
 
