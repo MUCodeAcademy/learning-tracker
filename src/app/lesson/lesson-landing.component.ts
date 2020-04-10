@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Store } from '@ngrx/store';
+import { RootState } from '../store';
+import { Lesson } from '../interfaces/lesson.interface';
+import { Observable, combineLatest } from 'rxjs';
+import * as Selectors from '../store/selectors'
+import { map } from 'rxjs/operators';
+import { Retention } from '../interfaces/retention.interface';
+import { User } from '../interfaces/user.interface';
+import { userInfo } from 'os';
+import { Cohort } from '../interfaces/Cohort.interface';
+
 
 @Component({
   selector: 'app-lesson-landing',
@@ -7,10 +17,56 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./lesson-landing.component.scss']
 })
 export class LessonLandingComponent implements OnInit {
+  lessonlist$: Observable<Lesson[]>
+  lessonlist: Lesson[]
+  selectedlesson$: Observable<string>
+  selectedlesson: string
+  viewlesson: Lesson
+  retentions$: Observable<Retention[]>
+  retentions: Retention[]
+  cohortlist$: Observable<Cohort[]>
+  cohortlist: Cohort[]
+  user$: Observable<User>
+  user: User
 
-  constructor(public auth: AuthService) { }
+  retentiontemplate: Retention = {
+    id: "",
+    user_id: "",
+    lesson_id: "",
+    topic_id: "",
+    instructor_id: "",
+    student_retention_rating: 0,
+    teacher_retention_rating: 0,
+  }
+
+  constructor(private store: Store<RootState>) {
+    this.lessonlist$ = this.store.select(Selectors.getLessons)
+    this.selectedlesson$ = this.store.select(Selectors.getViewedLesson)
+    this.retentions$ = this.store.select(Selectors.getRetentions)
+    this.user$ = this.store.select(Selectors.getUserInfo)
+    this.cohortlist$ = this.store.select(Selectors.getCohortList)
+  }
 
   ngOnInit(): void {
+    combineLatest([this.lessonlist$, this.selectedlesson$]).pipe(map(([list, lesson]) => ({ list, lesson }))).subscribe(res => {
+      this.lessonlist = res.list
+      this.selectedlesson = res.lesson
+      if (res.list.length > 0 && res.lesson != "") {
+        let filtered = res.list.filter((obj: Lesson) => { return obj.id === res.lesson })
+        this.viewlesson = filtered[0]
+      }
+    })
+    combineLatest([this.selectedlesson$,this.user$,this.retentions$,this.cohortlist$]).pipe(map(([lesson, user, retention, list]) => ({ lesson, user, retention, list}))).subscribe(res => {
+      this.user = res.user
+      if (res.lesson != "" && res.retention.length > 0 && res.user.id != "" && res.list.length > 0) {
+        let filtered = res.retention.filter((obj: Retention) => { return obj.lesson_id === res.lesson })
+        if (filtered.length === 0) {
+          let newretention = { ...this.retentiontemplate, lesson_id: res.lesson, user_id: res.user.id }
+          filtered.push(newretention)
+        }
+        this.retentions = filtered
+      }
+    })
   }
 
 }
