@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { Enrollment } from '../interfaces/enrollment.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../interfaces/cohort.interface';
 
 @Injectable({
   providedIn: "root",

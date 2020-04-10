@@ -1,7 +1,7 @@
 import * as cohortActions from '../actions/cohort.action'
 import { createReducer, on, Action } from '@ngrx/store';
 import { Enrollment } from 'src/app/interfaces/enrollment.interface';
-import { Cohort } from 'src/app/interfaces/Cohort.interface';
+import { Cohort } from 'src/app/interfaces/cohort.interface';
 
 export interface CohortState {
     list: Cohort[],

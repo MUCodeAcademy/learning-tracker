@@ -8,7 +8,7 @@ import * as Selectors from '../store/selectors'
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../interfaces/cohort.interface';
 import { Enrollment } from '../interfaces/enrollment.interface';
 import { User } from '../interfaces/user.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
