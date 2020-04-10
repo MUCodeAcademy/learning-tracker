@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'learning-checklist';
 
-  constructor(
-    private auth: AuthService,
-    private router: Router,
+  constructor(private auth: AuthService, private user: UserService, private router: Router,
     ) { }
 
 

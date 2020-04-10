@@ -113,7 +113,7 @@ export class CohortService {
         if (res.success) {
           let data: Enrollment[] = res.data;
           this.store.dispatch(
-            Actions.setUserEnrollment({ enrollment: data[0] })
+            Actions.setCohortRosters({ rosters: data })
           );
         } else console.log("Couldn't get student enrollment info.");
       });

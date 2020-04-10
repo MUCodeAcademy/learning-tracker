@@ -37,14 +37,14 @@ export class LessonService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list,enrollment]) => ({list,enrollment}))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
-      if (user.role_id === "1") {
+      if (thisuser.role_id === "1") {
         this.getAllLessons()
       }
-      else if (user.role_id === "2" && clist.length > 0) {
-        let mycohorts = clist.filter((cohort: Cohort) => {return cohort.instructor_id == user.id})
+      else if (thisuser.role_id === "2" && clist.length > 0) {
+        let mycohorts = clist.filter((cohort: Cohort) => {return cohort.instructor_id == thisuser.id})
         this.getLessonsbyCohort(mycohorts[0].id)
       }
-      else if (user.role_id === "3" && clist.length > 0 && enroll != {}) {
+      else if (thisuser.role_id === "3" && clist.length > 0 && enroll != {}) {
         this.getLessonsbyCohort(enroll.cohort_id)
       }
   })
