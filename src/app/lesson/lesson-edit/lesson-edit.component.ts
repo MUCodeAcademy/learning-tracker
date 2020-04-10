@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cohort } from 'src/app/interfaces/Cohort.interface';
+import { Cohort } from 'src/app/interfaces/cohort.interface';
 import { RootState } from 'src/app/store';
 import { Store } from '@ngrx/store';
 import * as Selectors from "../../store/selectors"
