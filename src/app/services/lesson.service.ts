@@ -26,6 +26,7 @@ export class LessonService {
   }
 
   getUserLessonData(user?: User) {
+    console.log("get user lesson data firing:", user)
     let thisuser
     if (!user && this.user != "") {
       thisuser = this.user

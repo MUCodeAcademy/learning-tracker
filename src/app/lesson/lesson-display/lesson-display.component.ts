@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { RootState } from 'src/app/store';
 import * as Selectors from '../../store/selectors';
 import { Lesson } from 'src/app/interfaces/lesson.interface';
-import * as Actions from '../../store/actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -20,13 +19,8 @@ export class LessonDisplayComponent implements OnInit {
   viewedLesson: Lesson
 
   constructor(private store: Store<RootState>) {
-    this.lessonid("3")
     this.lessonList$ = this.store.select(Selectors.getLessons);
     this.viewedLessonid$ = this.store.select(Selectors.getViewedLesson);
-  }
-
-  lessonid(id) {
-    this.store.dispatch(Actions.setViewedLesson({ lessonid: id }))
   }
 
   ngOnInit(): void {
@@ -35,7 +29,6 @@ export class LessonDisplayComponent implements OnInit {
       map(([list, viewedId]) => ({list, viewedId}))
   )
   .subscribe(pair => {
-  
       this.lessonList = pair.list as Lesson[]
       this.viewedLessonid = pair.viewedId;
       let target = this.lessonList.find(obj => { return obj.id === pair.viewedId })

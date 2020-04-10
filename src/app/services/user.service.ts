@@ -53,6 +53,7 @@ export class UserService {
           let data: User = response.data
           this.store.dispatch(Actions.setUserInfo({ user: data }))
           this.getInitialData(data)
+          console.log("the user", data)
           if (data.first_name != authfirst || data.last_name != authlast) {
             let fixed: User = { ...data, first_name: auth.given_name, last_name: auth.family_name }
             this.http.put('/api/users/edit', fixed).subscribe(() => {

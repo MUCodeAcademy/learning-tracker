@@ -36,7 +36,7 @@ export class AdminLandingComponent implements OnInit {
   ) {
     this.userlist$ = store.pipe(select(Selectors.getUserList))
     this.user$ = this.store.select(Selectors.getUserInfo)
-    // this.cohortList$ = this.store.select(Selectors.getCohort)
+    this.cohortList$ = this.store.select(Selectors.getCohortList)
   }
 
  
@@ -61,9 +61,9 @@ export class AdminLandingComponent implements OnInit {
       this.userlist = qclone.qclone(res)
     })
 
-    // this.cohortList$.subscribe(res => {
-    //   this.cohortList = qclone.qclone(res)
-    // })
+    this.cohortList$.subscribe(res => {
+      this.cohortList = qclone.qclone(res)
+    })
 
   }
 

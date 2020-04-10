@@ -31,6 +31,7 @@ export class CohortService {
       thisuser = this.user
     }
     else thisuser = user
+    console.log(thisuser, "User used to get cohort data")
     this.getAllCohorts()
     this.getCohortEnrollment()
     if (thisuser.role_id === '3') {
@@ -97,10 +98,8 @@ export class CohortService {
 
   // * POST `'/api/cohorts/assign'` - Assigns a student to a cohort.  Requires a cohortid:(id of cohort to be assigned), studentid:(username of student being assigned)
 
-  getStudentEnrollment(studentid: string) {
-    return this.http
-      .get(`/api/cohorts/enrollment/${studentid}`)
-      .pipe(
+  getStudentEnrollment(studentid) {
+    return this.http.get(`/api/cohorts/enrollment/${studentid}`).pipe(
         map((res: APIResponse) => {
           let cleaned: Enrollment[] = [];
           res.data.forEach((x) => {
@@ -110,6 +109,14 @@ export class CohortService {
           return res;
         })
       )
+      .subscribe((res: APIResponse) => {
+        if (res.success) {
+          let data: Enrollment[] = res.data;
+          this.store.dispatch(
+            Actions.setUserEnrollment({ enrollment: data[0] })
+          );
+        } else console.log("Couldn't get student enrollment info.");
+      });
   }
 
   getCohortEnrollment() {
@@ -125,6 +132,14 @@ export class CohortService {
           return res;
         })
       )
+      .subscribe((res: APIResponse) => {
+        if (res.success) {
+          let data: Enrollment[] = res.data;
+          this.store.dispatch(
+            Actions.setUserEnrollment({ enrollment: data[0] })
+          );
+        } else console.log("Couldn't get student enrollment info.");
+      });
   }
 
   removeStudentfromCohort(topicid: string) {
