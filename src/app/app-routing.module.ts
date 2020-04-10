@@ -10,6 +10,8 @@ import { ErrorComponent } from './error/error.component';
 import { CohortComponent } from './admin/cohort/cohort.component';
 import { UseradminComponent } from './admin/useradmin/useradmin.component';
 import { ActivateComponent } from './admin/activate/activate.component';
+import { AdminGuard } from './guards/admin.guard';
+import { InstructorGuard } from './guards/instructor.guard';
 
 
 
@@ -19,10 +21,10 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'quiz', component: QuizLandingComponent, canActivate: [UserGuard] },
   { path: 'lesson', component: LessonLandingComponent, canActivate: [UserGuard] },
-  { path: 'admin', component: AdminLandingComponent, children: [
-    { path: 'activate', component: ActivateComponent },
-    { path: 'cohort', component: CohortComponent },
-    { path: 'useradmin', component: UseradminComponent },
+  { path: 'admin', component: AdminLandingComponent, canActivate: [UserGuard, InstructorGuard], children: [
+    { path: 'activate', component: ActivateComponent, canActivate: [InstructorGuard] },
+    { path: 'cohort', component: CohortComponent, canActivate: [AdminGuard] },
+    { path: 'useradmin', component: UseradminComponent, canActivate: [AdminGuard] },
     { path: '', redirectTo: 'activate', pathMatch: 'prefix' }
   ] },
   { path: 'unauthorized', component: UnauthorizedComponent},
