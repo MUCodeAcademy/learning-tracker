@@ -1,17 +1,17 @@
 <div>
-    <div>Student: {{rating.user_id | namefromid}}</div>
-    <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'star_'+ratingId"
+    <div>Student: {{newrating.user_id | namefromid}}</div>
+    <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'sstar_'+ratingId"
         (click)="studentrate(ratingId)" [matTooltip]="ratingId" matTooltipPosition="above">
         <mat-icon>
-            {{rating >= ratingId ? 'star' : 'star_border'}}
+            {{newrating.student_retention_rating >= ratingId ? 'star' : 'star_border'}}
         </mat-icon>
     </button>
     <div *ngIf="user.role_id === '1' || user.role_id === '2' || rating.teacher_retention_rating != 0 ">
-        <div>Instructor: {{rating.instructor_id | namefromid}}</div>
-        <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'star_'+ratingId"
+        <div>Instructor: {{newrating.instructor_id | namefromid}}</div>
+        <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'istar_'+ratingId"
             (click)="instructorrate(ratingId)" [matTooltip]="ratingId" matTooltipPosition="above">
             <mat-icon>
-                {{rating >= ratingId ? 'star' : 'star_border'}}
+                {{newrating.teacher_retention_rating >= ratingId ? 'star' : 'star_border'}}
             </mat-icon>
         </button>
     </div>

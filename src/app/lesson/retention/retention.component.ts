@@ -44,7 +44,7 @@ export class RetentionComponent implements OnInit {
     if (this.user.role_id === "2" || this.user.role_id === "1") {
       this.newrating.instructor_id = this.user.id
       this.newrating.teacher_retention_rating = rating
-      console.log(this.newrating, "edited rating")
+      console.log(this.newrating.teacher_retention_rating, "edited rating", rating)
       this.rate(rating)
     }
   }
