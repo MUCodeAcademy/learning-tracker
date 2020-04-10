@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import { RootState } from '../store';
 import { Lesson } from '../interfaces/lesson.interface';
 import { Observable, combineLatest } from 'rxjs';
-import * as Selectors from '../store/selectors'
+import * as Selectors from '../store/selectors';
+import * as Actions from '../store/actions';
 import { map } from 'rxjs/operators';
 import { Retention } from '../interfaces/retention.interface';
 import { User } from '../interfaces/user.interface';
@@ -32,8 +33,8 @@ export class LessonLandingComponent implements OnInit {
     id: "",
     user_id: "",
     lesson_id: "",
-    topic_id: "",
-    instructor_id: "",
+    topic_id: 0,
+    instructor_id: 0,
     student_retention_rating: 0,
     teacher_retention_rating: 0,
   }
@@ -50,14 +51,18 @@ export class LessonLandingComponent implements OnInit {
     combineLatest([this.lessonlist$, this.selectedlesson$]).pipe(map(([list, lesson]) => ({ list, lesson }))).subscribe(res => {
       this.lessonlist = res.list
       this.selectedlesson = res.lesson
-      if (res.list.length > 0 && res.lesson != "") {
+      if (res.list.length > 0 && res.lesson) {
         let filtered = res.list.filter((obj: Lesson) => { return obj.id === res.lesson })
         this.viewlesson = filtered[0]
+        this.store.dispatch(Actions.setViewedLesson({lessonid: this.viewlesson.id}))
+      }
+      else if (res.list.length > 0 && !res.lesson) {
+        this.viewlesson = this.lessonlist[0]
+        this.store.dispatch(Actions.setViewedLesson({lessonid: this.viewlesson.id}))
       }
     })
     combineLatest([this.selectedlesson$, this.user$, this.retentions$, this.cohortlist$]).pipe(map(([lesson, user, retention, list]) => ({ lesson, user, retention, list }))).subscribe(res => {
       this.user = res.user
-      console.log(res.lesson)
       let filtered: Retention[] = []
       if (res.lesson != "" && res.retention.length > 0 && res.user.id != "" && res.list.length > 0) {
         filtered = res.retention.filter((obj: Retention) => { return obj.lesson_id === res.lesson })

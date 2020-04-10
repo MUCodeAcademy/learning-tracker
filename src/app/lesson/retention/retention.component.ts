@@ -31,6 +31,7 @@ export class RetentionComponent implements OnInit {
 
   studentrate(rating: number) {
     if (this.user.role_id === "3") {
+      this.rating.student_retention_rating = rating
       this.rate(rating)
     }
   }
@@ -38,6 +39,7 @@ export class RetentionComponent implements OnInit {
   instructorrate(rating: number) {
     if (this.user.role_id === "2" || this.user.role_id === "1") {
       this.rating.instructor_id = this.user.id
+      this.rating.teacher_retention_rating = rating
       this.rate(rating)
     }
   }
@@ -46,6 +48,7 @@ export class RetentionComponent implements OnInit {
     this.snackBar.open('You rated ' + rating + ' / 5', '', {
       duration: this.snackBarDuration
     });
+    console.log(this.rating)
     if (this.rating.id != "") {
       this.retention.updateRetention(this.rating)
     }
