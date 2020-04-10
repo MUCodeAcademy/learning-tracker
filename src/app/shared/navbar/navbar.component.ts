@@ -7,6 +7,7 @@ import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { isDevMode } from '@angular/core'
 
 @Component({
   selector: 'app-navbar',
@@ -39,6 +40,9 @@ export class NavbarComponent implements OnInit {
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
     })
+
+    console.log(isDevMode());
+    
   }
     
   }
