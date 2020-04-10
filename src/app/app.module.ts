@@ -51,7 +51,8 @@ import { LessonEditComponent } from './lesson/lesson-edit/lesson-edit.component'
     QuizSelectionComponent,
     QuizDisplayComponent,
     LessonEditComponent,
-    QuizEditComponent
+    QuizEditComponent,
+    InstructorQuestionComponent
   ],
   entryComponents: [LessonEditComponent, QuizEditComponent],
   imports: [
