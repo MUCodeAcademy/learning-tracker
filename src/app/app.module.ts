@@ -23,6 +23,7 @@ import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selec
 import { RetentionComponent } from './components/retention/retention.component';
 import { InstructorQuestionComponent } from "./instructor-question/instructor-question.component";
 import { InstructorQuestionListComponent } from "./instructor-question-list/instructor-question-list.component";
+import { LessonDisplayComponent } from './lesson/lesson-display/lesson-display.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { InstructorQuestionListComponent } from "./instructor-question-list/inst
     InstructorQuestionComponent,
     InstructorQuestionListComponent,
     LessonSelectionComponent,
-    RetentionComponent
+    RetentionComponent,
+    LessonDisplayComponent
   ],
   imports: [
     BrowserModule,
