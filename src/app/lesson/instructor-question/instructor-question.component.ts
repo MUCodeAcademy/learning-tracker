@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, combineLatest } from "rxjs";
 import { InstructorQuestion } from "../../interfaces/instructorquestion.interface";
 import { Store } from "@ngrx/store";
 import { RootState } from "../../store";
@@ -7,6 +7,7 @@ import { QuestionsService } from "../../services/questions.service";
 import * as Selectors from "../../store/selectors";
 import * as qclone from "qclone";
 import { Cohort } from '../../interfaces/cohort.interface';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -74,15 +75,17 @@ export class InstructorQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.instructorQuestion$.subscribe((res) => {
-      let data = qclone.qclone(res);
-      this.instructorQuestion = data;
-      console.log(this.instructorQuestion);
-      
-    });
+    combineLatest([this.instructorQuestion$, this.viewedlesson$]).pipe(map(([question, lesson]) => ({question, lesson}))).subscribe(res=> {
+      if (res.question.length > 0 && res.lesson != "") {
+      let list: InstructorQuestion[] = res.question
+      let viewed: string = res.lesson
+      let filtered = list.filter((obj: InstructorQuestion) => {return obj.lesson_id == viewed})
+      let cloned = qclone.qclone(filtered)
+      this.instructorQuestion = cloned
+      this.viewedlesson = viewed
+    }}) 
     this.userid$.subscribe((res) => (this.userid = res));
     this.userrole$.subscribe((res) => (this.userrole = res));
-    this.viewedlesson$.subscribe(res => {this.viewedlesson = res})
     this.instructor$.subscribe(res => {this.instructor = res})
   }
 }
