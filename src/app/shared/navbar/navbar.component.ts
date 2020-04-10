@@ -23,9 +23,11 @@ export class NavbarComponent implements OnInit {
     id: "",
     email_address: ""
   }
+  mode: boolean;
 
   constructor(public auth: AuthService, private store: Store<RootState>, private usersvc: UserService) {
     this.user$ = this.store.select(Selectors.getUserInfo)
+    this.mode = isDevMode()
    }
 
   logout(){
@@ -41,7 +43,7 @@ export class NavbarComponent implements OnInit {
       this.user = qclone.qclone(res)
     })
 
-    console.log(isDevMode());
+    
     
   }
     
