@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { RootState } from '../../store';
 import { Store } from '@ngrx/store';
-import { Observable, fromEvent, of, combineLatest, from } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Cohort } from '../../interfaces/Cohort.interface';
-import * as Selectors from '../../store/selectors'
-import * as Actions from '../../store/actions'
-import { CohortService } from '../../services/cohort.service';
+import * as Selectors from '../../store/selectors';
+import * as Actions from '../../store/actions';
 import { Lesson } from '../../interfaces/lesson.interface';
-import { LessonService } from '../../services/lesson.service';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'src/app/interfaces/user.interface';
+import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lesson-selection',
@@ -26,43 +26,55 @@ export class LessonSelectionComponent implements OnInit {
   user: User
   lessonmenu: FormGroup
   cohortmenu: FormGroup
+  studentcohort$: Observable<any>
+  studentcohort: Array<Cohort>
   selectedlesson$
   selectedcohort$
-  studentcohort$:Observable<any>
-  studentcohort: Array<Cohort>
-  
 
   constructor(private store: Store<RootState>, private form: FormBuilder) {
     this.cohortList$ = this.store.select(Selectors.getCohortList);
     this.lessonList$ = this.store.select(Selectors.getLessons);
     this.user$ = this.store.select(Selectors.getUserInfo);
-    this.cohortmenu = this.form.group({selectedcohort: ""})
-    this.lessonmenu = this.form.group({selectedlesson: ""})
+    this.cohortmenu = this.form.group({ selectedcohort: "" })
+    this.lessonmenu = this.form.group({ selectedlesson: "" })
     this.selectedcohort$ = this.cohortmenu.valueChanges
     this.selectedlesson$ = this.lessonmenu.valueChanges
     this.studentcohort$ = this.store.select(Selectors.getUserEnrollment);
-   }
+  }
 
   ngOnInit(): void {
-    this.cohortList$.subscribe((res: Cohort[]) => {
-      this.cohortList = res
-      console.log(res)
+    combineLatest([this.user$, this.cohortList$, this.studentcohort$]).pipe(map(([user, list, cohort]) => ({ user, list, cohort }))).subscribe(res => {
+      this.user = res.user
+      this.studentcohort = res.cohort
+      if (res.user.role_id != "" && res.list.length > 0) {
+        let filteredcohort: Cohort[] = []
+        if (res.user.role_id === "3" && res.cohort != {}) {
+          filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.id == res.cohort.cohort_id})
+          this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
+        }
+        else if (res.user.role_id === "2") {
+          console.log(res.list)
+          filteredcohort = res.list.filter((cohort: Cohort) => {console.log(cohort, res.user.id);return cohort.instructor_id == res.user.id})
+          this.cohortmenu.patchValue({ selectedcohort: filteredcohort[0].id })
+        }
+        console.log(filteredcohort, "filtered after all the ifs")
+        if (filteredcohort && filteredcohort.length > 0) {
+          this.cohortList = filteredcohort
+        }
+        else this.cohortList = res.list
+      }
     })
-    this.lessonList$.subscribe(res => this.lessonList = res)
-    this.user$.subscribe(res => {this.user = res;
-      if (res.role_id === "3"){
-        this.studentcohort$.subscribe(res => {
-         this.selectedcohort$ = from([res]) 
-        })
-      }})
-    this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({lessonid: res.selectedlesson})))
-    this.selectedcohort$.subscribe(res => {
-      if (this.user.role_id === "2" || this.user.role_id === "3"){
-      let seenlessons = this.lessonList.filter(obj => {return obj.cohort_id === res})
-      this.lessonMenu = seenlessons
-    }})
+    this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
+    combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
+      console.log(res)
+      if (this.user.role_id === "2" || this.user.role_id === "3") {
+        let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
+        this.lessonMenu = seenlessons
+        console.log(seenlessons)
+      }
+    })
 
-    
+
   }
 
 }
