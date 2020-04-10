@@ -81,6 +81,18 @@ export class QuestionsService {
   byCohortId(id) {
     this.http
       .get("/api/questions/cohort/" + id)
+      .pipe(
+        map((res: APIResponse) => {
+          let cleaned: InstructorQuestion[] = [];
+          if (res.data) {
+            res.data.forEach((x) => {
+              cleaned.push(x.data);
+            });
+          }
+          res.data = cleaned;
+          return res;
+        })
+      )
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: InstructorQuestion[] = res.data;
@@ -94,6 +106,18 @@ export class QuestionsService {
   byTopic(topicId, cohortId) {
     this.http
       .post("/api/questions/topic", { topicid: topicId, cohortid: cohortId })
+      .pipe(
+        map((res: APIResponse) => {
+          let cleaned: InstructorQuestion[] = [];
+          if (res.data) {
+            res.data.forEach((x) => {
+              cleaned.push(x.data);
+            });
+          }
+          res.data = cleaned;
+          return res;
+        })
+      )
       .subscribe((res: APIResponse) => {
         let data: InstructorQuestion[] = res.data;
         this.store.dispatch(
@@ -102,15 +126,9 @@ export class QuestionsService {
       });
   }
 
-  editQuestion(id, question, answer) {
-    this.http
-      .put("/api/questions/edit", {
-        question_text: question,
-        question_answer: answer,
-        id: id,
-      })
-      .subscribe((res: APIResponse) => {
-        if (res.success) {
+  editQuestion(question: InstructorQuestion) {
+    this.http.put("/api/questions/edit", question).subscribe((res: APIResponse) => {
+        if (res.success) { 
           this.getUserQuestionData();
         }
       });

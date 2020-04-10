@@ -20,8 +20,7 @@ import { CohortComponent } from './admin/cohort/cohort.component';
 import { UseradminComponent } from './admin/useradmin/useradmin.component';
 import { ActivateComponent } from './admin/activate/activate.component';
 import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
-import { InstructorQuestionComponent } from "./instructor-question/instructor-question.component";
-import { InstructorQuestionListComponent } from "./instructor-question-list/instructor-question-list.component";
+import { InstructorQuestionComponent } from "./lesson/instructor-question/instructor-question.component";
 import { LessonDisplayComponent } from './lesson/lesson-display/lesson-display.component';
 import { RetentionComponent } from './lesson/retention/retention.component';
 import { NamefromidPipe } from './pipes/namefromid.pipe';
@@ -43,7 +42,6 @@ import { QuizDisplayComponent } from './quiz/quiz-display/quiz-display.component
     UseradminComponent,
     ActivateComponent,
     InstructorQuestionComponent,
-    InstructorQuestionListComponent,
     LessonSelectionComponent,
     RetentionComponent,
     LessonDisplayComponent,

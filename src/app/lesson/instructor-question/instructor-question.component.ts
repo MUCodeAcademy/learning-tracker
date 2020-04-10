@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { InstructorQuestion } from "../interfaces/instructorquestion.interface";
+import { InstructorQuestion } from "../../interfaces/instructorquestion.interface";
 import { Store } from "@ngrx/store";
-import { RootState } from "../store/";
-import { QuestionsService } from "../services/questions.service";
-import * as Selectors from "../store/selectors";
+import { RootState } from "../../store";
+import { QuestionsService } from "../../services/questions.service";
+import * as Selectors from "../../store/selectors";
 import * as qclone from "qclone";
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../../interfaces/Cohort.interface';
 
 @Component({
   selector: "app-instructor-question",
@@ -66,10 +66,8 @@ export class InstructorQuestionComponent implements OnInit {
   }
 
   editQuestion(question: InstructorQuestion){
-    let id = question.id
-    let quest = question.question_text
-    let ans = question.question_answer
-    this.questions.editQuestion(id, quest, ans)
+    console.log(question)
+    this.questions.editQuestion(question)
     console.log(this.instructorQuestion);
     
   }

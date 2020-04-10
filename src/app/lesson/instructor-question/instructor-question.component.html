@@ -1,0 +1,17 @@
+<div *ngIf="userrole === '3'">
+  <textarea [(ngModel)]="newinstructorQuestion.question_text"
+    placeholder="Ask the instructor a question about the lesson..." cols="50" rows="8"></textarea>
+  <button [disabled]="newinstructorQuestion.question_text.length < 10" mat-raised-button color="primary" (click)="saveQuestion(newinstructorQuestion)">
+    Save
+  </button>
+</div>
+
+<div>
+  <div *ngFor='let question of instructorQuestion'>
+    <textarea [disabled]="userrole != '3'" [(ngModel)]="question.question_text"></textarea>
+    <textarea [disabled]="userrole != '2'" [(ngModel)]="question.question_answer" cols="50" rows="8"></textarea>
+    <button mat-raised-button color="primary" (click)='editQuestion(question)'>
+      Save
+    </button>
+  </div>
+</div>
