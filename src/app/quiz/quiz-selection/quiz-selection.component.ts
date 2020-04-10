@@ -6,9 +6,9 @@ import { Cohort } from '../../interfaces/Cohort.interface';
 import * as Selectors from '../../store/selectors';
 import * as Actions from '../../store/actions';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { User } from 'src/app/interfaces/user.interface';
+import { User } from '../../interfaces/user.interface';
 import { map } from 'rxjs/operators';
-import { Quiz } from 'src/app/interfaces/quiz.interface';
+import { Quiz } from '../../interfaces/quiz.interface';
 
 @Component({
   selector: 'app-quiz-selection',

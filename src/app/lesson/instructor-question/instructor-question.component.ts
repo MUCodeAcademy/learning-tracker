@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 import { QuestionsService } from "../../services/questions.service";
 import * as Selectors from "../../store/selectors";
 import * as qclone from "qclone";
-import { Cohort } from 'src/app/interfaces/cohort.interface';
+import { Cohort } from '../../interfaces/cohort.interface';
 
 
 @Component({
