@@ -19,13 +19,14 @@ import { APIResponse } from '../interfaces/APIResponse.interface';
 export class LessonService {
   user$: Observable<User>
   user: User
-  
+
   constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) {
     this.user$ = this.store.select(Selectors.getUserInfo)
     this.user$.subscribe((res: User) => this.user = res)
   }
 
   getUserLessonData(user?: User) {
+    console.log("get user lesson data firing:", user)
     let thisuser
     if (!user && this.user != "") {
       thisuser = this.user
@@ -33,21 +34,23 @@ export class LessonService {
     else thisuser = user
     let cohortlist$ = this.store.select(Selectors.getCohortList)
     let enrollment$ = this.store.select(Selectors.getUserEnrollment)
-    combineLatest([cohortlist$, enrollment$]).pipe(map(([list,enrollment]) => ({list,enrollment}))).subscribe(res => {
+    combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
-      if (user.role_id === "1") {
-        this.getAllLessons()
+      if (enroll.cohort_id && clist.length > 0) {
+        if (thisuser.role_id === "1") {
+          this.getAllLessons()
+        }
+        else if (thisuser.role_id === "2") {
+          let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == thisuser.id })
+          this.getLessonsbyCohort(mycohorts[0].id)
+        }
+        else if (thisuser.role_id === "3") {
+          this.getLessonsbyCohort(enroll.cohort_id)
+        }
       }
-      else if (user.role_id === "2" && clist.length > 0) {
-        let mycohorts = clist.filter((cohort: Cohort) => {return cohort.instructor_id == user.id})
-        this.getLessonsbyCohort(mycohorts[0].id)
-      }
-      else if (user.role_id === "3" && clist.length > 0 && enroll != {}) {
-        this.getLessonsbyCohort(enroll.cohort_id)
-      }
-  })
-}
+    })
+  }
   getAllLessons() {
     return this.http.get("/api/lessons/all").subscribe((res: APIResponse) => {
       if (res.success) {

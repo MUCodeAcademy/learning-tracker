@@ -37,17 +37,18 @@ export class RetentionService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
-      if (user.role_id === "1") {
+      if (clist.length > 0 && enroll.cohort_id) {
+      if (thisuser.role_id === "1") {
         this.getAllRetentions()
       }
-      else if (user.role_id === "2" && clist.length > 0) {
-        let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == user.id })
+      else if (thisuser.role_id === "2") {
+        let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == thisuser.id })
         this.getRetentionByCohort(mycohorts[0].id)
       }
-      else if (user.role_id === "3" && clist.length > 0 && enroll != {}) {
-        this.getRetentionByStudent(enroll.cohort_id)
+      else if (thisuser.role_id === "3") {
+        this.getRetentionByStudent(enroll.id)
       }
-    })
+    }})
   }
 
   getAllRetentions() {
@@ -133,15 +134,13 @@ export class RetentionService {
       });
   }
 
-  updateRetention(studentrating, teacherrating, topicid) {
+  updateRetention(rating: Retention) {
     let update = {
-      studentrating: studentrating,
-      teacherrating: teacherrating,
-      topicid: topicid,
+      studentrating: rating.student_retention_rating,
+      teacherrating: rating.teacher_retention_rating,
+      id: rating.id,
     };
-    return this.http
-      .put("/api/retention/update", update)
-      .subscribe((res: APIResponse) => {
+    return this.http.put("/api/retention/update", update).subscribe((res: APIResponse) => {
         if (res.success) {
           this.getUserRetentionData();
         } else

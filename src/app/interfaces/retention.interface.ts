@@ -4,6 +4,6 @@ export interface Retention {
     lesson_id?: string,
     topic_id?: string,
     instructor_id?: string,
-    student_retention_rating?: 5,
-    teacher_retention_rating?: 3
+    student_retention_rating?: number,
+    teacher_retention_rating?: number
 }

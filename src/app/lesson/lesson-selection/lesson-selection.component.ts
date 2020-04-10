@@ -53,8 +53,7 @@ export class LessonSelectionComponent implements OnInit {
           this.cohortmenu.patchValue({ selectedcohort: res.cohort.cohort_id })
         }
         else if (res.user.role_id === "2") {
-          console.log(res.list)
-          filteredcohort = res.list.filter((cohort: Cohort) => {console.log(cohort, res.user.id);return cohort.instructor_id == res.user.id})
+          filteredcohort = res.list.filter((cohort: Cohort) => {return cohort.instructor_id == res.user.id})
           this.cohortmenu.patchValue({ selectedcohort: filteredcohort[0].id })
         }
         console.log(filteredcohort, "filtered after all the ifs")
@@ -66,11 +65,9 @@ export class LessonSelectionComponent implements OnInit {
     })
     this.selectedlesson$.subscribe(res => this.store.dispatch(Actions.setViewedLesson({ lessonid: res.selectedlesson })))
     combineLatest([this.selectedcohort$, this.lessonList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
-      console.log(res)
       if (this.user.role_id === "2" || this.user.role_id === "3") {
         let seenlessons = res.list.filter(obj => { return obj.cohort_id == res.cohort['selectedcohort'] })
         this.lessonMenu = seenlessons
-        console.log(seenlessons)
       }
     })
 

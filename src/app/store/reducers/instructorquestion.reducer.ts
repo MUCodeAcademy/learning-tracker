@@ -10,32 +10,11 @@ export const initialInstructorQuestionState: InstructorQuestionState = {
   instructorQuestions: []
 };
 
-const reducer = createReducer(
-  initialInstructorQuestionState,
-  on(
-    instructorQuestionActions.setInstructorQuestions,
-    (state, { instructorQuestions }) => ({
-      ...state,
-      instructorQuestions: [...instructorQuestions]
-    })
-  ),
+const reducer = createReducer(initialInstructorQuestionState,
+  on(instructorQuestionActions.setInstructorQuestions,
+    (state, { instructorQuestions }) => ({...state, instructorQuestions: instructorQuestions})),
+  on(instructorQuestionActions.clearInstructorQuestions, state => ({...initialInstructorQuestionState})));
 
-  on(
-    instructorQuestionActions.addInstructorQuestion,
-    (state, { instructorQuestion }) => ({
-      ...state,
-      instructorQuestions: [...state.instructorQuestions, instructorQuestion]
-    })
-  ),
-
-  on(instructorQuestionActions.clearInstructorQuestions, state => ({
-    ...initialInstructorQuestionState
-  }))
-);
-
-export function instructorQuestionReducer(
-  state: InstructorQuestionState,
-  action: Action
-) {
+export function instructorQuestionReducer(state: InstructorQuestionState,action: Action) {
   return reducer(state, action);
 }
