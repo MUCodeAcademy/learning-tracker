@@ -1,7 +1,9 @@
 {
   "name": "learning-checklist",
   "version": "0.0.0",
-  "engines" : { "node" : ">=0.12" },
+  "engines": {
+    "node": ">=0.12"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.prod.js",
@@ -32,7 +34,7 @@
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "mongoose": "^5.9.7",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.3",
     "pg": "^8.0.0",
     "qclone": "^1.0.4",
     "rxjs": "~6.5.4",

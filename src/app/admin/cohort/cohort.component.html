@@ -1,3 +1,4 @@
+<div class="padding">
 <mat-list>
     <div mat-subheader>Change Student's Cohort</div>
 
@@ -29,7 +30,7 @@
                 <mat-label>Instructor:</mat-label>
                 <mat-select [(ngModel)]="newCohort.instructor_id">
                     <ng-container *ngFor='let instructor of instructors'>
-                        <mat-option *ngIf='instructor.role_id == 2' value='{{instructor.id}}'>
+                        <mat-option *ngIf='instructor.role_id == 2' value='{{instructor.id}}' class="padding">
                             {{instructor.first_name}} {{instructor.last_name}}
                         </mat-option>
                     </ng-container>
@@ -63,3 +64,4 @@
         </div>
     </div>
 </mat-list>
+</div>
