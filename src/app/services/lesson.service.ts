@@ -69,7 +69,6 @@ export class LessonService {
   // * GET `'/api/lessons/all'` - gets all lessons
 
   newLesson(lesson: Lesson, dialogRef: MatDialogRef<LessonEditComponent>) {
-    console.log("new lesson", lesson)
     return this.http
       .post("/api/lessons/new", lesson)
       .subscribe((res: APIResponse) => {
@@ -88,7 +87,6 @@ export class LessonService {
   // * POST `'/api/lessons/new'` - creates a new lesson.   Requires cohortid, topicid, title, week, and day
 
   editLesson(lesson: Lesson, dialogRef: MatDialogRef<LessonEditComponent>) {
-    console.log("edit lesson", lesson)
     return this.http.put("/api/lessons/edit", lesson).subscribe((res: APIResponse) => {
         if (res.success) {
           dialogRef.close();

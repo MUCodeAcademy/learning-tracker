@@ -37,10 +37,8 @@ export class UseradminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.user$.subscribe((res: User) => {
       this.user = qclone.qclone(res)
-      console.log(res, this.user)
     })
 
     this.userlist$.subscribe(res => {

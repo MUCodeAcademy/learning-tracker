@@ -83,7 +83,6 @@ export function deleteUser(response, request) {
 }
 
 export function editUser(response, request) {
-    console.log(request.body);
     let user =  [request.body.email_address, request.body.first_name, request.body.last_name, request.body.role_id, request.body.id]
     pool.query("UPDATE public.user SET email_address = $1, first_name = $2, last_name = $3, role_id = $4 WHERE public.user.id = $5", user, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
@@ -92,7 +91,6 @@ export function editUser(response, request) {
 }
 
 export function getUserInfo(response, request) {
-    console.log("FROM ANGULAR:", request.body)
     let email = [request.body.email_address]
     let user = [request.body.email_address, request.body.given_name, request.body.family_name]
     pool.query('SELECT * FROM public.user WHERE public.user.email_address = $1', email).then(res => {

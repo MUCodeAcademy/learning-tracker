@@ -8,9 +8,9 @@ import { InstructorQuestion } from '../interfaces/instructorquestion.interface';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs'
 import { User } from '../interfaces/user.interface';
-import { Cohort } from '../interfaces/Cohort.interface';
-import { APIResponse } from '../interfaces/APIResponse.interface';
+import { Cohort } from '../interfaces/cohort.interface';
 import { Enrollment } from '../interfaces/enrollment.interface';
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: "root",

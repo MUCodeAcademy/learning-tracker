@@ -32,13 +32,18 @@ app.get("*", (req, res) =>
   res.sendFile("/dist/index.html", { root: __dirname + "/" })
 );
 
-https
-  .createServer(
-    {
-      key: fs.readFileSync("./key.pem"),
-      cert: fs.readFileSync("./cert.pem"),
-      passphrase: "M1dC0d3"
-    },
-    app
-  )
-  .listen(port);
+if (process.env.ENV !== "PROD") {
+  https
+    .createServer(
+      {
+        key: fs.readFileSync("./key.pem"),
+        cert: fs.readFileSync("./cert.pem"),
+        passphrase: "M1dC0d3"
+      },
+      app
+    )
+    .listen(port);
+}
+else {
+  app.listen(port)
+}
