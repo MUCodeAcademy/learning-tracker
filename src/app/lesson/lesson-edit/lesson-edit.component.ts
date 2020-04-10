@@ -35,7 +35,7 @@ export class LessonEditComponent implements OnInit {
       week_number: ['', Validators.compose([Validators.required])],
       lesson_title: ['', Validators.compose([Validators.required])],
       day: ['', Validators.compose([Validators.required])],
-      content: ['', Validators.compose([Validators.required])]
+      lesson_content: ['', Validators.compose([Validators.required])]
     })
 
     if(this.data.id){
@@ -45,7 +45,7 @@ export class LessonEditComponent implements OnInit {
         week_number: lesson.week_number,
         lesson_title: lesson.lesson_title,
         day: lesson.day,
-        content: lesson['content']
+        content: lesson.lesson_content
       })
     }
 
