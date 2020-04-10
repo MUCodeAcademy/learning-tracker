@@ -6,3 +6,4 @@ export interface User {
     role_id?: string,
     newCohort_id?: string
 }
+

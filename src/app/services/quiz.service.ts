@@ -9,9 +9,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { combineLatest, Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { map } from 'rxjs/operators';
-import { Cohort } from '../interfaces/Cohort.interface';
-import { Enrollment } from '../interfaces/Enrollment.interface';
+import { Cohort } from '../interfaces/cohort.interface';
+import { Enrollment } from '../interfaces/enrollment.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
+import { MatDialogRef } from '@angular/material/dialog';
+import { QuizEditComponent } from '../quiz/quiz-edit/quiz-edit.component';
 
 @Injectable({
   providedIn: "root",
@@ -78,9 +80,10 @@ export class QuizService {
     });
   }
 
-  createQuiz(quiz) {
+  createQuiz(quiz, dialog: MatDialogRef<QuizEditComponent>) {
     return this.http.post("/api/add", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
+        dialog.close();
         this.getUserQuizData();
       } else
         this.snackbar.open(
@@ -91,9 +94,10 @@ export class QuizService {
     });
   }
 
-  editQuiz(quiz) {
+  editQuiz(quiz, dialog: MatDialogRef<QuizEditComponent>) {
     return this.http.put("/api/edit", quiz).subscribe((res: APIResponse) => {
       if (res.success) {
+        dialog.close();
         this.getUserQuizData();
       } else
         this.snackbar.open(

@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../interfaces/cohort.interface';
 import { Enrollment } from '../interfaces/Enrollment.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
 
