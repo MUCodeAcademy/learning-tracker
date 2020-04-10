@@ -6,8 +6,8 @@ import { Store } from '@ngrx/store';
 import { RootState } from '../../store';
 import { Observable } from 'rxjs';
 import * as Selectors from '../../store/selectors';
-import { User } from '../../interfaces/User.interface';
 import * as qclone from 'qclone'
+import { User } from 'src/app/interfaces/user.interface';
 
 @Component({
   selector: 'app-retention',
