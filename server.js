@@ -17,7 +17,7 @@ import mongooseConf from "./server/config/mongodb.conf";
 mongooseConf(mongoose);
 
 const port = process.env.PORT;
-app.use(log.log())
+app.use(log)
 app.use(bodyParser.json())
 app.use(express.static(__dirname + "/dist"));
 
