@@ -15,10 +15,7 @@ import { NoteService } from './note.service';
 import { QuizService } from './quiz.service';
 import { RetentionService } from './retention.service';
 import { QuestionsService } from './questions.service';
-import { Enrollment } from '../interfaces/enrollment.interface';
-import { Cohort } from '../interfaces/cohort.interface';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",

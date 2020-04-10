@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { APIResponse } from "../interfaces/apiresponse.interface";
 import { Retention } from "../interfaces/retention.interface";
 import { Store } from "@ngrx/store";
 import { RootState } from "../store";
@@ -12,6 +11,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { User } from '../interfaces/user.interface';
 import { Cohort } from '../interfaces/Cohort.interface';
 import { Enrollment } from '../interfaces/Enrollment.interface';
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: "root",

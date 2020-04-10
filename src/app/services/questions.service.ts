@@ -5,12 +5,12 @@ import { Store } from '@ngrx/store';
 import * as Actions from '../store/actions';
 import * as Selectors from '../store/selectors'
 import { InstructorQuestion } from '../interfaces/instructorquestion.interface';
-import { APIResponse } from '../interfaces/apiresponse.interface';
 import { map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs'
 import { User } from '../interfaces/user.interface';
 import { Cohort } from '../interfaces/Cohort.interface';
 import { Enrollment } from '../interfaces/Enrollment.interface';
+import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
   providedIn: "root",
