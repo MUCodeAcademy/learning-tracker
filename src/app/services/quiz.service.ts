@@ -53,7 +53,7 @@ export class QuizService {
     return this.http.get("/api/quiz/id/" + id).subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Quiz[] = res.data;
-        // this.store.dispatch(Actions.setQuizList ({ list: data }))
+        this.store.dispatch(Actions.getQuizzes({ quizzes: data }))
       } else console.log("Couldn't get quiz by ID.");
     });
   }
@@ -64,7 +64,7 @@ export class QuizService {
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Quiz[] = res.data;
-          // this.store.dispatch(Actions.setQuizList ({ list: data }))
+          this.store.dispatch(Actions.getQuizzes({ quizzes: data }))
         } else console.log("Couldn't get quizzes by cohort.");
       });
   }
@@ -73,7 +73,7 @@ export class QuizService {
     return this.http.get("/api/quiz/all").subscribe((res: APIResponse) => {
       if (res.success) {
         let data: Quiz[] = res.data;
-        // this.store.dispatch(Actions.setQuizList ({ list: data }))
+        this.store.dispatch(Actions.getQuizzes({ quizzes: data }))
       } else console.log("Couldn't get quizzes.");
     });
   }
