@@ -10,7 +10,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AdminLandingComponent } from './admin/admin-landing.component';
 import { StoreModule } from '@ngrx/store';
 import { QuizLandingComponent } from './quiz/quiz-landing.component';
-import { LessonLandingComponent } from './lesson//lesson-landing.component';
+import { LessonLandingComponent } from './lesson/lesson-landing.component';
 import { reducers } from './store';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { ErrorComponent } from './error/error.component';
@@ -20,10 +20,10 @@ import { CohortComponent } from './admin/cohort/cohort.component';
 import { UseradminComponent } from './admin/useradmin/useradmin.component';
 import { ActivateComponent } from './admin/activate/activate.component';
 import { LessonSelectionComponent } from './lesson/lesson-selection/lesson-selection.component';
-import { RetentionComponent } from './components/retention/retention.component';
 import { InstructorQuestionComponent } from "./instructor-question/instructor-question.component";
 import { InstructorQuestionListComponent } from "./instructor-question-list/instructor-question-list.component";
 import { LessonDisplayComponent } from './lesson/lesson-display/lesson-display.component';
+import { RetentionComponent } from './lesson/retention/retention.component';
 
 @NgModule({
   declarations: [
