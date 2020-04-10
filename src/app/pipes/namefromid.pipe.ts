@@ -9,17 +9,22 @@ import { User } from '../interfaces/user.interface';
   name: 'namefromid'
 })
 export class NamefromidPipe implements PipeTransform {
+  userlist$
+  userlist
 
   constructor(private store: Store<RootState>) {
+    this.userlist$ = this.store.select(Selectors.getUserList)
+    this.userlist$.subscribe(res => this.userlist = res)
   }
 
   transform(id: string | number): string {
-    let userlist$ = this.store.select(Selectors.getUserList)
-    let userlist
-    userlist$.subscribe(res => userlist = res)
     let uid = `${id}`
-    let user: User = userlist.filter((obj: User) => {return obj.id === uid})
-    let name = `${user.first_name} ${user.last_name}`
+    let user: User = this.userlist.filter((obj: User) => {return obj.id === uid})[0]
+    let name
+    if (user) {
+           name = `${user.first_name} ${user.last_name}`
+    }
+    else name = ""
     return name;
   }
 
