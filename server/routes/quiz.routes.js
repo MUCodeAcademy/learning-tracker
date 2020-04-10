@@ -71,8 +71,8 @@ router.post("/add", (req, res) => {
 // Edit Quiz
 
 router.put("/edit", (req, res) => {
-  // Quiz.findByIdAndUpdate()
-  Quiz.update({_id: req.params._id}, req.body, function(err, quiz) {
+
+  Quiz.findByIdAndUpdate(req.body._id, req.body, {new: true, useFindandModify: false}, function(err, quiz) {
     if (err) {
       return res.send({
         success: false,
