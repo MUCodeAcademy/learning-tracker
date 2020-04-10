@@ -6,7 +6,7 @@
             {{rating >= ratingId ? 'star' : 'star_border'}}
         </mat-icon>
     </button>
-    <div *ngIf="userrole === '1' || userrole === '2' || rating.teacher_retention_rating != '' ">
+    <div *ngIf="user.role_id === '1' || user.role_id === '2' || rating.teacher_retention_rating != 0 ">
         <div>Instructor: {{rating.instructor_id | namefromid}}</div>
         <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;" [id]="'star_'+ratingId"
             (click)="instructorrate(ratingId)" [matTooltip]="ratingId" matTooltipPosition="above">

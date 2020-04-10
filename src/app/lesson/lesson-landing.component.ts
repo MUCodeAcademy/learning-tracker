@@ -7,7 +7,6 @@ import * as Selectors from '../store/selectors'
 import { map } from 'rxjs/operators';
 import { Retention } from '../interfaces/retention.interface';
 import { User } from '../interfaces/user.interface';
-import { userInfo } from 'os';
 import { Cohort } from '../interfaces/Cohort.interface';
 
 
