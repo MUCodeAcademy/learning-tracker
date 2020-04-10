@@ -19,7 +19,7 @@ import { APIResponse } from '../interfaces/APIResponse.interface';
 export class QuizService {
   user$: Observable<User>
   user: User
-  
+
   constructor(private http: HttpClient, private store: Store<RootState>, private snackbar: MatSnackBar) {
     this.user$ = this.store.select(Selectors.getUserInfo)
     this.user$.subscribe((res: User) => this.user = res)
@@ -36,18 +36,19 @@ export class QuizService {
     combineLatest([cohortlist$, enrollment$]).pipe(map(([list, enrollment]) => ({ list, enrollment }))).subscribe(res => {
       let clist: Cohort[] = res.list
       let enroll: Enrollment = res.enrollment
-      if (enroll != {} && clist.length > 0) {
-      if (thisuser.role_id === "1") {
-        this.getAllQuizzes()
+      if (enroll.cohort_id && clist.length > 0) {
+        if (thisuser.role_id === "1") {
+          this.getAllQuizzes()
+        }
+        else if (thisuser.role_id === "2") {
+          let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == thisuser.id })
+          this.getQuizzesByCohort(mycohorts[0].id)
+        }
+        else if (thisuser.role_id === "3") {
+          this.getQuizzesByCohort(enroll.cohort_id)
+        }
       }
-      else if (thisuser.role_id === "2" && clist.length > 0) {
-        let mycohorts = clist.filter((cohort: Cohort) => { return cohort.instructor_id == thisuser.id })
-        this.getQuizzesByCohort(mycohorts[0].id)
-      }
-      else if (thisuser.role_id === "3" && clist.length > 0 && enroll != {}) {
-        this.getQuizzesByCohort(enroll.cohort_id)
-      }
-    }})
+    })
   }
 
   getQuizById(id) {
