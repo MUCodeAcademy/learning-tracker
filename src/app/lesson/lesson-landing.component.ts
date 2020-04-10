@@ -8,7 +8,7 @@ import * as Actions from '../store/actions';
 import { map } from 'rxjs/operators';
 import { Retention } from '../interfaces/retention.interface';
 import { User } from '../interfaces/user.interface';
-import { Cohort } from '../interfaces/cohort.interface';
+import { Cohort } from '../interfaces/Cohort.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 

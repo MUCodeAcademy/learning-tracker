@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RootState } from '../../store';
 import { Store } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
-import { Cohort } from '../../interfaces/cohort.interface';
+import { Cohort } from '../../interfaces/Cohort.interface';
 import * as Selectors from '../../store/selectors';
 import * as Actions from '../../store/actions';
 import { Lesson } from '../../interfaces/lesson.interface';
