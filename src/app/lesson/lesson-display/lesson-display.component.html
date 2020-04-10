@@ -1,3 +1,7 @@
-<div *ngIf="viewedLesson !== undefined" style="max-width:960px;margin:auto;padding:20px;">
-    {{viewedLesson.lesson_title}}
+<div *ngIf="viewedLesson !== undefined">
+    <h1>
+    {{viewedLesson.lesson_title}}   <button mat-icon-button color="primary" aria-label="Edit" (click)="edit()">
+        <mat-icon>create</mat-icon>
+      </button>
+    </h1>
 </div>

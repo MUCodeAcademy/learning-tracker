@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { RootState } from '../../store';
 import { Store } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
-import { Cohort } from '../../interfaces/Cohort.interface';
+import { Cohort } from '../../interfaces/cohort.interface';
 import * as Selectors from '../../store/selectors';
 import * as Actions from '../../store/actions';
 import { Lesson } from '../../interfaces/lesson.interface';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'src/app/interfaces/user.interface';
-import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
+import { Enrollment } from 'src/app/interfaces/enrollment.interface';
 import { map } from 'rxjs/operators';
 
 @Component({

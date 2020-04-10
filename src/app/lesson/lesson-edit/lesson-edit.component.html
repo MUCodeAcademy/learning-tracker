@@ -1,0 +1,40 @@
+    <h2 mat-dialog-title class="text-center text-warning">{{data.id ? "Edit" : "Add"}} Lesson</h2>
+    <div mat-dialog-content class="dialog-content" role="form">    
+    <form class="add-edit-form"  [formGroup]="lessonForm">
+        <mat-form-field class="input">
+            <mat-label>Cohort</mat-label>
+                <mat-select formControlName="cohort_id">
+                    <mat-option *ngFor="let c of (cohortList$ | async)" value="{{c.id}}">
+                        {{c.cohort_name}}
+                    </mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-form-field class="input">
+            <mat-label>Lesson Title</mat-label>
+          <input matInput name="lesson_title" formControlName="lesson_title" placeholder="Lesson Title" type="text">
+        </mat-form-field>
+        <mat-form-field class="input">
+            <mat-label>Week Number</mat-label>
+          <input type="number" matInput name="day" placeholder="Week Number" formControlName="week_number">
+        </mat-form-field>
+        <mat-form-field class="input">
+            <mat-label>Day of the Week</mat-label>
+          <input matInput name="day" placeholder="Monday-Friday"
+           formControlName="day">
+        </mat-form-field>
+        <mat-form-field class="lesson-content">
+            <mat-label>Lesson Content</mat-label>
+            <textarea rows="5" cols="30" matInput formControlName="content"></textarea>
+          </mat-form-field>
+      </form>
+    </div>
+    <div mat-dialog-actions class="buttons">
+      
+      <button mat-raised-button color="primary" class="submit" [class.disabled]="lessonForm.valid && (lessonForm.touched)" type="submit" (click)="upsertLesson()">
+        {{data.id ? "Save" : "Add"}} Lesson
+      </button>
+    
+      <button mat-raised-button color="basic" class="cancel" type="submit" (click)="close()">
+        Cancel
+      </button>
+  

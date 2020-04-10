@@ -1,0 +1,23 @@
+.input{
+    width: 45%;
+    min-width: 200px;
+    margin: auto;
+}
+.buttons{
+    justify-content: space-evenly;
+}
+
+.lesson-content{
+    width: 90%;
+    height: 120px;
+}
+.add-edit-form{
+    justify-content: space-evenly;
+    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.dialog-content{
+    height: auto;
+}

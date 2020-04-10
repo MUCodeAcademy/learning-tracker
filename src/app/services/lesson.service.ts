@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Cohort } from '../interfaces/cohort.interface';
-import { Enrollment } from '../interfaces/Enrollment.interface';
+import { Enrollment } from '../interfaces/enrollment.interface';
 import { User } from '../interfaces/user.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
 import { MatDialogRef } from '@angular/material/dialog';

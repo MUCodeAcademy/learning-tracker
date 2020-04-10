@@ -8,7 +8,9 @@ import * as Actions from '../store/actions';
 import { map } from 'rxjs/operators';
 import { Retention } from '../interfaces/retention.interface';
 import { User } from '../interfaces/user.interface';
-import { Cohort } from '../interfaces/Cohort.interface';
+import { Cohort } from '../interfaces/cohort.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 
 
 @Component({
@@ -39,7 +41,7 @@ export class LessonLandingComponent implements OnInit {
     teacher_retention_rating: 0,
   }
 
-  constructor(private store: Store<RootState>) {
+  constructor(private store: Store<RootState>, public dialog: MatDialog) {
     this.lessonlist$ = this.store.select(Selectors.getLessons)
     this.selectedlesson$ = this.store.select(Selectors.getViewedLesson)
     this.retentions$ = this.store.select(Selectors.getRetentions)
@@ -75,6 +77,14 @@ export class LessonLandingComponent implements OnInit {
       }
       this.retentions = filtered
     })
+}
+
+addLesson(){
+  const dialogRef = this.dialog.open(LessonEditComponent, {
+    data: {
+      
+    }
+  });
 }
 
 }

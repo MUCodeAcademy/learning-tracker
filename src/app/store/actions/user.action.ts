@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 import { User } from '../../interfaces/user.interface'
-import { Enrollment } from 'src/app/interfaces/Enrollment.interface';
+import { Enrollment } from 'src/app/interfaces/enrollment.interface';
 
 
 export const setUserInfo = createAction(

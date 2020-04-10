@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { Cohort } from '../interfaces/cohort.interface';
-import { Enrollment } from '../interfaces/Enrollment.interface';
+import { Enrollment } from '../interfaces/enrollment.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
 
 @Injectable({
