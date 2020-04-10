@@ -55,17 +55,19 @@ export class LessonLandingComponent implements OnInit {
         this.viewlesson = filtered[0]
       }
     })
-    combineLatest([this.selectedlesson$,this.user$,this.retentions$,this.cohortlist$]).pipe(map(([lesson, user, retention, list]) => ({ lesson, user, retention, list}))).subscribe(res => {
+    combineLatest([this.selectedlesson$, this.user$, this.retentions$, this.cohortlist$]).pipe(map(([lesson, user, retention, list]) => ({ lesson, user, retention, list }))).subscribe(res => {
       this.user = res.user
+      console.log(res.lesson)
+      let filtered: Retention[] = []
       if (res.lesson != "" && res.retention.length > 0 && res.user.id != "" && res.list.length > 0) {
-        let filtered = res.retention.filter((obj: Retention) => { return obj.lesson_id === res.lesson })
-        if (filtered.length === 0) {
-          let newretention = { ...this.retentiontemplate, lesson_id: res.lesson, user_id: res.user.id }
-          filtered.push(newretention)
-        }
-        this.retentions = filtered
+        filtered = res.retention.filter((obj: Retention) => { return obj.lesson_id === res.lesson })
       }
+      else {
+        let newretention = { ...this.retentiontemplate, lesson_id: res.lesson, user_id: res.user.id }
+        filtered.push(newretention)
+      }
+      this.retentions = filtered
     })
-  }
+}
 
 }

@@ -13,7 +13,8 @@ export function getAllRetention(response, request) {
 }
 
 export function newRetention(response, request) {
-    let data = [request.body.userid, request.body.lessonid, request.body.topicid, request.body.instructorid, request.body.studentrating, request.body.teacherrating]
+    console.log(request.body)
+    let data = [request.body.user_id, request.body.lesson_id, request.body.topic_id, request.body.instructor_id, request.body.student_retention_rating, request.body.teacher_retention_rating]
     pool.query("INSERT INTO topic_retention(id, user_id, lesson_id, topic_id, instructor_id, student_retention_rating, teacher_retention_rating) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)", data, (err, result, field) => {
         if (err) { return console.log("Error on query", err.stack) }
         return response.send({ success: true, msg: "Created New Retention" })

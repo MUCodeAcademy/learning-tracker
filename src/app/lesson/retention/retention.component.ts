@@ -1,20 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Retention } from 'src/app/interfaces/retention.interface';
-import { RetentionService } from 'src/app/services/retention.service';
+import { Retention } from '../../interfaces/retention.interface';
+import { RetentionService } from '../../services/retention.service';
 import { Store } from '@ngrx/store';
-import { RootState } from 'src/app/store';
+import { RootState } from '../../store';
 import { Observable } from 'rxjs';
-import * as Selectors from '../../store/selectors'
-import { User } from 'src/app/interfaces/user.interface';
+import * as Selectors from '../../store/selectors';
+import { User } from '../../interfaces/User.interface';
 
 @Component({
   selector: 'app-retention',
   templateUrl: './retention.component.html',
   styleUrls: ['./retention.component.scss']
 })
-export class RetentionComponent implements OnInit {
 
+export class RetentionComponent implements OnInit {
   @Input('retention') rating: Retention;
   @Input('color') color: string = 'accent';
   user$: Observable<User>
