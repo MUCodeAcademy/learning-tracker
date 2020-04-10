@@ -1,13 +1,13 @@
 <mat-list>
     <div mat-subheader>CHANGE ROLE</div>
     <mat-list-item *ngFor="let user of userlist">
-        <h3>{{user.first_name}} {{user.last_name}}</h3>
-        <mat-label for="role">Role: </mat-label>
+        <h3 style="padding-top:15px;width:300px;">{{user.first_name}} {{user.last_name}}</h3>
+        <mat-label for="role"><h3 style="padding-top:15px;">Role:&nbsp;&nbsp;</h3></mat-label>
                 <mat-select [(ngModel)]="user.role_id">
-                    <mat-option value=1>Admin</mat-option>
-                    <mat-option value=2>Instructor</mat-option>
-                    <mat-option value=3>Student</mat-option>
-                    <mat-option value=4>Unassigned</mat-option>
+                    <mat-option value=1><h3>Admin</h3></mat-option>
+                    <mat-option value=2><h3>Instructor</h3></mat-option>
+                    <mat-option value=3><h3>Student</h3></mat-option>
+                    <mat-option value=4><h3>Unassigned</h3></mat-option>
                 </mat-select>
         <button mat-icon-button (click)='updateRole(user)'>
            <mat-icon>edit</mat-icon>

@@ -7,7 +7,7 @@ import * as qclone from 'qclone'
 import { User } from 'src/app/interfaces/user.interface';
 import { CohortService } from 'src/app/services/cohort.service';
 import { Enrollment } from 'src/app/interfaces/enrollment.interface';
-import { Cohort } from 'src/app/interfaces/cohort.interface';
+import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 @Component({
   selector: 'app-cohort',
@@ -21,7 +21,13 @@ export class CohortComponent implements OnInit {
   cohortList: Array<Cohort>;
   instructors$: Observable<Array<User>>;
   instructors: Array<User>;
-  cohort: Cohort = {
+  cohortTemplate: Cohort = {
+    id: "",
+    cohort_name: "",
+    instructor_id: ""
+  }
+
+  newCohort: Cohort = {
     id: "",
     cohort_name: "",
     instructor_id: ""
@@ -41,6 +47,11 @@ export class CohortComponent implements OnInit {
 
   changeCohort(person){
     this.CohortService.changeStudentsCohort(person)
+  }
+
+  createCohort(nextCohort: Cohort){
+    this.CohortService.createCohort(nextCohort)
+    this.newCohort = {...this.cohortTemplate}
   }
 
   ngOnInit(): void {

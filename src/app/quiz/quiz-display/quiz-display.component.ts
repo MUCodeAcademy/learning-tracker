@@ -30,7 +30,6 @@ export class QuizDisplayComponent implements OnInit {
       map(([list, viewedId]) => ({list, viewedId}))
   )
   .subscribe(pair => {
-      console.log(pair)
       this.quizList = pair.list as Quiz[]
       this.viewedQuiz = pair.viewedId;
       let target = this.quizList.find(obj => { return obj._id === pair.viewedId })

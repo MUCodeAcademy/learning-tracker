@@ -7,7 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import * as Selectors from 'src/app/store/selectors'
 import * as qclone from 'qclone'
 import { CohortService } from 'src/app/services/cohort.service';
-import { Cohort } from 'src/app/interfaces/cohort.interface';
+import { Cohort } from 'src/app/interfaces/Cohort.interface';
 
 @Component({
   selector: 'app-activate',
@@ -41,8 +41,6 @@ export class ActivateComponent implements OnInit {
   update(person){
     let studentid = this.userlist[person].id;
     let cohortid = this.userlist[person].newCohort_id;
-    console.log(studentid, cohortid);
-    
     this.userService.activateUser(studentid, cohortid)
   }
    

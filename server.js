@@ -31,6 +31,7 @@ app.use("/api/quiz/", quiz);
 app.get("*", (req, res) =>
   res.sendFile("/dist/index.html", { root: __dirname + "/" })
 );
+
 let httpOpts = process.env.ENV == "PROD" ? {}  :   {
   key: fs.readFileSync("./key.pem"),
   cert: fs.readFileSync("./cert.pem"),
@@ -42,3 +43,4 @@ https
     app
   )
   .listen(port);
+

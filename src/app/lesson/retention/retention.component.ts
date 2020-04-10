@@ -40,11 +40,9 @@ export class RetentionComponent implements OnInit {
   }
 
   instructorrate(rating: number) {
-    console.log("instructor rate fire")
     if (this.user.role_id === "2" || this.user.role_id === "1") {
       this.newrating.instructor_id = this.user.id
       this.newrating.teacher_retention_rating = rating
-      console.log(this.newrating.teacher_retention_rating, "edited rating", rating)
       this.rate(rating)
     }
   }
@@ -53,12 +51,10 @@ export class RetentionComponent implements OnInit {
     this.snackBar.open('You rated ' + rating + ' / 5', '', {
       duration: this.snackBarDuration
     });
-    console.log(this.newrating)
     if (this.rating.id != "") {
       this.retention.updateRetention(this.newrating)
     }
     else this.retention.addRetention(this.newrating)
-    console.log(rating);
     return false;
   }
 }

@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { combineLatest, Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { map } from 'rxjs/operators';
-import { Cohort } from '../interfaces/cohort.interface';
+import { Cohort } from '../interfaces/Cohort.interface';
 import { Enrollment } from '../interfaces/enrollment.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -46,7 +46,6 @@ export class QuizService {
           this.getQuizzesByCohort(mycohorts[0].id)
         }
         else if (thisuser.role_id === "3" && enroll.cohort_id) {
-          console.log("requesting quizzes for cohort", enroll.cohort_id)
           this.getQuizzesByCohort(enroll.cohort_id)
         }
     })
@@ -67,7 +66,6 @@ export class QuizService {
       .subscribe((res: APIResponse) => {
         if (res.success) {
           let data: Quiz[] = res.data;
-          console.log("sending quizzes by cohort to state", data)
           this.store.dispatch(Actions.getQuizzes({ quizzes: data }))
         } else console.log("Couldn't get quizzes by cohort.");
       });

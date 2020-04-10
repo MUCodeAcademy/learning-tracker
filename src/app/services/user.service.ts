@@ -53,7 +53,6 @@ export class UserService {
           let data: User = response.data
           this.store.dispatch(Actions.setUserInfo({ user: data }))
           this.getInitialData(data)
-          console.log("the user", data)
           if (data.first_name != authfirst || data.last_name != authlast) {
             let fixed: User = { ...data, first_name: auth.given_name, last_name: auth.family_name }
             this.http.put('/api/users/edit', fixed).subscribe(() => {
@@ -67,7 +66,6 @@ export class UserService {
   }
 
   getInitialData(user: User) {
-    console.log("get initial data firing, with role of:",user.role_id,"and userid of",user.id);
     this.getAllUsers()
     this.cohorts.getUserCohortData(user)
     this.lessons.getUserLessonData(user)
@@ -92,9 +90,9 @@ export class UserService {
 
   activateUser(studentid: string, cohortid: string) {
     let activate = {
-      userid: studentid,
-      cohortid: cohortid,
-    };
+      userId: studentid,
+      cohortId: cohortid,
+    };    
     this.http
       .post("api/users/activate", activate)
       .subscribe((res: APIResponse) => {

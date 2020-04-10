@@ -20,13 +20,13 @@ export class LessonEditComponent implements OnInit {
   lessons$: Observable<Lesson[]>;
   lessons: Lesson[] = [];
   lessonForm: FormGroup;
-  constructor(private store: Store<RootState>,public dialogRef: MatDialogRef<LessonEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any, private fb: FormBuilder, 
+  constructor(private store: Store<RootState>, public dialogRef: MatDialogRef<LessonEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder,
     private lessonService: LessonService) {
 
     this.cohortList$ = this.store.select(Selectors.getCohortList)
     this.lessons$ = this.store.select(Selectors.getLessons)
-   }
+  }
 
   ngOnInit(): void {
     this.lessons$.subscribe(val => this.lessons = val);
@@ -34,42 +34,43 @@ export class LessonEditComponent implements OnInit {
       cohort_id: ['', Validators.compose([Validators.required])],
       week_number: ['', Validators.compose([Validators.required])],
       lesson_title: ['', Validators.compose([Validators.required])],
+      topic_id: ['0'],
       day: ['', Validators.compose([Validators.required])],
-      content: ['', Validators.compose([Validators.required])]
+      lesson_content: ['', Validators.compose([Validators.required])]
     })
 
-    if(this.data.id){
-      let lesson: Lesson = this.lessons.filter(v=> v.id === this.data.id)[0]
+    if (this.data.id) {
+      let lesson: Lesson = this.lessons.filter(v => v.id === this.data.id)[0]
       this.lessonForm.patchValue({
         cohort_id: lesson.cohort_id,
         week_number: lesson.week_number,
         lesson_title: lesson.lesson_title,
         day: lesson.day,
-        content: lesson['content']
+        content: lesson.lesson_content
       })
     }
 
   }
 
-  close(){
+  close() {
     this.dialogRef.close();
   }
-  upsertLesson(){
-    if(this.lessonForm.valid){
-    let lesson: Lesson = {...this.lessonForm.value};
-    if(this.data.id){
-      lesson = {...lesson, id: this.data.id}
-      this.lessonService.editLesson(lesson, this.dialogRef);
-     
+  upsertLesson() {
+    if (this.lessonForm.valid) {
+      let lesson: Lesson = { ...this.lessonForm.value };
+      if (this.data.id) {
+        lesson = { ...lesson, id: this.data.id }
+        this.lessonService.editLesson(lesson, this.dialogRef);
+
+      }
+      else {
+        this.lessonService.newLesson(lesson, this.dialogRef);
+
+      }
     }
-    else{
-      this.lessonService.newLesson(lesson, this.dialogRef);
-     
+    else {
+      this.lessonForm.markAllAsTouched();
     }
   }
-  else{
-    this.lessonForm.markAllAsTouched();
-  }
-}
 
 }

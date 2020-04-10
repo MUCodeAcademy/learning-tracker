@@ -8,9 +8,9 @@ import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
-import { Cohort } from '../interfaces/cohort.interface';
 import { Enrollment } from '../interfaces/enrollment.interface';
 import { APIResponse } from '../interfaces/APIResponse.interface';
+import { Cohort } from '../interfaces/Cohort.interface';
 
 @Injectable({
   providedIn: "root",
@@ -52,7 +52,7 @@ export class CohortService {
     return this.http
       .post("/api/cohorts/new", cohort)
       .subscribe((res: APIResponse) => {
-        if (res.success) {
+        if (res.success) {          
           this.getUserCohortData();
         } else
           this.snackbar.open(
@@ -84,7 +84,7 @@ export class CohortService {
     return this.http
       .put("/api/cohorts/update", cohort)
       .subscribe((res: APIResponse) => {
-        if (res.success) {
+        if (res.success) {          
           this.getUserCohortData();
         } else
           this.snackbar.open(
