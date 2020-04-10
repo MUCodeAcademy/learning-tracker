@@ -62,7 +62,7 @@ export class QuizSelectionComponent implements OnInit {cohortList$: Observable<a
         else this.cohortList = res.list
       }
     })
-    this.selectedquiz$.subscribe(res => this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz })))
+    this.selectedquiz$.subscribe(res => {console.log("sending quiz to state:", res.selectedquiz);this.store.dispatch(Actions.setViewedQuiz({ viewedquiz: res.selectedquiz }))})
     this.selectedcohort$.subscribe(res=>console.log(res, "Im not firing"))
     combineLatest([this.selectedcohort$, this.quizList$]).pipe(map(([cohort, list]) => ({ cohort, list }))).subscribe(res => {
       console.log(res, "does this ever fire?")
