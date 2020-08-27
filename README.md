@@ -1,27 +1,17 @@
-# LearningChecklist
+# Midland Code Academy Cohort 3 Learning Tracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+This is an Angular project created as a group final project for Cohort 3 of Midland Code Academy.  This application would allow future students and instructors in the Midland Code Academy to store and retrieve daily lesson information, communicate written questions to the instructor and receive answers at any time outside of class, rate their understanding of instruction topics, see the instructor's rating of that same topic and see whether that opinion matches their own, take notes, and complete quizzes with results visible by instructors.
 
-## Development server
+It is designed in Angular 9.0 and utilizes a node.js/express.js back-end server and internal API.   The application uses Open Auth 2.0 via Auth0 to authenticate users with their official @midland.edu gmail accounts and both a PostgreSQL relational database and a MongoDB no-SQL database to store user data.   
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Contributing Team Members & Roles
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Mike Truax: Instructor & Product Owner.
+* Mike Juntunen: Tech Lead / Developer
+* Shannon Sokolik: UI/UX Designer
+* Justin Blobaum: Developer
+* Todd Adelgren: Developer
+* Kevin Proctor: Developer
+* Jacqueline Mezick: Developer
+* Brandon Wiota: Developer
+* Brianna Price: Developer
